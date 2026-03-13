@@ -135,7 +135,26 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
                 stroke="transparent"
                 strokeWidth="20"
               />
-              {/* Visible edge */}
+              {/* Accepted inner triangle sides (center to each vertex) */}
+              {isAccepted && !isCompleted && (
+                <>
+                  <line
+                    x1={CX} y1={CY} x2={x1} y2={y1}
+                    stroke={virtue.color}
+                    strokeWidth="1.5"
+                    strokeOpacity="0.6"
+                    filter="url(#glow-accepted)"
+                  />
+                  <line
+                    x1={CX} y1={CY} x2={x2} y2={y2}
+                    stroke={virtue.color}
+                    strokeWidth="1.5"
+                    strokeOpacity="0.6"
+                    filter="url(#glow-accepted)"
+                  />
+                </>
+              )}
+              {/* Visible outer edge */}
               <line
                 x1={x1} y1={y1} x2={x2} y2={y2}
                 stroke={virtue.color}
