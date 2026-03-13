@@ -131,8 +131,8 @@ export default function VirtueHexagon({ completedVirtues = [], onVirtueClick, ac
               <line
                 x1={x1} y1={y1} x2={x2} y2={y2}
                 stroke={virtue.color}
-                strokeWidth={isActive ? 4 : isCompleted ? 3 : 1.5}
-                strokeOpacity={isCompleted ? 1 : isActive ? 0.9 : 0.45}
+                strokeWidth={isActive ? 4 : isCompleted ? 3 : 2}
+                strokeOpacity={isCompleted ? 1 : isActive ? 0.9 : 0.8}
                 filter={`url(#glow-${virtue.key})`}
               />
               {/* Vertex dots */}
