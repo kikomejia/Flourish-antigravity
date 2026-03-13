@@ -23,8 +23,23 @@ export default function Daily() {
   const [weekOffset, setWeekOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  // Per-virtue accepted & change state, persists across taps
-  const [virtueStates, setVirtueStates] = useState({});
+  // Per-virtue accepted & change state, persisted to localStorage keyed by date
+  const [virtueStates, setVirtueStates] = useState(() => {
+    try {
+      const stored = localStorage.getItem("virtueStates");
+      if (stored) {
+        const { date, states } = JSON.parse(stored);
+        if (date === getTodayStr()) return states;
+      }
+    } catch {}
+    return {};
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("virtueStates", JSON.stringify({ date: getTodayStr(), states: virtueStates }));
+    } catch {}
+  }, [virtueStates]);
 
   const today = new Date();
   const weekStart = startOfWeek(addWeeks(today, weekOffset), { weekStartsOn: 1 });
