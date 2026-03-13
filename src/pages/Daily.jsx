@@ -165,9 +165,9 @@ export default function Daily() {
                 <div
                   className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium"
                   style={{
-                    background: isToday ? "#e879f9" : "transparent",
+                    background: isToday ? "#f3afee" : "transparent",
                     color: isToday ? "white" : "rgba(255,255,255,0.3)",
-                    boxShadow: isToday ? "0 0 12px #e879f966" : "none",
+                    boxShadow: isToday ? "0 0 12px #f3afee66" : "none",
                   }}
                 >
                   {format(day, "d")}
@@ -201,8 +201,8 @@ export default function Daily() {
           className="rounded-2xl p-4 min-h-[90px] flex items-center justify-center transition-all duration-300"
           style={{
             background: "rgba(15,5,25,0.9)",
-            border: "1px solid rgba(232,121,249,0.2)",
-            boxShadow: "0 0 30px rgba(232,121,249,0.08)",
+            border: "1px solid rgba(243,175,238,0.2)",
+            boxShadow: "0 0 30px rgba(243,175,238,0.08)",
           }}
         >
           {!activeVirtue ? (
