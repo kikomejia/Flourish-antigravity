@@ -72,6 +72,13 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
+          <filter id="glow-accepted" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="320">
+            <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
         {/* Dark background polygon */}
