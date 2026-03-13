@@ -37,7 +37,7 @@ function edgeLabelPos(i) {
   const dx = mx - CX;
   const dy = my - CY;
   const len = Math.sqrt(dx * dx + dy * dy);
-  return { x: mx + (dx / len) * 22, y: my + (dy / len) * 22 };
+  return { x: mx + (dx / len) * 26, y: my + (dy / len) * 26 };
 }
 
 function edgeAngle(i) {
