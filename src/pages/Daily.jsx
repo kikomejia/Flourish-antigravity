@@ -9,8 +9,8 @@ import VirtueHexagon, { VIRTUES } from "@/components/VirtueHexagon";
 import VirtueCard, { VIRTUE_COLORS, getDailyItem } from "@/components/VirtueCard";
 import { format, startOfWeek, addDays, isSameDay, subWeeks, addWeeks } from "date-fns";
 
-const POINTS_PER_VIRTUE = 10;
-const BONUS_POINTS = 30;
+const POINTS_PER_VIRTUE = 1;
+const BONUS_POINTS = 4;
 
 function getTodayStr() {
   return format(new Date(), "yyyy-MM-dd");
