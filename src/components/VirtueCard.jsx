@@ -106,20 +106,38 @@ export default function VirtueCard({ virtue, isCompleted, onComplete }) {
             I accept this {item?.type}
           </label>
 
-          <button
-            onClick={() => { if (accepted) onComplete(virtue); }}
-            disabled={!accepted}
-            className="w-full py-2 rounded-lg text-sm font-semibold tracking-wide transition-all duration-200"
-            style={{
-              background: accepted ? `${color}22` : "rgba(255,255,255,0.03)",
-              color: accepted ? color : "rgba(255,255,255,0.2)",
-              border: `1px solid ${accepted ? color + "66" : "rgba(255,255,255,0.05)"}`,
-              cursor: accepted ? "pointer" : "not-allowed",
-              boxShadow: accepted ? `0 0 12px ${color}33` : "none",
-            }}
-          >
-            Mark as Complete
-          </button>
+          <div className="flex gap-2">
+            {changeCount < MAX_CHANGES && (
+              <button
+                onClick={handleChange}
+                className="flex-1 py-2 rounded-lg text-sm font-semibold tracking-wide transition-all duration-200"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  color: "rgba(255,255,255,0.45)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                }}
+              >
+                Change
+                <span className="ml-1.5 text-xs opacity-50">
+                  {changeCount}/{MAX_CHANGES}
+                </span>
+              </button>
+            )}
+            <button
+              onClick={() => { if (accepted) onComplete(virtue); }}
+              disabled={!accepted}
+              className="flex-1 py-2 rounded-lg text-sm font-semibold tracking-wide transition-all duration-200"
+              style={{
+                background: accepted ? `${color}22` : "rgba(255,255,255,0.03)",
+                color: accepted ? color : "rgba(255,255,255,0.2)",
+                border: `1px solid ${accepted ? color + "66" : "rgba(255,255,255,0.05)"}`,
+                cursor: accepted ? "pointer" : "not-allowed",
+                boxShadow: accepted ? `0 0 12px ${color}33` : "none",
+              }}
+            >
+              Complete
+            </button>
+          </div>
         </div>
       )}
     </div>
