@@ -5,6 +5,7 @@ import { Settings, ChevronLeft, ChevronRight } from "lucide-react";
 import confetti from "canvas-confetti";
 import BottomNav from "@/components/BottomNav";
 import VirtueHexagon, { VIRTUES } from "@/components/VirtueHexagon";
+
 import VirtueCard from "@/components/VirtueCard";
 import { format, startOfWeek, addDays, isSameDay, subWeeks, addWeeks } from "date-fns";
 
