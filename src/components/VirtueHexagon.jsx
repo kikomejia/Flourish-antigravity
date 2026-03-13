@@ -49,7 +49,7 @@ function edgeAngle(i) {
   return angle;
 }
 
-export default function VirtueHexagon({ completedVirtues = [], onVirtueClick, activeVirtue }) {
+export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues = [], onVirtueClick, activeVirtue }) {
   const polygonPoints = vertices.map(([x, y]) => `${x},${y}`).join(" ");
 
   return (
