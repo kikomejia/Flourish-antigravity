@@ -241,6 +241,27 @@ export default function Daily() {
         </div>
       </div>
 
+      {/* Completed day review */}
+      {todayProgress?.is_complete && (
+        <div className="px-4 pb-4">
+          <div className="flex items-center gap-2 mb-3 mt-2">
+            <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.15)" }} />
+            <span className="text-xs tracking-widest uppercase" style={{ color: "rgba(243,175,238,0.5)" }}>Today's Achievements</span>
+            <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.15)" }} />
+          </div>
+          <div className="space-y-3">
+            {VIRTUES.map((v) => (
+              <VirtueCard
+                key={v.key}
+                virtue={v.key}
+                isCompleted={true}
+                onComplete={() => {}}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Bottom nav */}
       <BottomNav active="daily" />
     </div>
