@@ -59,12 +59,12 @@ const VIRTUE_CHALLENGES = {
 };
 
 const VIRTUE_COLORS = {
-  wisdom: "#60efff",
-  courage: "#ffb347",
-  humanity: "#ff6eb4",
-  justice: "#90ee90",
-  temperance: "#da70d6",
-  transcendence: "#c8a2c8",
+  wisdom: "#d8b4fe",
+  courage: "#fef08a",
+  humanity: "#fda4af",
+  justice: "#86efac",
+  temperance: "#ffedd5",
+  transcendence: "#7dd3fc",
 };
 
 function getDayOfYear() {

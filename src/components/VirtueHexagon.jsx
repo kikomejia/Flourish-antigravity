@@ -1,12 +1,12 @@
 import React from "react";
 
 const VIRTUES = [
-  { key: "wisdom", label: "WISDOM", color: "#60efff", position: "top" },
-  { key: "courage", label: "COURAGE", color: "#ffb347", position: "top-right" },
-  { key: "humanity", label: "HUMANITY", color: "#ff6eb4", position: "bottom-right" },
-  { key: "justice", label: "JUSTICE", color: "#90ee90", position: "bottom" },
-  { key: "temperance", label: "TEMPERANCE", color: "#da70d6", position: "bottom-left" },
-  { key: "transcendence", label: "TRANSCENDENCE", color: "#c8a2c8", position: "top-left" },
+  { key: "wisdom", label: "WISDOM", color: "#d8b4fe" },
+  { key: "courage", label: "COURAGE", color: "#fef08a" },
+  { key: "humanity", label: "HUMANITY", color: "#fda4af" },
+  { key: "justice", label: "JUSTICE", color: "#86efac" },
+  { key: "temperance", label: "TEMPERANCE", color: "#ffedd5" },
+  { key: "transcendence", label: "TRANSCENDENCE", color: "#7dd3fc" },
 ];
 
 // Hexagon vertices (flat-top), center 160,160, radius 120
