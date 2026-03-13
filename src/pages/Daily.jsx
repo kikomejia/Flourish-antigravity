@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useNavigate } from "react-router-dom";
 import { Settings, ChevronLeft, ChevronRight } from "lucide-react";
+import confetti from "canvas-confetti";
 import BottomNav from "@/components/BottomNav";
 import VirtueHexagon, { VIRTUES } from "@/components/VirtueHexagon";
 import VirtueCard from "@/components/VirtueCard";
