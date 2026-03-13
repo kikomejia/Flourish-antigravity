@@ -47,6 +47,7 @@ const AuthenticatedApp = () => {
 function App() {
   return (
     <AuthProvider>
+      <style>{fontStyle}</style>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <AuthenticatedApp />
