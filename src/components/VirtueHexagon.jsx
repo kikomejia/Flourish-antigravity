@@ -131,8 +131,8 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
               <line
                 x1={x1} y1={y1} x2={x2} y2={y2}
                 stroke={virtue.color}
-                strokeWidth={isActive ? 4 : isCompleted ? 3 : 2}
-                strokeOpacity={isCompleted ? 1 : isActive ? 0.9 : 0.8}
+                strokeWidth={isActive ? 4 : isCompleted ? 3 : acceptedVirtues.includes(virtue.key) ? 2.5 : 2}
+                strokeOpacity={isCompleted ? 1 : isActive ? 0.9 : acceptedVirtues.includes(virtue.key) ? 0.95 : 0.8}
                 filter={`url(#glow-${virtue.key})`}
               />
               {/* Vertex dots */}
