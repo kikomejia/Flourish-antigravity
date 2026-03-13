@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { useNavigate } from "react-router-dom";
 import { Settings, ChevronLeft, ChevronRight } from "lucide-react";
 import confetti from "canvas-confetti";
 import BottomNav from "@/components/BottomNav";
 import VirtueHexagon, { VIRTUES } from "@/components/VirtueHexagon";
-
 import VirtueCard, { VIRTUE_COLORS, getDailyItem } from "@/components/VirtueCard";
-import { format, startOfWeek, addDays, isSameDay, subWeeks, addWeeks } from "date-fns";
+import { format, startOfWeek, addDays, isSameDay, addWeeks, parseISO } from "date-fns";
+import { motion, AnimatePresence } from "framer-motion";
 
 const POINTS_PER_VIRTUE = 1;
 const BONUS_POINTS = 4;
@@ -16,14 +15,30 @@ function getTodayStr() {
   return format(new Date(), "yyyy-MM-dd");
 }
 
+function fireConfetti() {
+  const virtueColors = ["#d8b4fe", "#fef08a", "#fda4af", "#86efac", "#ffedd5", "#7dd3fc"];
+  const shoot = (origin, angle) =>
+    confetti({ particleCount: 60, spread: 70, angle, origin, colors: virtueColors, scalar: 1.1, gravity: 0.9 });
+  shoot({ x: 0.1, y: 0.6 }, 60);
+  shoot({ x: 0.9, y: 0.6 }, 120);
+  setTimeout(() => { shoot({ x: 0.3, y: 0.5 }, 80); shoot({ x: 0.7, y: 0.5 }, 100); }, 300);
+  setTimeout(() => shoot({ x: 0.5, y: 0.4 }, 90), 600);
+}
+
 export default function Daily() {
   const [user, setUser] = useState(null);
   const [todayProgress, setTodayProgress] = useState(null);
   const [activeVirtue, setActiveVirtue] = useState(null);
   const [weekOffset, setWeekOffset] = useState(0);
+  const [slideDir, setSlideDir] = useState(-1);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  // Per-virtue accepted & change state, persisted to localStorage keyed by date
+
+  const [selectedDate, setSelectedDate] = useState(getTodayStr());
+  const [historicalProgress, setHistoricalProgress] = useState(null);
+  const [historicalActivities, setHistoricalActivities] = useState([]);
+  const [historicalLoading, setHistoricalLoading] = useState(false);
+
   const [virtueStates, setVirtueStates] = useState(() => {
     try {
       const stored = localStorage.getItem("virtueStates");
@@ -42,6 +57,7 @@ export default function Daily() {
   }, [virtueStates]);
 
   const today = new Date();
+  const todayStr = getTodayStr();
   const weekStart = startOfWeek(addWeeks(today, weekOffset), { weekStartsOn: 1 });
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
@@ -56,16 +72,56 @@ export default function Daily() {
   }, []);
 
   const loadTodayProgress = async (email) => {
-    const dateStr = getTodayStr();
-    const results = await base44.entities.DailyProgress.filter({ user_email: email, date: dateStr });
+    const results = await base44.entities.DailyProgress.filter({ user_email: email, date: todayStr });
     if (results.length > 0) {
       setTodayProgress(results[0]);
     } else {
-      setTodayProgress({ user_email: email, date: dateStr, completed_virtues: [], points_earned: 0, is_complete: false });
+      setTodayProgress({ user_email: email, date: todayStr, completed_virtues: [], points_earned: 0, is_complete: false });
+    }
+  };
+
+  const changeWeek = (dir) => {
+    if (dir === 1 && weekOffset >= 0) return;
+    setSlideDir(dir);
+    setWeekOffset(w => w + dir);
+  };
+
+  const handleDayClick = async (day) => {
+    const dateStr = format(day, "yyyy-MM-dd");
+    if (dateStr > todayStr) return; // future
+
+    setSelectedDate(dateStr);
+    setActiveVirtue(null);
+
+    if (dateStr === todayStr) {
+      setHistoricalProgress(null);
+      setHistoricalActivities([]);
+      return;
+    }
+
+    setHistoricalLoading(true);
+    const [progressArr, acts] = await Promise.all([
+      base44.entities.DailyProgress.filter({ user_email: user.email, date: dateStr }),
+      base44.entities.ActivityLog.filter({ user_email: user.email }, "-created_date", 500),
+    ]);
+
+    const prog = progressArr[0] || { completed_virtues: [], is_complete: false };
+    const dayActs = acts.filter(a => {
+      if (!a.created_date) return false;
+      return format(new Date(a.created_date), "yyyy-MM-dd") === dateStr;
+    });
+
+    setHistoricalProgress(prog);
+    setHistoricalActivities(dayActs);
+    setHistoricalLoading(false);
+
+    if (prog.is_complete) {
+      setTimeout(fireConfetti, 300);
     }
   };
 
   const handleVirtueClick = (virtueKey) => {
+    if (selectedDate !== todayStr) return;
     setActiveVirtue(activeVirtue === virtueKey ? null : virtueKey);
   };
 
@@ -81,89 +137,55 @@ export default function Daily() {
     let updated;
     if (todayProgress.id) {
       updated = await base44.entities.DailyProgress.update(todayProgress.id, {
-        completed_virtues: newCompleted,
-        points_earned: pointsEarned,
-        is_complete: isNowComplete,
+        completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete,
       });
     } else {
       updated = await base44.entities.DailyProgress.create({
-        user_email: user.email,
-        date: getTodayStr(),
-        completed_virtues: newCompleted,
-        points_earned: pointsEarned,
-        is_complete: isNowComplete,
+        user_email: user.email, date: todayStr,
+        completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete,
       });
     }
     setTodayProgress(updated);
 
-    // Update user stats
     const statsArr = await base44.entities.UserStats.filter({ user_email: user.email });
     const existingStats = statsArr[0];
     const prevVirtueCount = existingStats?.virtue_counts || {};
-    const newVirtueCounts = {
-      ...prevVirtueCount,
-      [virtueKey]: (prevVirtueCount[virtueKey] || 0) + 1,
-    };
+    const newVirtueCounts = { ...prevVirtueCount, [virtueKey]: (prevVirtueCount[virtueKey] || 0) + 1 };
     const totalPoints = (existingStats?.total_points || 0) + POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
     const level = Math.floor(totalPoints / 100) + 1;
 
     if (existingStats) {
       await base44.entities.UserStats.update(existingStats.id, {
-        total_points: totalPoints,
-        level,
+        total_points: totalPoints, level,
         total_completions: isNowComplete ? (existingStats.total_completions || 0) + 1 : existingStats.total_completions,
         virtue_counts: newVirtueCounts,
       });
     } else {
       await base44.entities.UserStats.create({
-        user_email: user.email,
-        total_points: totalPoints,
-        level,
-        current_streak: 1,
-        longest_streak: 1,
-        total_completions: isNowComplete ? 1 : 0,
-        virtue_counts: newVirtueCounts,
+        user_email: user.email, total_points: totalPoints, level,
+        current_streak: 1, longest_streak: 1,
+        total_completions: isNowComplete ? 1 : 0, virtue_counts: newVirtueCounts,
       });
     }
 
-    // Log activity
     const changeCount = virtueStates[virtueKey]?.changeCount ?? 0;
     const item = getDailyItem(virtueKey, changeCount);
     await base44.entities.ActivityLog.create({
-      user_email: user.email,
-      virtue: virtueKey,
-      activity_type: item?.type || "challenge",
-      action: "completed",
-      title: item?.title || "",
-      text: item?.text || "",
+      user_email: user.email, virtue: virtueKey,
+      activity_type: item?.type || "challenge", action: "completed",
+      title: item?.title || "", text: item?.text || "",
     });
 
     setSaving(false);
     if (isNowComplete) {
       setActiveVirtue(null);
-      // Celebratory confetti in virtue colors
-      const virtueColors = ["#d8b4fe", "#fef08a", "#fda4af", "#86efac", "#ffedd5", "#7dd3fc"];
-      const shoot = (origin, angle) =>
-        confetti({
-          particleCount: 60,
-          spread: 70,
-          angle,
-          origin,
-          colors: virtueColors,
-          scalar: 1.1,
-          gravity: 0.9,
-        });
-      shoot({ x: 0.1, y: 0.6 }, 60);
-      shoot({ x: 0.9, y: 0.6 }, 120);
-      setTimeout(() => {
-        shoot({ x: 0.3, y: 0.5 }, 80);
-        shoot({ x: 0.7, y: 0.5 }, 100);
-      }, 300);
-      setTimeout(() => shoot({ x: 0.5, y: 0.4 }, 90), 600);
+      fireConfetti();
     }
   };
 
-  const completedVirtues = todayProgress?.completed_virtues || [];
+  const isViewingToday = selectedDate === todayStr;
+  const viewProgress = isViewingToday ? todayProgress : historicalProgress;
+  const completedVirtues = viewProgress?.completed_virtues || [];
   const completedCount = completedVirtues.length;
 
   if (loading) {
@@ -179,10 +201,7 @@ export default function Daily() {
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <div className="w-8" />
-        <h1
-          className="text-xl font-bold tracking-wide"
-          style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}
-        >
+        <h1 className="text-xl font-bold tracking-wide" style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}>
           Flourish
         </h1>
         <button className="w-8 h-8 flex items-center justify-center opacity-50 hover:opacity-80 transition-opacity">
@@ -192,128 +211,246 @@ export default function Daily() {
 
       {/* Week calendar */}
       <div className="px-4 pb-3">
-        <div className="flex items-center justify-between mb-2">
-          <button onClick={() => setWeekOffset(w => w - 1)} className="opacity-40 hover:opacity-80 p-1">
-            <ChevronLeft size={16} />
-          </button>
+        {/* Month label */}
+        <div className="text-center mb-2">
           <span className="text-xs text-white/40 tracking-widest uppercase">
             {format(weekStart, "MMMM yyyy")}
           </span>
-          <button
-            onClick={() => setWeekOffset(w => Math.min(0, w + 1))}
-            className="opacity-40 hover:opacity-80 p-1"
-          >
-            <ChevronRight size={16} />
-          </button>
         </div>
-        <div className="grid grid-cols-7 gap-1">
-          {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-            <div key={i} className="text-center text-xs text-white/25 pb-1">{d}</div>
-          ))}
-          {weekDays.map((day, i) => {
-            const isToday = isSameDay(day, today);
-            return (
-              <div key={i} className="flex flex-col items-center">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium"
-                  style={{
-                    background: isToday ? "#f3afee" : "transparent",
-                    color: isToday ? "#1a0a1a" : "rgba(255,255,255,0.3)",
-                    boxShadow: isToday ? "0 0 12px #f3afee66" : "none",
-                  }}
-                >
-                  {format(day, "d")}
-                </div>
+
+        {/* Glass container for slide area */}
+        <div
+          className="rounded-2xl px-3 py-2"
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+          }}
+        >
+          {/* Day labels row with arrows aligned to M and S */}
+          <div className="grid grid-cols-7 gap-1 mb-1">
+            {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+              <div key={i} className="relative flex items-center justify-center text-xs text-white/25 pb-1">
+                {i === 0 && (
+                  <button
+                    onClick={() => changeWeek(-1)}
+                    className="absolute left-0 opacity-50 hover:opacity-90 transition-opacity"
+                  >
+                    <ChevronLeft size={14} />
+                  </button>
+                )}
+                <span>{d}</span>
+                {i === 6 && (
+                  <button
+                    onClick={() => changeWeek(1)}
+                    disabled={weekOffset >= 0}
+                    className="absolute right-0 opacity-50 hover:opacity-90 disabled:opacity-15 transition-opacity"
+                  >
+                    <ChevronRight size={14} />
+                  </button>
+                )}
               </div>
-            );
-          })}
+            ))}
+          </div>
+
+          {/* Animated week grid */}
+          <div className="overflow-hidden">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={weekOffset}
+                initial={{ x: slideDir * 50, opacity: 0, filter: "blur(4px)" }}
+                animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+                exit={{ x: -slideDir * 50, opacity: 0, filter: "blur(4px)" }}
+                transition={{ type: "spring", stiffness: 320, damping: 32 }}
+                className="grid grid-cols-7 gap-1"
+              >
+                {weekDays.map((day, i) => {
+                  const dateStr = format(day, "yyyy-MM-dd");
+                  const isToday = isSameDay(day, today);
+                  const isFuture = dateStr > todayStr;
+                  const isSelected = selectedDate === dateStr;
+
+                  return (
+                    <div key={i} className="flex flex-col items-center">
+                      <div
+                        onClick={() => !isFuture && handleDayClick(day)}
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-200"
+                        style={{
+                          background: isSelected ? "#f3afee" : "transparent",
+                          color: isFuture
+                            ? "rgba(255,255,255,0.15)"
+                            : isSelected
+                            ? "#1a0a1a"
+                            : isToday
+                            ? "#f3afee"
+                            : "rgba(255,255,255,0.55)",
+                          boxShadow: isSelected ? "0 0 12px #f3afee66" : "none",
+                          cursor: isFuture ? "default" : "pointer",
+                          border: isToday && !isSelected ? "1px solid rgba(243,175,238,0.35)" : "none",
+                        }}
+                      >
+                        {format(day, "d")}
+                      </div>
+                    </div>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
+
+      {/* Historical date label */}
+      {!isViewingToday && (
+        <div className="text-center pb-1">
+          <span className="text-xs tracking-widest" style={{ color: "rgba(243,175,238,0.6)" }}>
+            {format(parseISO(selectedDate), "MMMM d, yyyy")}
+          </span>
+        </div>
+      )}
 
       {/* Hexagon */}
       <div className="flex flex-col items-center flex-1 pt-2">
         <VirtueHexagon
           completedVirtues={completedVirtues}
-          acceptedVirtues={Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k)}
+          acceptedVirtues={isViewingToday ? Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k) : []}
           onVirtueClick={handleVirtueClick}
-          activeVirtue={activeVirtue}
+          activeVirtue={isViewingToday ? activeVirtue : null}
         />
-
-        {/* Progress indicator */}
         <div className="mt-1 text-xs text-white/30 tracking-widest">
           {completedCount}/6
-          {todayProgress?.is_complete && (
-            <span className="ml-2 text-purple-400">✦ Complete</span>
-          )}
+          {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
         </div>
       </div>
 
-      {/* Bottom card - hidden when day is complete */}
-      {!todayProgress?.is_complete && (
-        <div className="px-4 pb-20 mt-4">
-          <div
-            className="rounded-2xl p-4 min-h-[90px] flex items-center justify-center transition-all duration-300"
-            style={{
-              background: "rgba(15,5,25,0.9)",
-              border: activeVirtue
-                ? `1px solid ${VIRTUE_COLORS[activeVirtue]}99`
-                : "1px solid rgba(243,175,238,0.6)",
-              boxShadow: activeVirtue
-                ? `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`
-                : "0 0 24px rgba(243,175,238,0.35), inset 0 0 24px rgba(243,175,238,0.05)",
-              transition: "border-color 0.3s, box-shadow 0.3s",
-            }}
+      {/* Historical view */}
+      {!isViewingToday && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedDate}
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 30, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 28 }}
+            className="px-4 pb-24 mt-2"
           >
-            {!activeVirtue ? (
-              <p className="text-sm text-center" style={{ color: "#f3afee", textShadow: "0 0 10px rgba(243,175,238,0.6)" }}>Tap a virtue to view today's task</p>
-            ) : (
-              <div className="w-full">
-                <VirtueCard
-                  virtue={activeVirtue}
-                  isCompleted={completedVirtues.includes(activeVirtue)}
-                  onComplete={handleComplete}
-                  accepted={virtueStates[activeVirtue]?.accepted ?? false}
-                  onAccept={(val) => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], accepted: val } }))}
-                  changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
-                  onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1, accepted: false } }))}
-                />
+            {historicalLoading ? (
+              <div className="flex justify-center py-8">
+                <div className="w-6 h-6 border-2 border-white/20 border-t-white/60 rounded-full animate-spin" />
               </div>
+            ) : completedVirtues.length === 0 ? (
+              <div className="text-center py-8 text-sm" style={{ color: "rgba(255,255,255,0.25)" }}>
+                No virtues completed on this day
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
+                  <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#f3afee" }}>Achievements</span>
+                  <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
+                </div>
+                <div className="space-y-3">
+                  {VIRTUES.filter(v => completedVirtues.includes(v.key)).map(v => {
+                    const act = historicalActivities.find(a => a.virtue === v.key);
+                    return (
+                      <div
+                        key={v.key}
+                        className="rounded-xl p-3 flex items-start gap-3"
+                        style={{
+                          background: `${v.color}0d`,
+                          border: `1px solid ${v.color}44`,
+                          boxShadow: `0 0 12px ${v.color}18`,
+                        }}
+                      >
+                        <div
+                          className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
+                          style={{ background: v.color, boxShadow: `0 0 6px ${v.color}` }}
+                        />
+                        <div>
+                          <p className="text-xs font-bold tracking-widest uppercase mb-0.5" style={{ color: v.color }}>{v.label}</p>
+                          {act ? (
+                            <>
+                              <p className="text-sm font-semibold text-white/90">{act.title}</p>
+                              <p className="text-xs text-white/50 mt-0.5">{act.text}</p>
+                            </>
+                          ) : (
+                            <p className="text-sm text-white/50">Completed</p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
             )}
-          </div>
-        </div>
+          </motion.div>
+        </AnimatePresence>
       )}
 
-      {/* Completed day review */}
-      {todayProgress?.is_complete && (
-        <div className="px-4 pb-24">
-          <div className="flex items-center gap-2 mb-4 mt-2">
-            <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
-            <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#f3afee" }}>Today's Achievements</span>
-            <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
-          </div>
-          <div className="space-y-3">
-            {VIRTUES.map((v) => (
+      {/* Today's interface */}
+      {isViewingToday && (
+        <>
+          {!todayProgress?.is_complete && (
+            <div className="px-4 pb-20 mt-4">
               <div
-                key={v.key}
-                className="rounded-xl p-0.5"
+                className="rounded-2xl p-4 min-h-[90px] flex items-center justify-center transition-all duration-300"
                 style={{
-                  background: `linear-gradient(135deg, ${v.color}33, ${v.color}11)`,
-                  border: `1px solid ${v.color}55`,
-                  boxShadow: `0 0 16px ${v.color}22`,
+                  background: "rgba(15,5,25,0.9)",
+                  border: activeVirtue ? `1px solid ${VIRTUE_COLORS[activeVirtue]}99` : "1px solid rgba(243,175,238,0.6)",
+                  boxShadow: activeVirtue
+                    ? `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`
+                    : "0 0 24px rgba(243,175,238,0.35), inset 0 0 24px rgba(243,175,238,0.05)",
                 }}
               >
-                <VirtueCard
-                  virtue={v.key}
-                  isCompleted={true}
-                  onComplete={() => {}}
-                />
+                {!activeVirtue ? (
+                  <p className="text-sm text-center" style={{ color: "#f3afee", textShadow: "0 0 10px rgba(243,175,238,0.6)" }}>
+                    Tap a virtue to view today's task
+                  </p>
+                ) : (
+                  <div className="w-full">
+                    <VirtueCard
+                      virtue={activeVirtue}
+                      isCompleted={completedVirtues.includes(activeVirtue)}
+                      onComplete={handleComplete}
+                      accepted={virtueStates[activeVirtue]?.accepted ?? false}
+                      onAccept={(val) => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], accepted: val } }))}
+                      changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
+                      onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1, accepted: false } }))}
+                    />
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          )}
+
+          {todayProgress?.is_complete && (
+            <div className="px-4 pb-24">
+              <div className="flex items-center gap-2 mb-4 mt-2">
+                <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
+                <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#f3afee" }}>Today's Achievements</span>
+                <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
+              </div>
+              <div className="space-y-3">
+                {VIRTUES.map(v => (
+                  <div
+                    key={v.key}
+                    className="rounded-xl p-0.5"
+                    style={{
+                      background: `linear-gradient(135deg, ${v.color}33, ${v.color}11)`,
+                      border: `1px solid ${v.color}55`,
+                      boxShadow: `0 0 16px ${v.color}22`,
+                    }}
+                  >
+                    <VirtueCard virtue={v.key} isCompleted={true} onComplete={() => {}} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
 
-      {/* Bottom nav */}
       <BottomNav active="daily" />
     </div>
   );
