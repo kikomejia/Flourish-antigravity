@@ -36,10 +36,20 @@ function getDailyItem(virtue, offset = 0) {
   return allItems[idx];
 }
 
+const MAX_CHANGES = 3;
+
 export default function VirtueCard({ virtue, isCompleted, onComplete }) {
   const [accepted, setAccepted] = useState(false);
+  const [changeCount, setChangeCount] = useState(0);
   const color = VIRTUE_COLORS[virtue];
-  const item = getDailyItem(virtue);
+  const item = getDailyItem(virtue, changeCount);
+
+  const handleChange = () => {
+    if (changeCount < MAX_CHANGES) {
+      setChangeCount(c => c + 1);
+      setAccepted(false);
+    }
+  };
 
   return (
     <div
