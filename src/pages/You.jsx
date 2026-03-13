@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { format, subDays } from "date-fns";
 import { Flame, Star, Trophy, Zap } from "lucide-react";
-import { BottomNav } from "./Daily";
+import BottomNav from "@/components/BottomNav";
 import { VIRTUE_COLORS } from "@/components/VirtueCard";
 
 const LEVELS = [
