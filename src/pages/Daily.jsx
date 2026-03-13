@@ -218,16 +218,7 @@ export default function Daily() {
           </span>
         </div>
 
-        {/* Glass container for slide area */}
-        <div
-          className="rounded-2xl px-3 py-2"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-          }}
-        >
+        <div>
           {/* Day labels row with arrows aligned to M and S */}
           <div className="grid grid-cols-7 gap-1 mb-1">
             {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
