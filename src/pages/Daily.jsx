@@ -111,6 +111,18 @@ export default function Daily() {
       });
     }
 
+    // Log activity
+    const changeCount = virtueStates[virtueKey]?.changeCount ?? 0;
+    const item = getDailyItem(virtueKey, changeCount);
+    await base44.entities.ActivityLog.create({
+      user_email: user.email,
+      virtue: virtueKey,
+      activity_type: item?.type || "challenge",
+      action: "completed",
+      title: item?.title || "",
+      text: item?.text || "",
+    });
+
     setSaving(false);
     if (isNowComplete) {
       setActiveVirtue(null);
