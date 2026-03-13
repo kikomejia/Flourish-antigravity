@@ -98,6 +98,21 @@ export default function VirtueHexagon({ completedVirtues = [], onVirtueClick, ac
           );
         })}
 
+        {/* Clickable triangles */}
+        {VIRTUES.map((virtue, i) => {
+          const [x1, y1] = vertices[i];
+          const [x2, y2] = vertices[(i + 1) % 6];
+          return (
+            <polygon
+              key={`tri-${virtue.key}`}
+              points={`${CX},${CY} ${x1},${y1} ${x2},${y2}`}
+              fill="transparent"
+              style={{ cursor: "pointer" }}
+              onClick={() => onVirtueClick(virtue.key)}
+            />
+          );
+        })}
+
         {/* Edges - clickable */}
         {VIRTUES.map((virtue, i) => {
           const [x1, y1] = vertices[i];
