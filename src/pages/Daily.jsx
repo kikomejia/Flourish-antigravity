@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link, useNavigate } from "react-router-dom";
-import { Calendar, User, Settings, ChevronLeft, ChevronRight } from "lucide-react";
+import { Settings, ChevronLeft, ChevronRight } from "lucide-react";
+import BottomNav from "@/components/BottomNav";
 import VirtueHexagon, { VIRTUES } from "@/components/VirtueHexagon";
 import VirtueCard from "@/components/VirtueCard";
 import { format, startOfWeek, addDays, isSameDay, subWeeks, addWeeks } from "date-fns";
