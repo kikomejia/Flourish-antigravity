@@ -21,10 +21,10 @@ function seededRandom(seed) {
   return s / 0xffffffff;
 }
 
-function getDailyItem(virtue) {
+function getDailyItem(virtue, offset = 0) {
   const now = new Date();
   const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
-  const seed = dayOfYear * 100 + Object.keys(VIRTUE_CONTENT).indexOf(virtue);
+  const seed = dayOfYear * 100 + Object.keys(VIRTUE_CONTENT).indexOf(virtue) + offset * 1000;
 
   const content = VIRTUE_CONTENT[virtue];
   const allItems = [
