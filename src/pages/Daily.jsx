@@ -207,6 +207,7 @@ export default function Daily() {
       <div className="flex flex-col items-center flex-1 pt-2">
         <VirtueHexagon
           completedVirtues={completedVirtues}
+          acceptedVirtues={Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k)}
           onVirtueClick={handleVirtueClick}
           activeVirtue={activeVirtue}
         />
