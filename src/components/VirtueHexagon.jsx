@@ -43,7 +43,10 @@ function edgeLabelPos(i) {
 function edgeAngle(i) {
   const [x1, y1] = vertices[i];
   const [x2, y2] = vertices[(i + 1) % 6];
-  return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
+  let angle = (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
+  // Prevent upside-down text
+  if (angle > 90 || angle < -90) angle += 180;
+  return angle;
 }
 
 export default function VirtueHexagon({ completedVirtues = [], onVirtueClick, activeVirtue }) {
