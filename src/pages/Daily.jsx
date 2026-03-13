@@ -249,54 +249,65 @@ export default function Daily() {
       </div>
 
       {/* Bottom card - hidden when day is complete */}
-      {!todayProgress?.is_complete && <div className="px-4 pb-20 mt-4">
-        <div
-          className="rounded-2xl p-4 min-h-[90px] flex items-center justify-center transition-all duration-300"
-          style={{
-            background: "rgba(15,5,25,0.9)",
-            border: activeVirtue
-              ? `1px solid ${VIRTUE_COLORS[activeVirtue]}99`
-              : "1px solid rgba(243,175,238,0.6)",
-            boxShadow: activeVirtue
-              ? `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`
-              : "0 0 24px rgba(243,175,238,0.35), inset 0 0 24px rgba(243,175,238,0.05)",
-            transition: "border-color 0.3s, box-shadow 0.3s",
-          }}
-        >
-          {!activeVirtue ? (
-            <p className="text-sm text-center" style={{ color: "#f3afee", textShadow: "0 0 10px rgba(243,175,238,0.6)" }}>Tap a virtue to view today's task</p>
-          ) : (
-            <div className="w-full">
-              <VirtueCard
-                virtue={activeVirtue}
-                isCompleted={completedVirtues.includes(activeVirtue)}
-                onComplete={handleComplete}
-                accepted={virtueStates[activeVirtue]?.accepted ?? false}
-                onAccept={(val) => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], accepted: val } }))}
-                changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
-                onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1, accepted: false } }))}
-              />
-            </div>
-          )}
+      {!todayProgress?.is_complete && (
+        <div className="px-4 pb-20 mt-4">
+          <div
+            className="rounded-2xl p-4 min-h-[90px] flex items-center justify-center transition-all duration-300"
+            style={{
+              background: "rgba(15,5,25,0.9)",
+              border: activeVirtue
+                ? `1px solid ${VIRTUE_COLORS[activeVirtue]}99`
+                : "1px solid rgba(243,175,238,0.6)",
+              boxShadow: activeVirtue
+                ? `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`
+                : "0 0 24px rgba(243,175,238,0.35), inset 0 0 24px rgba(243,175,238,0.05)",
+              transition: "border-color 0.3s, box-shadow 0.3s",
+            }}
+          >
+            {!activeVirtue ? (
+              <p className="text-sm text-center" style={{ color: "#f3afee", textShadow: "0 0 10px rgba(243,175,238,0.6)" }}>Tap a virtue to view today's task</p>
+            ) : (
+              <div className="w-full">
+                <VirtueCard
+                  virtue={activeVirtue}
+                  isCompleted={completedVirtues.includes(activeVirtue)}
+                  onComplete={handleComplete}
+                  accepted={virtueStates[activeVirtue]?.accepted ?? false}
+                  onAccept={(val) => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], accepted: val } }))}
+                  changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
+                  onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1, accepted: false } }))}
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Completed day review */}
       {todayProgress?.is_complete && (
-        <div className="px-4 pb-4">
-          <div className="flex items-center gap-2 mb-3 mt-2">
-            <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.15)" }} />
-            <span className="text-xs tracking-widest uppercase" style={{ color: "rgba(243,175,238,0.5)" }}>Today's Achievements</span>
-            <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.15)" }} />
+        <div className="px-4 pb-24">
+          <div className="flex items-center gap-2 mb-4 mt-2">
+            <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
+            <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#f3afee" }}>Today's Achievements</span>
+            <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
           </div>
           <div className="space-y-3">
             {VIRTUES.map((v) => (
-              <VirtueCard
+              <div
                 key={v.key}
-                virtue={v.key}
-                isCompleted={true}
-                onComplete={() => {}}
-              />
+                className="rounded-xl p-0.5"
+                style={{
+                  background: `linear-gradient(135deg, ${v.color}33, ${v.color}11)`,
+                  border: `1px solid ${v.color}55`,
+                  boxShadow: `0 0 16px ${v.color}22`,
+                }}
+              >
+                <VirtueCard
+                  virtue={v.key}
+                  isCompleted={true}
+                  onComplete={() => {}}
+                />
+              </div>
             ))}
           </div>
         </div>
