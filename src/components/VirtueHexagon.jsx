@@ -15,7 +15,9 @@ const CX = 160;
 const CY = 160;
 
 function hexVertex(i) {
-  const angle = (Math.PI / 3) * i - Math.PI / 2;
+  // Flat-top hexagon: first vertex at top-left of WISDOM edge
+  // Rotate by -90 degrees so top edge is horizontal (WISDOM at top)
+  const angle = (Math.PI / 3) * i - (2 * Math.PI / 3);
   return [CX + R * Math.cos(angle), CY + R * Math.sin(angle)];
 }
 
