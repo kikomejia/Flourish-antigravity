@@ -18,7 +18,7 @@ export default function BottomNav({ active }) {
         <Link
           to="/Daily"
           className="flex flex-col items-center px-10 py-3 transition-colors"
-          style={{ color: active === "daily" ? "white" : "rgba(255,255,255,0.35)" }}
+          style={{ color: active === "daily" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
         >
           <Calendar size={20} />
           <span className="text-xs mt-0.5">Daily</span>
@@ -27,7 +27,7 @@ export default function BottomNav({ active }) {
         <Link
           to="/You"
           className="flex flex-col items-center px-10 py-3 transition-colors"
-          style={{ color: active === "you" ? "white" : "rgba(255,255,255,0.35)" }}
+          style={{ color: active === "you" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
         >
           <User size={20} />
           <span className="text-xs mt-0.5">You</span>
