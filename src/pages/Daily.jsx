@@ -224,8 +224,13 @@ export default function Daily() {
           className="rounded-2xl p-4 min-h-[90px] flex items-center justify-center transition-all duration-300"
           style={{
             background: "rgba(15,5,25,0.9)",
-            border: "1px solid rgba(243,175,238,0.2)",
-            boxShadow: "0 0 30px rgba(243,175,238,0.08)",
+            border: activeVirtue
+              ? `1px solid ${VIRTUE_COLORS[activeVirtue]}66`
+              : "1px solid rgba(243,175,238,0.2)",
+            boxShadow: activeVirtue
+              ? `0 0 30px ${VIRTUE_COLORS[activeVirtue]}33`
+              : "0 0 30px rgba(243,175,238,0.08)",
+            transition: "border-color 0.3s, box-shadow 0.3s",
           }}
         >
           {!activeVirtue ? (
