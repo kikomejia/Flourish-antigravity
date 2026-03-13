@@ -23,6 +23,8 @@ export default function Daily() {
   const [weekOffset, setWeekOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  // Per-virtue accepted & change state, persists across taps
+  const [virtueStates, setVirtueStates] = useState({});
 
   const today = new Date();
   const weekStart = startOfWeek(addWeeks(today, weekOffset), { weekStartsOn: 1 });
