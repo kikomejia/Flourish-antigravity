@@ -228,10 +228,10 @@ export default function Daily() {
           style={{
             background: "rgba(15,5,25,0.9)",
             border: activeVirtue
-              ? `1px solid ${VIRTUE_COLORS[activeVirtue]}66`
+              ? `1px solid ${VIRTUE_COLORS[activeVirtue]}99`
               : "1px solid rgba(243,175,238,0.6)",
             boxShadow: activeVirtue
-              ? `0 0 30px ${VIRTUE_COLORS[activeVirtue]}33`
+              ? `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`
               : "0 0 24px rgba(243,175,238,0.35), inset 0 0 24px rgba(243,175,238,0.05)",
             transition: "border-color 0.3s, box-shadow 0.3s",
           }}
