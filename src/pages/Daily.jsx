@@ -129,7 +129,7 @@ export default function Daily() {
         <div className="w-8" />
         <h1
           className="text-xl font-bold tracking-wide"
-          style={{ color: "#e879f9", fontFamily: "serif", textShadow: "0 0 20px #e879f955" }}
+          style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}
         >
           Flourish
         </h1>

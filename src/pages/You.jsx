@@ -83,7 +83,7 @@ export default function You() {
       <div className="flex items-center justify-center px-4 pt-4 pb-4">
         <h1
           className="text-xl font-bold tracking-wide"
-          style={{ color: "#e879f9", fontFamily: "serif", textShadow: "0 0 20px #e879f955" }}
+          style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}
         >
           Flourish
         </h1>
