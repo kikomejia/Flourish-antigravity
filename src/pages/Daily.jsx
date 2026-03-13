@@ -191,7 +191,7 @@ export default function Daily() {
                   className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium"
                   style={{
                     background: isToday ? "#f3afee" : "transparent",
-                    color: isToday ? "white" : "rgba(255,255,255,0.3)",
+                    color: isToday ? "#1a0a1a" : "rgba(255,255,255,0.3)",
                     boxShadow: isToday ? "0 0 12px #f3afee66" : "none",
                   }}
                 >
