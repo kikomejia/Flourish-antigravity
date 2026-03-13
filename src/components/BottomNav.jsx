@@ -4,10 +4,16 @@ import { Calendar, User } from "lucide-react";
 
 export default function BottomNav({ active }) {
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+    <div className="fixed bottom-6 left-0 right-0 flex justify-center z-50">
       <div
         className="flex rounded-full overflow-hidden"
-        style={{ background: "rgba(20,10,30,0.95)", border: "1px solid rgba(255,255,255,0.08)" }}
+        style={{
+          background: "rgba(255,255,255,0.08)",
+          border: "1px solid rgba(255,255,255,0.18)",
+          backdropFilter: "blur(20px) saturate(180%)",
+          WebkitBackdropFilter: "blur(20px) saturate(180%)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15)",
+        }}
       >
         <Link
           to="/Daily"
