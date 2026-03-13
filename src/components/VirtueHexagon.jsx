@@ -57,7 +57,7 @@ export default function VirtueHexagon({ completedVirtues = [], onVirtueClick, ac
       <svg width="320" height="320" viewBox="0 0 320 320">
         <defs>
           {VIRTUES.map((v) => (
-            <filter key={v.key} id={`glow-${v.key}`} x="-50%" y="-50%" width="200%" height="200%">
+            <filter key={v.key} id={`glow-${v.key}`} filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="320">
               <feGaussianBlur stdDeviation="3" result="coloredBlur" />
               <feMerge>
                 <feMergeNode in="coloredBlur" />
