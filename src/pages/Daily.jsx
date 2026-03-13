@@ -109,7 +109,28 @@ export default function Daily() {
     }
 
     setSaving(false);
-    if (isNowComplete) setActiveVirtue(null);
+    if (isNowComplete) {
+      setActiveVirtue(null);
+      // Celebratory confetti in virtue colors
+      const virtueColors = ["#d8b4fe", "#fef08a", "#fda4af", "#86efac", "#ffedd5", "#7dd3fc"];
+      const shoot = (origin, angle) =>
+        confetti({
+          particleCount: 60,
+          spread: 70,
+          angle,
+          origin,
+          colors: virtueColors,
+          scalar: 1.1,
+          gravity: 0.9,
+        });
+      shoot({ x: 0.1, y: 0.6 }, 60);
+      shoot({ x: 0.9, y: 0.6 }, 120);
+      setTimeout(() => {
+        shoot({ x: 0.3, y: 0.5 }, 80);
+        shoot({ x: 0.7, y: 0.5 }, 100);
+      }, 300);
+      setTimeout(() => shoot({ x: 0.5, y: 0.4 }, 90), 600);
+    }
   };
 
   const completedVirtues = todayProgress?.completed_virtues || [];
