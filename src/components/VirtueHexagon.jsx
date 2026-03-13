@@ -125,6 +125,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
           const [x1, y1] = vertices[i];
           const [x2, y2] = vertices[(i + 1) % 6];
           const isCompleted = completedVirtues.includes(virtue.key);
+          const isAccepted = acceptedVirtues.includes(virtue.key);
           const isActive = activeVirtue === virtue.key;
           return (
             <g key={virtue.key} onClick={() => onVirtueClick(virtue.key)} style={{ cursor: "pointer" }}>
@@ -138,9 +139,9 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
               <line
                 x1={x1} y1={y1} x2={x2} y2={y2}
                 stroke={virtue.color}
-                strokeWidth={isActive ? 4 : isCompleted ? 3 : acceptedVirtues.includes(virtue.key) ? 2.5 : 2}
-                strokeOpacity={isCompleted ? 1 : isActive ? 0.9 : acceptedVirtues.includes(virtue.key) ? 0.95 : 0.8}
-                filter={`url(#glow-${virtue.key})`}
+                strokeWidth={isActive ? 4 : isCompleted ? 3 : isAccepted ? 2.5 : 2}
+                strokeOpacity={isCompleted ? 1 : isActive ? 0.9 : isAccepted ? 0.95 : 0.8}
+                filter={isAccepted && !isCompleted ? "url(#glow-accepted)" : `url(#glow-${virtue.key})`}
               />
               {/* Vertex dots */}
               <circle cx={x1} cy={y1} r="3" fill={virtue.color} fillOpacity={isCompleted ? 1 : 0.75} />
