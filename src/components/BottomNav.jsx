@@ -22,7 +22,7 @@ export default function BottomNav({ active }) {
         >
           <Calendar size={20} />
           <span className="text-xs mt-0.5">Daily</span>
-          {active === "daily" && <div className="w-1 h-1 rounded-full bg-white mt-0.5" />}
+          {active === "daily" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
         </Link>
         <Link
           to="/You"
@@ -31,7 +31,7 @@ export default function BottomNav({ active }) {
         >
           <User size={20} />
           <span className="text-xs mt-0.5">You</span>
-          {active === "you" && <div className="w-1 h-1 rounded-full bg-white mt-0.5" />}
+          {active === "you" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
         </Link>
       </div>
     </div>
