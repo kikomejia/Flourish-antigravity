@@ -90,7 +90,7 @@ export default function Daily() {
       [virtueKey]: (prevVirtueCount[virtueKey] || 0) + 1,
     };
     const totalPoints = (existingStats?.total_points || 0) + POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
-    const level = Math.floor(totalPoints / 200) + 1;
+    const level = Math.floor(totalPoints / 100) + 1;
 
     if (existingStats) {
       await base44.entities.UserStats.update(existingStats.id, {
