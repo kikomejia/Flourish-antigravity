@@ -219,22 +219,22 @@ export default function Daily() {
       </div>
 
       {/* Bottom card */}
-      <div className="px-4 pb-20">
+      <div className="px-4 pb-20 mt-4">
         <div
           className="rounded-2xl p-4 min-h-[90px] flex items-center justify-center transition-all duration-300"
           style={{
             background: "rgba(15,5,25,0.9)",
             border: activeVirtue
               ? `1px solid ${VIRTUE_COLORS[activeVirtue]}66`
-              : "1px solid rgba(243,175,238,0.2)",
+              : "1px solid rgba(243,175,238,0.6)",
             boxShadow: activeVirtue
               ? `0 0 30px ${VIRTUE_COLORS[activeVirtue]}33`
-              : "0 0 30px rgba(243,175,238,0.08)",
+              : "0 0 24px rgba(243,175,238,0.35), inset 0 0 24px rgba(243,175,238,0.05)",
             transition: "border-color 0.3s, box-shadow 0.3s",
           }}
         >
           {!activeVirtue ? (
-            <p className="text-white/30 text-sm text-center">Tap a virtue to view today's task</p>
+            <p className="text-sm text-center" style={{ color: "#f3afee", textShadow: "0 0 10px rgba(243,175,238,0.6)" }}>Tap a virtue to view today's task</p>
           ) : (
             <div className="w-full">
               <VirtueCard
