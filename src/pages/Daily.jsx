@@ -238,6 +238,7 @@ export default function Daily() {
           ) : (
             <div className="w-full">
               <VirtueCard
+                key={activeVirtue}
                 virtue={activeVirtue}
                 isCompleted={completedVirtues.includes(activeVirtue)}
                 onComplete={handleComplete}
