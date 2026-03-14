@@ -27,7 +27,7 @@ function fireConfetti() {
 
 export default function Daily() {
   const [user, setUser] = useState(null);
-  const [todayProgress, setTodayProgress] = useState(null);
+  const [todayProgress, setTodayProgress] = useState({ completed_virtues: [], points_earned: 0, is_complete: false });
   const [activeVirtue, setActiveVirtue] = useState(null);
   const [weekOffset, setWeekOffset] = useState(0);
   const [slideDir, setSlideDir] = useState(-1);
