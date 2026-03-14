@@ -12,6 +12,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Daily from "./pages/Daily";
 import You from "./pages/You";
+import Learn from "./pages/Learn";
 
 
 const AuthenticatedApp = () => {
