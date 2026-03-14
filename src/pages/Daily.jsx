@@ -408,10 +408,8 @@ export default function Daily() {
                   virtue={activeVirtue}
                   isCompleted={completedVirtues.includes(activeVirtue)}
                   onComplete={handleComplete}
-                  accepted={virtueStates[activeVirtue]?.accepted ?? false}
-                  onAccept={(val) => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], accepted: val } }))}
                   changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
-                  onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1, accepted: false } }))}
+                  onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1 } }))}
                 />
               </div>
             </div>
