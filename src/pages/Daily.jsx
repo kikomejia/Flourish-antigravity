@@ -309,7 +309,7 @@ export default function Daily() {
           onVirtueClick={handleVirtueClick}
           activeVirtue={isViewingToday ? activeVirtue : null}
         />
-        <div className="mt-1 text-xs text-white/30 tracking-widest">
+        <div className="mt-6 text-xs text-white/30 tracking-widest">
           {completedCount}/6
           {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
         </div>
