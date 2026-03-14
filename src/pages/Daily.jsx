@@ -68,9 +68,16 @@ export default function Daily() {
         setUser(u);
         if (u?.email) {
           await loadTodayProgress(u.email);
+        } else {
+          // Restore guest progress from localStorage
+          const saved = localStorage.getItem("guest_progress_" + getTodayStr());
+          if (saved) setTodayProgress(JSON.parse(saved));
         }
       } catch (error) {
         console.error("Failed to load user:", error);
+        // Still try to restore guest progress on error
+        const saved = localStorage.getItem("guest_progress_" + getTodayStr());
+        if (saved) setTodayProgress(JSON.parse(saved));
         setUser(null);
       } finally {
         setLoading(false);
