@@ -138,56 +138,59 @@ export default function Daily() {
     if (todayProgress.completed_virtues?.includes(virtueKey)) return;
 
     setSaving(true);
-    const newCompleted = [...(todayProgress.completed_virtues || []), virtueKey];
-    const isNowComplete = newCompleted.length === 6;
-    const pointsEarned = newCompleted.length * POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
+    try {
+      const newCompleted = [...(todayProgress.completed_virtues || []), virtueKey];
+      const isNowComplete = newCompleted.length === 6;
+      const pointsEarned = newCompleted.length * POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
 
-    let updated;
-    if (todayProgress.id) {
-      updated = await base44.entities.DailyProgress.update(todayProgress.id, {
-        completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete,
+      let updated;
+      if (todayProgress.id) {
+        updated = await base44.entities.DailyProgress.update(todayProgress.id, {
+          completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete,
+        });
+      } else {
+        updated = await base44.entities.DailyProgress.create({
+          user_email: user.email, date: todayStr,
+          completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete,
+        });
+      }
+      setTodayProgress(updated);
+
+      const statsArr = await base44.entities.UserStats.filter({ user_email: user.email });
+      const existingStats = statsArr[0];
+      const prevVirtueCount = existingStats?.virtue_counts || {};
+      const newVirtueCounts = { ...prevVirtueCount, [virtueKey]: (prevVirtueCount[virtueKey] || 0) + 1 };
+      const totalPoints = (existingStats?.total_points || 0) + POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
+      const level = Math.floor(totalPoints / 100) + 1;
+
+      if (existingStats) {
+        await base44.entities.UserStats.update(existingStats.id, {
+          total_points: totalPoints, level,
+          total_completions: isNowComplete ? (existingStats.total_completions || 0) + 1 : existingStats.total_completions,
+          virtue_counts: newVirtueCounts,
+        });
+      } else {
+        await base44.entities.UserStats.create({
+          user_email: user.email, total_points: totalPoints, level,
+          current_streak: 1, longest_streak: 1,
+          total_completions: isNowComplete ? 1 : 0, virtue_counts: newVirtueCounts,
+        });
+      }
+
+      const changeCount = virtueStates[virtueKey]?.changeCount ?? 0;
+      const item = getDailyItem(virtueKey, changeCount);
+      await base44.entities.ActivityLog.create({
+        user_email: user.email, virtue: virtueKey,
+        activity_type: item?.type || "challenge", action: "completed",
+        title: item?.title || "", text: item?.text || "",
       });
-    } else {
-      updated = await base44.entities.DailyProgress.create({
-        user_email: user.email, date: todayStr,
-        completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete,
-      });
-    }
-    setTodayProgress(updated);
 
-    const statsArr = await base44.entities.UserStats.filter({ user_email: user.email });
-    const existingStats = statsArr[0];
-    const prevVirtueCount = existingStats?.virtue_counts || {};
-    const newVirtueCounts = { ...prevVirtueCount, [virtueKey]: (prevVirtueCount[virtueKey] || 0) + 1 };
-    const totalPoints = (existingStats?.total_points || 0) + POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
-    const level = Math.floor(totalPoints / 100) + 1;
-
-    if (existingStats) {
-      await base44.entities.UserStats.update(existingStats.id, {
-        total_points: totalPoints, level,
-        total_completions: isNowComplete ? (existingStats.total_completions || 0) + 1 : existingStats.total_completions,
-        virtue_counts: newVirtueCounts,
-      });
-    } else {
-      await base44.entities.UserStats.create({
-        user_email: user.email, total_points: totalPoints, level,
-        current_streak: 1, longest_streak: 1,
-        total_completions: isNowComplete ? 1 : 0, virtue_counts: newVirtueCounts,
-      });
-    }
-
-    const changeCount = virtueStates[virtueKey]?.changeCount ?? 0;
-    const item = getDailyItem(virtueKey, changeCount);
-    await base44.entities.ActivityLog.create({
-      user_email: user.email, virtue: virtueKey,
-      activity_type: item?.type || "challenge", action: "completed",
-      title: item?.title || "", text: item?.text || "",
-    });
-
-    setSaving(false);
-    if (isNowComplete) {
-      setActiveVirtue(null);
-      fireConfetti();
+      if (isNowComplete) {
+        setActiveVirtue(null);
+        fireConfetti();
+      }
+    } finally {
+      setSaving(false);
     }
   };
 
