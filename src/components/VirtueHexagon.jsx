@@ -44,9 +44,21 @@ const PETALS = [
 ];
 
 export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues = [], onVirtueClick, activeVirtue }) {
+  const activeVirtueData = activeVirtue ? VIRTUES.find(v => v.key === activeVirtue) : null;
+
   return (
-    <div className="relative flex items-center justify-center">
-      <svg width="256" height="290" viewBox="-600 -500 5867 6200" style={{ overflow: "visible" }}>
+    <div className="relative flex flex-col items-center justify-center">
+      <div className="h-8 flex items-center justify-center mb-1">
+        {activeVirtueData && (
+          <span
+            className="text-base font-bold tracking-widest uppercase"
+            style={{ color: activeVirtueData.color, fontFamily: "monospace", textShadow: `0 0 12px ${activeVirtueData.color}66` }}
+          >
+            {activeVirtueData.label}
+          </span>
+        )}
+      </div>
+      <svg width="307" height="348" viewBox="-600 -500 5867 6200" style={{ overflow: "visible" }}>
         <defs>
           {VIRTUES.map((v) => (
             <filter key={v.key} id={`glow-pw-${v.key}`} x="-40%" y="-40%" width="180%" height="180%">
