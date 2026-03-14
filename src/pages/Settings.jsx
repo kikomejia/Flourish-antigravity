@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, LogOut, Trash2, Download, Info, Mail, Shield } from "lucide-react";
+import { ChevronLeft, LogOut, Trash2, Download, Info, Mail, Shield, Camera, Check } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
 function SettingsRow({ icon, label, sublabel, onClick, danger }) {
@@ -52,6 +52,28 @@ function Section({ title, children }) {
 export default function Settings() {
   const navigate = useNavigate();
   const [confirmReset, setConfirmReset] = useState(false);
+  const [nickname, setNickname] = useState(() => localStorage.getItem("profile_nickname") || "");
+  const [photo, setPhoto] = useState(() => localStorage.getItem("profile_photo") || "");
+  const [saved, setSaved] = useState(false);
+  const fileRef = useRef();
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result;
+      setPhoto(dataUrl);
+      localStorage.setItem("profile_photo", dataUrl);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleSaveNickname = () => {
+    localStorage.setItem("profile_nickname", nickname);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
 
   const handleLogout = () => {
     base44.auth.logout();
