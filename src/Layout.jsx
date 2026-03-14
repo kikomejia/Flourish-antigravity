@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Layout({ children }) {
+  useEffect(() => {
+    document.documentElement.style.setProperty('background-color', '#050508', 'important');
+    document.body.style.setProperty('background-color', '#050508', 'important');
+  }, []);
+
   return (
-    <>
-      <style>{`
-        html, body, #root {
-          background-color: #050508 !important;
-          height: 100%;
-        }
-      `}</style>
-      <div style={{ position: "fixed", inset: 0, backgroundColor: "#050508", zIndex: -1 }} />
+    <div style={{ backgroundColor: "#050508", minHeight: "100dvh" }}>
       {children}
-    </>
+    </div>
   );
 }
