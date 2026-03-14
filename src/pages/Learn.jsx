@@ -94,13 +94,7 @@ export default function Learn() {
         <h1 className="text-xl font-bold tracking-wide" style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}>
           Learn
         </h1>
-        <button
-          onClick={() => fetchContent(true)}
-          disabled={loading}
-          className="w-8 h-8 flex items-center justify-center opacity-50 hover:opacity-80 transition-opacity"
-        >
-          <RefreshCw size={16} className={loading ? "animate-spin" : ""} />
-        </button>
+        <div className="w-8" />
       </div>
 
       <div className="px-4 pt-4">
