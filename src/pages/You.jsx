@@ -21,8 +21,8 @@ function StatCard({ icon, label, children }) {
       className="rounded-2xl p-4"
       style={{
         background: "rgba(15,5,25,0.95)",
-        border: "1px solid rgba(243,175,238,0.22)",
-        boxShadow: "0 0 14px rgba(243,175,238,0.06)",
+        border: "1px solid rgba(243,175,238,0.45)",
+        boxShadow: "0 0 14px rgba(243,175,238,0.18)",
       }}
     >
       <div className="flex items-center gap-1.5 mb-2">
