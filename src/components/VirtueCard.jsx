@@ -99,14 +99,14 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, accepted, 
             </button>
             <button
               onClick={() => { if (accepted) onComplete(virtue); }}
-              disabled={!accepted}
               className="flex-1 py-2 rounded-lg text-sm font-semibold tracking-wide transition-all duration-200"
               style={{
                 background: accepted ? `${color}22` : "rgba(255,255,255,0.03)",
                 color: accepted ? color : "rgba(255,255,255,0.2)",
                 border: `1px solid ${accepted ? color + "66" : "rgba(255,255,255,0.05)"}`,
-                cursor: accepted ? "pointer" : "not-allowed",
+                cursor: accepted ? "pointer" : "default",
                 boxShadow: accepted ? `0 0 12px ${color}33` : "none",
+                opacity: accepted ? 1 : 0.4,
               }}
             >
               Complete
