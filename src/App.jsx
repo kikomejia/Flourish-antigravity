@@ -13,6 +13,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Daily from "./pages/Daily";
 import You from "./pages/You";
 import Learn from "./pages/Learn";
+import Settings from "./pages/Settings";
 
 
 const AuthenticatedApp = () => {
