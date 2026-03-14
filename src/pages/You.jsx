@@ -53,7 +53,6 @@ export default function You() {
           setStats(statsArr[0] || { total_points: 0, current_streak: 0 });
           setActivities(acts);
         } else {
-          // Guest mode: read from localStorage
           const guestStats = JSON.parse(localStorage.getItem("guest_stats") || "{}");
           const guestActs = JSON.parse(localStorage.getItem("guest_activities") || "[]");
           setStats({ total_points: 0, current_streak: 0, ...guestStats });
