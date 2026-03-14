@@ -254,7 +254,7 @@ export default function Daily() {
         <h1 className="text-xl font-bold tracking-wide" style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}>
           Flourish
         </h1>
-        <button className="w-8 h-8 flex items-center justify-center opacity-50 hover:opacity-80 transition-opacity">
+        <button onClick={() => navigate("/Settings")} className="w-8 h-8 flex items-center justify-center opacity-50 hover:opacity-80 transition-opacity">
           <Settings size={18} />
         </button>
       </div>

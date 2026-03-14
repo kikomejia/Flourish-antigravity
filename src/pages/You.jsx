@@ -40,6 +40,7 @@ export default function You() {
   const [activities, setActivities] = useState([]);
   const [activeFilter, setActiveFilter] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const init = async () => {
