@@ -90,22 +90,6 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
                 filter={isActive || isAccepted || isCompleted ? `url(#glow-pw-${petal.key})` : undefined}
                 style={{ transition: "all 0.3s ease" }}
               />
-              <text
-                x={petal.labelX}
-                y={petal.labelY}
-                textAnchor={petal.anchor}
-                dominantBaseline="middle"
-                fill={virtue.color}
-                fillOpacity={isCompleted ? 1 : isActive ? 1 : 0.7}
-                fontSize="194"
-                fontWeight="700"
-                letterSpacing="16"
-                fontFamily="monospace"
-                transform={petal.rotation ? `rotate(${petal.rotation}, ${petal.labelX}, ${petal.labelY})` : undefined}
-                style={{ userSelect: "none", pointerEvents: "none" }}
-              >
-                {virtue.label}
-              </text>
             </g>
           );
         })}
