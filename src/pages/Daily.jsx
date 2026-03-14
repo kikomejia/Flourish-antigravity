@@ -383,26 +383,27 @@ export default function Daily() {
       {isViewingToday && (
         <>
           {!todayProgress?.is_complete && activeVirtue && (
-            <div className="px-4 pb-20 mt-2">
+            <div
+              className="fixed left-0 right-0 px-4"
+              style={{ bottom: "88px", zIndex: 40 }}
+            >
               <div
                 className="rounded-2xl p-4 transition-all duration-300"
                 style={{
-                  background: "rgba(15,5,25,0.9)",
+                  background: "rgba(15,5,25,0.97)",
                   border: `1px solid ${VIRTUE_COLORS[activeVirtue]}99`,
                   boxShadow: `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`,
                 }}
               >
-                <div className="w-full">
-                  <VirtueCard
-                    virtue={activeVirtue}
-                    isCompleted={completedVirtues.includes(activeVirtue)}
-                    onComplete={handleComplete}
-                    accepted={virtueStates[activeVirtue]?.accepted ?? false}
-                    onAccept={(val) => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], accepted: val } }))}
-                    changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
-                    onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1, accepted: false } }))}
-                  />
-                </div>
+                <VirtueCard
+                  virtue={activeVirtue}
+                  isCompleted={completedVirtues.includes(activeVirtue)}
+                  onComplete={handleComplete}
+                  accepted={virtueStates[activeVirtue]?.accepted ?? false}
+                  onAccept={(val) => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], accepted: val } }))}
+                  changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
+                  onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1, accepted: false } }))}
+                />
               </div>
             </div>
           )}
