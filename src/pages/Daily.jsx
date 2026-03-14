@@ -34,6 +34,7 @@ export default function Daily() {
   const [slideDir, setSlideDir] = useState(-1);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const navigate = useNavigate();
 
   const [selectedDate, setSelectedDate] = useState(getTodayStr());
   const [historicalProgress, setHistoricalProgress] = useState(null);
