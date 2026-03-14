@@ -98,6 +98,7 @@ export default function You() {
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <button
+          onClick={() => navigate("/Settings")}
           className="w-9 h-9 rounded-full flex items-center justify-center"
           style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}
         >
