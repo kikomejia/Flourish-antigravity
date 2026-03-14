@@ -120,16 +120,18 @@ export default function You() {
       {/* Avatar + Name */}
       <div className="flex flex-col items-center pt-4 pb-6">
         <div
-          className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold mb-3"
+          className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold mb-3 overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, #e879f933, #60efff33)",
+            background: profilePhoto ? "transparent" : "linear-gradient(135deg, #e879f933, #60efff33)",
             border: "2px solid rgba(243,175,238,0.45)",
             boxShadow: "0 0 28px rgba(243,175,238,0.18)",
           }}
         >
-          {user?.full_name?.[0]?.toUpperCase() || "?"}
+          {profilePhoto
+            ? <img src={profilePhoto} alt="profile" className="w-full h-full object-cover" />
+            : (profileNickname?.[0]?.toUpperCase() || user?.full_name?.[0]?.toUpperCase() || "?")}
         </div>
-        <h2 className="text-xl font-bold text-white">{user?.full_name || "Seeker"}</h2>
+        <h2 className="text-xl font-bold text-white">{profileNickname || user?.full_name || "Seeker"}</h2>
         <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>
           Level {level} • Path of Wisdom
         </p>
