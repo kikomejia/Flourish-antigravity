@@ -383,10 +383,7 @@ export default function Daily() {
       {isViewingToday && (
         <>
           {!todayProgress?.is_complete && activeVirtue && (
-            <div
-              className="fixed left-0 right-0 px-4"
-              style={{ bottom: "88px", zIndex: 40 }}
-            >
+            <div className="px-4 pb-28 mt-2">
               <div
                 className="rounded-2xl p-4 transition-all duration-300"
                 style={{
