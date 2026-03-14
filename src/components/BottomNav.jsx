@@ -25,15 +25,6 @@ export default function BottomNav({ active }) {
           {active === "daily" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
         </Link>
         <Link
-          to="/You"
-          className="flex flex-col items-center px-10 py-3 transition-colors"
-          style={{ color: active === "you" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
-        >
-          <User size={20} />
-          <span className="text-xs mt-0.5">You</span>
-          {active === "you" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
-        </Link>
-        <Link
           to="/Learn"
           className="flex flex-col items-center px-10 py-3 transition-colors"
           style={{ color: active === "learn" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
@@ -41,6 +32,15 @@ export default function BottomNav({ active }) {
           <BookOpen size={20} />
           <span className="text-xs mt-0.5">Learn</span>
           {active === "learn" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
+        </Link>
+        <Link
+          to="/You"
+          className="flex flex-col items-center px-10 py-3 transition-colors"
+          style={{ color: active === "you" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
+        >
+          <User size={20} />
+          <span className="text-xs mt-0.5">You</span>
+          {active === "you" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
         </Link>
       </div>
     </div>
