@@ -15,19 +15,30 @@ The user "${userName || "a seeker"}" has completed the following virtues, pledge
 
 ${activityLogs.map(act => `- Virtue: ${act.virtue}, Type: ${act.activity_type}, Title: "${act.title}", Description: "${act.text}"`).join('\n')}
 
-Based on exactly these completed activities, generate a rich, personalized learning summary. Be highly specific — reference their actual activities, not generic advice. Use a sharp, intelligent, non-motivational tone (think: philosopher meets strategist).
+Based on exactly these completed activities, generate a rich, personalized learning summary. Be highly specific — reference their actual activities, not generic advice. Use a sharp, intelligent tone that is completely free of jargon. Write as if explaining to a curious 16-year-old who has never studied philosophy or psychology. No buzzwords, no academic terms, no self-help clichés. Plain, direct, honest English only.
 
 Return a JSON object with:
-- "practical_takeaways": array of strings. Each one is a grounded, specific insight about what skill the user is actually building. Format: "Concept Name: explanation."
-- "virtues_as_functional_skills": array of objects with "virtue" (string) and "skill" (string). Map each completed virtue to a specific, real-world skill they practiced.
-- "hard_hitting_resources": array of objects with "virtue" (string), "author_source" (string), and "why_it_matters" (string). Suggest 1 book or film per virtue that directly relates to what they practiced.
-- "real_world_facts": array of strings. Each is a fascinating psychological, neuroscientific, or philosophical fact directly tied to one of their completed activities.
+- "practical_takeaways": array of objects. Each one is a grounded, specific insight about what real skill the user is building. Each object must have: "virtue" (the virtue name it relates to, e.g. "courage"), "title" (2-5 word name for the insight), "explanation" (1-2 plain English sentences explaining the skill being built).
+- "virtues_as_functional_skills": array of objects with "virtue" (string) and "skill" (string). Map each completed virtue to a specific, real-world skill they practiced. No jargon.
+- "hard_hitting_resources": array of objects with "virtue" (string), "author_source" (string), and "why_it_matters" (string). Suggest 1 book or film per virtue that directly relates to what they practiced. Explain why in plain English.
+- "real_world_facts": array of strings. Each is a fascinating, easy-to-understand fact from psychology, neuroscience, or history that directly relates to one of their completed activities. No technical terms.
 `;
 
         const response_json_schema = {
             type: "object",
             properties: {
-                practical_takeaways: { type: "array", items: { type: "string" } },
+                practical_takeaways: {
+                    type: "array",
+                    items: {
+                        type: "object",
+                        properties: {
+                            virtue: { type: "string" },
+                            title: { type: "string" },
+                            explanation: { type: "string" }
+                        },
+                        required: ["virtue", "title", "explanation"]
+                    }
+                },
                 virtues_as_functional_skills: {
                     type: "array",
                     items: {
