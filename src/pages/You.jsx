@@ -41,6 +41,8 @@ export default function You() {
   const [activeFilter, setActiveFilter] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const profileNickname = localStorage.getItem("profile_nickname") || "";
+  const profilePhoto = localStorage.getItem("profile_photo") || "";
 
   useEffect(() => {
     const init = async () => {
