@@ -9,43 +9,44 @@ const VIRTUES = [
   { key: "transcendence", label: "TRANSCENDENCE", color: "#7dd3fc" },
 ];
 
+// Labels placed outside the petal tips
 const PETALS = [
   {
     key: "transcendence",
     d: "M2333.28,2546.38c-0,-0 -982.087,-124.257 -1712.12,-0c-165.13,-6.532 -884.89,-493.869 -471.965,-1263.48c312.729,-547.051 1006.9,-521.347 1308.79,-228.583c430.052,417.047 875.295,1492.06 875.295,1492.06Z",
-    labelX: 580, labelY: 1050,
+    labelX: -380, labelY: 900, anchor: "middle",
   },
   {
     key: "temperance",
     d: "M2334.82,2548.81c0,-0 -598.949,788.158 -856.619,1482.42c-88.274,139.707 -870.343,519.075 -1330.1,-223.507c-317.191,-544.476 52.375,-1132.65 456.906,-1247.57c576.262,-163.696 1729.82,-11.345 1729.82,-11.345Z",
-    labelX: 580, labelY: 4050,
+    labelX: -380, labelY: 4200, anchor: "middle",
   },
   {
     key: "justice",
     d: "M2329.99,2550.11c-0,0 384.089,912.365 857.126,1482.13c77.012,146.216 15.469,1013.26 -857.476,1041.09c-630.122,3.148 -955.387,-610.639 -853.086,-1018.54c145.73,-581.065 853.436,-1504.67 853.436,-1504.67Z",
-    labelX: 2333, labelY: 4780,
+    labelX: 2333, labelY: 5620, anchor: "middle",
   },
   {
     key: "humanity",
     d: "M2333.28,2549.14c-0,-0 982.063,124.437 1712.12,0.315c165.128,6.562 884.798,494.032 471.732,1263.57c-312.829,546.994 -1006.99,521.162 -1308.83,228.342c-429.975,-417.126 -875.02,-1492.22 -875.02,-1492.22Z",
-    labelX: 4100, labelY: 4050,
+    labelX: 5040, labelY: 4200, anchor: "middle",
   },
   {
     key: "courage",
     d: "M2330.64,2551.1c0,0 599.991,-787.366 858.578,-1481.29c88.459,-139.59 871.028,-517.923 1329.81,225.266c316.471,544.894 -53.873,1132.58 -458.555,1246.96c-576.477,162.934 -1729.83,9.059 -1729.83,9.059Z",
-    labelX: 4100, labelY: 1050,
+    labelX: 5040, labelY: 900, anchor: "middle",
   },
   {
     key: "wisdom",
     d: "M2337.22,2546.38c0,-0 -384.778,-912.075 -858.245,-1481.48c-77.124,-146.159 -16.235,-1013.25 856.688,-1041.74c630.12,-3.624 955.849,609.918 853.856,1017.9c-145.291,581.174 -852.299,1505.32 -852.299,1505.32Z",
-    labelX: 2333, labelY: 400,
+    labelX: 2333, labelY: -280, anchor: "middle",
   },
 ];
 
 export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues = [], onVirtueClick, activeVirtue }) {
   return (
     <div className="relative flex items-center justify-center">
-      <svg width="320" height="350" viewBox="0 0 4667 5097" style={{ overflow: "visible" }}>
+      <svg width="256" height="290" viewBox="-600 -500 5867 6200" style={{ overflow: "visible" }}>
         <defs>
           {VIRTUES.map((v) => (
             <filter key={v.key} id={`glow-pw-${v.key}`} x="-40%" y="-40%" width="180%" height="180%">
@@ -80,13 +81,13 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
               <text
                 x={petal.labelX}
                 y={petal.labelY}
-                textAnchor="middle"
+                textAnchor={petal.anchor}
                 dominantBaseline="middle"
                 fill={virtue.color}
-                fillOpacity={isCompleted ? 1 : isActive ? 1 : 0.75}
-                fontSize="160"
+                fillOpacity={isCompleted ? 1 : isActive ? 1 : 0.7}
+                fontSize="155"
                 fontWeight="700"
-                letterSpacing="18"
+                letterSpacing="16"
                 fontFamily="monospace"
                 style={{ userSelect: "none", pointerEvents: "none" }}
               >
