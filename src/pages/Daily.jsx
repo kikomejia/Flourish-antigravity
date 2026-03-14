@@ -383,7 +383,7 @@ export default function Daily() {
       {isViewingToday && (
         <>
           {!todayProgress?.is_complete && (
-            <div className="px-4 pb-20 mt-4">
+            <div className="px-4 pb-20 mt-2">
               <div
                 className="rounded-2xl p-4 min-h-[90px] flex items-center justify-center transition-all duration-300"
                 style={{
