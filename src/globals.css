@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background-color: #050508 !important;
+}
+
 html, body, #root {
   background-color: #050508 !important;
 }
@@ -13,5 +21,6 @@ html, body, #root {
 
   body {
     @apply text-foreground;
+    background-color: #050508 !important;
   }
 }
