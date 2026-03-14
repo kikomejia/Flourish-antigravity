@@ -134,7 +134,11 @@ export default function Daily() {
   };
 
   const handleComplete = async (virtueKey) => {
-    if (!user || saving) return;
+    if (!user) {
+      base44.auth.redirectToLogin(window.location.pathname);
+      return;
+    }
+    if (saving) return;
     if (todayProgress.completed_virtues?.includes(virtueKey)) return;
 
     setSaving(true);
