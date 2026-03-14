@@ -302,11 +302,11 @@ export default function Daily() {
       )}
 
       {/* Hexagon */}
-      <div className="flex flex-col items-center flex-1 pt-1">
+      <div className="flex flex-col items-center justify-center flex-1 py-2">
         <VirtueHexagon
 ...
         />
-        <div className="mt-2 text-xs text-white/30 tracking-widest">
+        <div className="mt-3 text-xs text-white/30 tracking-widest">
           {completedCount}/6
           {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
         </div>
