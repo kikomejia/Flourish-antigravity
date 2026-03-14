@@ -62,6 +62,10 @@ export default function You() {
       } catch (error) {
         console.error("Failed to load user:", error);
         setUser(null);
+        const guestStats = JSON.parse(localStorage.getItem("guest_stats") || "{}");
+        const guestActs = JSON.parse(localStorage.getItem("guest_activities") || "[]");
+        setStats({ total_points: 0, current_streak: 0, ...guestStats });
+        setActivities(guestActs);
       } finally {
         setLoading(false);
       }
