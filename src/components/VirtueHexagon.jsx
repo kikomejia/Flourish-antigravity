@@ -43,7 +43,7 @@ const PETALS = [
   },
 ];
 
-export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues = [], onVirtueClick, activeVirtue }) {
+export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues = [], onVirtueClick, activeVirtue, showPrompt = true }) {
   const activeVirtueData = activeVirtue ? VIRTUES.find(v => v.key === activeVirtue) : null;
 
   return (
