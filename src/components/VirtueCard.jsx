@@ -37,7 +37,20 @@ export function getDailyItem(virtue, offset = 0) {
 
 export const MAX_CHANGES = 3;
 
-export default function VirtueCard({ virtue, isCompleted, onComplete, accepted, onAccept, changeCount, onChange }) {
+export default function VirtueCard({ virtue, isCompleted, onComplete, accepted: acceptedProp, onAccept, changeCount, onChange }) {
+  const [localAccepted, setLocalAccepted] = React.useState(!!acceptedProp);
+  const accepted = localAccepted;
+
+  React.useEffect(() => {
+    setLocalAccepted(!!acceptedProp);
+  }, [acceptedProp]);
+
+  const handleAccept = () => {
+    const next = !localAccepted;
+    setLocalAccepted(next);
+    onAccept?.(next);
+  };
+
   const color = VIRTUE_COLORS[virtue];
   const item = getDailyItem(virtue, changeCount ?? 0);
   const canChange = (changeCount ?? 0) < MAX_CHANGES;
