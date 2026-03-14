@@ -152,6 +152,9 @@ export default function Daily() {
     // Persist to localStorage for guest users
     if (!user) {
       try {
+        // Save today's progress so it survives navigation
+        localStorage.setItem("guest_progress_" + todayStr, JSON.stringify(updated));
+
         const prevStats = JSON.parse(localStorage.getItem("guest_stats") || "{}");
         const prevCounts = prevStats.virtue_counts || {};
         const totalPoints = (prevStats.total_points || 0) + POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
