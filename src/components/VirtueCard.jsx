@@ -68,20 +68,17 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, accepted, 
 
       {!isCompleted && (
         <div className="space-y-2">
-          <label className="flex items-center gap-2 cursor-pointer text-sm text-white/60 hover:text-white/90 transition-colors">
-            <input
-              type="checkbox"
-              checked={!!accepted}
-              onChange={(e) => onAccept?.(e.target.checked)}
-              className="hidden"
-            />
+          <button
+            onClick={() => onAccept?.(!accepted)}
+            className="flex items-center gap-2 cursor-pointer text-sm text-white/60 hover:text-white/90 transition-colors w-full text-left"
+          >
             {accepted ? (
               <CheckCircle size={16} style={{ color }} />
             ) : (
               <Circle size={16} className="opacity-40" />
             )}
             I accept this {item?.type}
-          </label>
+          </button>
 
           <div className="flex gap-2">
             <button
