@@ -40,6 +40,7 @@ const AuthenticatedApp = () => {
       <Route path="/" element={<Navigate to="/Daily" replace />} />
       <Route path="/Daily" element={<Daily />} />
       <Route path="/You" element={<You />} />
+      <Route path="/Learn" element={<Learn />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
