@@ -4,16 +4,12 @@ export default function Layout({ children }) {
   return (
     <>
       <style>{`
-        html {
+        html, body, #root {
           background-color: #050508 !important;
           height: 100%;
         }
-        body, #root {
-          background-color: #050508 !important;
-          min-height: 100%;
-          min-height: -webkit-fill-available;
-        }
       `}</style>
+      <div style={{ position: "fixed", inset: 0, backgroundColor: "#050508", zIndex: -1 }} />
       {children}
     </>
   );
