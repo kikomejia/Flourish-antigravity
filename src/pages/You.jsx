@@ -42,15 +42,23 @@ export default function You() {
 
   useEffect(() => {
     const init = async () => {
-      const u = await base44.auth.me();
-      setUser(u);
-      const [statsArr, acts] = await Promise.all([
-        base44.entities.UserStats.filter({ user_email: u.email }),
-        base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 100),
-      ]);
-      setStats(statsArr[0] || { total_points: 0, current_streak: 0 });
-      setActivities(acts);
-      setLoading(false);
+      try {
+        const u = await base44.auth.me();
+        setUser(u);
+        if (u?.email) {
+          const [statsArr, acts] = await Promise.all([
+            base44.entities.UserStats.filter({ user_email: u.email }),
+            base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 100),
+          ]);
+          setStats(statsArr[0] || { total_points: 0, current_streak: 0 });
+          setActivities(acts);
+        }
+      } catch (error) {
+        console.error("Failed to load user:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
     };
     init();
   }, []);
