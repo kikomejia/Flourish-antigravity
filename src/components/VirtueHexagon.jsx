@@ -59,7 +59,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
         ) : (
           <span
             className="text-base font-bold tracking-widest"
-            style={{ color: "#f3afee", fontFamily: "monospace", textShadow: "0 0 12px #f3afee44", opacity: 0.7 }}
+            style={{ color: "#f3afee", fontFamily: "monospace", textShadow: "0 0 20px #f3afee55" }}
           >
             TAP ON A PETAL TO START
           </span>
