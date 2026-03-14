@@ -95,7 +95,7 @@ export default function Learn() {
           Learn
         </h1>
         <button
-          onClick={fetchContent}
+          onClick={() => fetchContent(true)}
           disabled={loading}
           className="w-8 h-8 flex items-center justify-center opacity-50 hover:opacity-80 transition-opacity"
         >
