@@ -141,6 +141,66 @@ export default function Settings() {
       </div>
 
       <div className="px-4">
+        {/* Profile section */}
+        <div className="mb-6">
+          <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: "rgba(243,175,238,0.5)" }}>Profile</p>
+          <div className="rounded-2xl p-5" style={{ background: "rgba(15,5,25,0.95)", border: "1px solid rgba(243,175,238,0.12)" }}>
+            {/* Photo */}
+            <div className="flex flex-col items-center mb-5">
+              <div className="relative">
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden"
+                  style={{
+                    background: photo ? "transparent" : "linear-gradient(135deg, #e879f933, #60efff33)",
+                    border: "2px solid rgba(243,175,238,0.45)",
+                    boxShadow: "0 0 28px rgba(243,175,238,0.18)",
+                  }}
+                >
+                  {photo
+                    ? <img src={photo} alt="profile" className="w-full h-full object-cover" />
+                    : <span className="text-2xl font-bold">{nickname?.[0]?.toUpperCase() || "?"}</span>
+                  }
+                </div>
+                <button
+                  onClick={() => fileRef.current.click()}
+                  className="absolute bottom-0 right-0 w-7 h-7 rounded-full flex items-center justify-center"
+                  style={{ background: "#f3afee", boxShadow: "0 0 10px #f3afee88" }}
+                >
+                  <Camera size={13} style={{ color: "#1a0a1a" }} />
+                </button>
+              </div>
+              <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
+              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.3)" }}>Tap camera to change photo</p>
+            </div>
+
+            {/* Nickname */}
+            <div>
+              <p className="text-xs font-semibold mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>How should we call you?</p>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={nickname}
+                  onChange={e => setNickname(e.target.value)}
+                  placeholder="Enter your name..."
+                  className="flex-1 px-4 py-2.5 rounded-xl text-sm outline-none"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(243,175,238,0.2)",
+                    color: "white",
+                  }}
+                />
+                <button
+                  onClick={handleSaveNickname}
+                  className="px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all"
+                  style={{ background: saved ? "rgba(134,239,172,0.2)" : "#f3afee22", border: `1px solid ${saved ? "#86efac88" : "#f3afee55"}`, color: saved ? "#86efac" : "#f3afee" }}
+                >
+                  {saved ? <Check size={14} /> : "Save"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <Section title="Account">
           <SettingsRow icon={<LogOut />} label="Sign Out" sublabel="Log out of your account" onClick={handleLogout} />
         </Section>
