@@ -9,197 +9,103 @@ const VIRTUES = [
   { key: "transcendence", label: "TRANSCENDENCE", color: "#7dd3fc" },
 ];
 
-// Hexagon vertices (flat-top), center 160,160, radius 120
-const R = 120;
-const CX = 160;
-const CY = 160;
-
-function hexVertex(i) {
-  // Flat-top hexagon: first vertex at top-left of WISDOM edge
-  // Rotate by -90 degrees so top edge is horizontal (WISDOM at top)
-  const angle = (Math.PI / 3) * i - (2 * Math.PI / 3);
-  return [CX + R * Math.cos(angle), CY + R * Math.sin(angle)];
-}
-
-const vertices = Array.from({ length: 6 }, (_, i) => hexVertex(i));
-
-// Edge i goes from vertex i to vertex (i+1)%6
-// Map virtue index to edge:
-// 0=wisdom(top edge=0: v0→v1), 1=courage(top-right=1: v1→v2), 2=humanity(bottom-right=2: v2→v3)
-// 3=justice(bottom=3: v3→v4), 4=temperance(bottom-left=4: v4→v5), 5=transcendence(top-left=5: v5→v0)
-
-function edgeLabelPos(i) {
-  const [x1, y1] = vertices[i];
-  const [x2, y2] = vertices[(i + 1) % 6];
-  const mx = (x1 + x2) / 2;
-  const my = (y1 + y2) / 2;
-  // Push label outward from center
-  const dx = mx - CX;
-  const dy = my - CY;
-  const len = Math.sqrt(dx * dx + dy * dy);
-  return { x: mx + (dx / len) * 26, y: my + (dy / len) * 26 };
-}
-
-function edgeAngle(i) {
-  const [x1, y1] = vertices[i];
-  const [x2, y2] = vertices[(i + 1) % 6];
-  let angle = (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
-  // Prevent upside-down text
-  if (angle > 90 || angle < -90) angle += 180;
-  return angle;
-}
+const PETALS = [
+  {
+    key: "transcendence",
+    d: "M2333.28,2546.38c-0,-0 -982.087,-124.257 -1712.12,-0c-165.13,-6.532 -884.89,-493.869 -471.965,-1263.48c312.729,-547.051 1006.9,-521.347 1308.79,-228.583c430.052,417.047 875.295,1492.06 875.295,1492.06Z",
+    labelX: 580, labelY: 1050,
+  },
+  {
+    key: "temperance",
+    d: "M2334.82,2548.81c0,-0 -598.949,788.158 -856.619,1482.42c-88.274,139.707 -870.343,519.075 -1330.1,-223.507c-317.191,-544.476 52.375,-1132.65 456.906,-1247.57c576.262,-163.696 1729.82,-11.345 1729.82,-11.345Z",
+    labelX: 580, labelY: 4050,
+  },
+  {
+    key: "justice",
+    d: "M2329.99,2550.11c-0,0 384.089,912.365 857.126,1482.13c77.012,146.216 15.469,1013.26 -857.476,1041.09c-630.122,3.148 -955.387,-610.639 -853.086,-1018.54c145.73,-581.065 853.436,-1504.67 853.436,-1504.67Z",
+    labelX: 2333, labelY: 4780,
+  },
+  {
+    key: "humanity",
+    d: "M2333.28,2549.14c-0,-0 982.063,124.437 1712.12,0.315c165.128,6.562 884.798,494.032 471.732,1263.57c-312.829,546.994 -1006.99,521.162 -1308.83,228.342c-429.975,-417.126 -875.02,-1492.22 -875.02,-1492.22Z",
+    labelX: 4100, labelY: 4050,
+  },
+  {
+    key: "courage",
+    d: "M2330.64,2551.1c0,0 599.991,-787.366 858.578,-1481.29c88.459,-139.59 871.028,-517.923 1329.81,225.266c316.471,544.894 -53.873,1132.58 -458.555,1246.96c-576.477,162.934 -1729.83,9.059 -1729.83,9.059Z",
+    labelX: 4100, labelY: 1050,
+  },
+  {
+    key: "wisdom",
+    d: "M2337.22,2546.38c0,-0 -384.778,-912.075 -858.245,-1481.48c-77.124,-146.159 -16.235,-1013.25 856.688,-1041.74c630.12,-3.624 955.849,609.918 853.856,1017.9c-145.291,581.174 -852.299,1505.32 -852.299,1505.32Z",
+    labelX: 2333, labelY: 400,
+  },
+];
 
 export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues = [], onVirtueClick, activeVirtue }) {
-  const polygonPoints = vertices.map(([x, y]) => `${x},${y}`).join(" ");
-
   return (
     <div className="relative flex items-center justify-center">
-      <svg width="320" height="320" viewBox="0 0 320 320">
+      <svg width="320" height="350" viewBox="0 0 4667 5097" style={{ overflow: "visible" }}>
         <defs>
           {VIRTUES.map((v) => (
-            <filter key={v.key} id={`glow-${v.key}`} filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="320">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+            <filter key={v.key} id={`glow-pw-${v.key}`} x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="80" result="coloredBlur" />
               <feMerge>
                 <feMergeNode in="coloredBlur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
           ))}
-          <filter id="glow-fill" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="8" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <filter id="glow-accepted" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="320">
-            <feGaussianBlur stdDeviation="5" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
         </defs>
 
-        {/* Dark background polygon */}
-        <polygon
-          points={polygonPoints}
-          fill="rgba(10,10,20,0.95)"
-          stroke="rgba(255,255,255,0.05)"
-          strokeWidth="1"
-        />
+        {PETALS.map((petal) => {
+          const virtue = VIRTUES.find((v) => v.key === petal.key);
+          const isCompleted = completedVirtues.includes(petal.key);
+          const isAccepted = acceptedVirtues.includes(petal.key);
+          const isActive = activeVirtue === petal.key;
 
-        {/* Completed fill triangles */}
-        {VIRTUES.map((virtue, i) => {
-          if (!completedVirtues.includes(virtue.key)) return null;
-          const [x1, y1] = vertices[i];
-          const [x2, y2] = vertices[(i + 1) % 6];
           return (
-            <polygon
-              key={`fill-${virtue.key}`}
-              points={`${CX},${CY} ${x1},${y1} ${x2},${y2}`}
-              fill={virtue.color}
-              fillOpacity="0.12"
-              filter="url(#glow-fill)"
-            />
-          );
-        })}
-
-        {/* Clickable triangles */}
-        {VIRTUES.map((virtue, i) => {
-          const [x1, y1] = vertices[i];
-          const [x2, y2] = vertices[(i + 1) % 6];
-          return (
-            <polygon
-              key={`tri-${virtue.key}`}
-              points={`${CX},${CY} ${x1},${y1} ${x2},${y2}`}
-              fill="transparent"
-              style={{ cursor: "pointer" }}
-              onClick={() => onVirtueClick(virtue.key)}
-            />
-          );
-        })}
-
-        {/* Edges - clickable */}
-        {VIRTUES.map((virtue, i) => {
-          const [x1, y1] = vertices[i];
-          const [x2, y2] = vertices[(i + 1) % 6];
-          const isCompleted = completedVirtues.includes(virtue.key);
-          const isAccepted = acceptedVirtues.includes(virtue.key);
-          const isActive = activeVirtue === virtue.key;
-          return (
-            <g key={virtue.key} onClick={() => onVirtueClick(virtue.key)} style={{ cursor: "pointer" }}>
-              {/* Wider invisible hit area */}
-              <line
-                x1={x1} y1={y1} x2={x2} y2={y2}
-                stroke="transparent"
-                strokeWidth="20"
-              />
-              {/* Accepted inner triangle sides (center to each vertex) */}
-              {isAccepted && !isCompleted && (
-                <>
-                  <line
-                    x1={CX} y1={CY} x2={x1} y2={y1}
-                    stroke={virtue.color}
-                    strokeWidth="1.5"
-                    strokeOpacity="0.6"
-                    filter="url(#glow-accepted)"
-                  />
-                  <line
-                    x1={CX} y1={CY} x2={x2} y2={y2}
-                    stroke={virtue.color}
-                    strokeWidth="1.5"
-                    strokeOpacity="0.6"
-                    filter="url(#glow-accepted)"
-                  />
-                </>
-              )}
-              {/* Visible outer edge */}
-              <line
-                x1={x1} y1={y1} x2={x2} y2={y2}
+            <g key={petal.key} onClick={() => onVirtueClick(petal.key)} style={{ cursor: "pointer" }}>
+              <path
+                d={petal.d}
+                fill={isCompleted ? `${virtue.color}20` : isAccepted ? `${virtue.color}0e` : "rgba(10,10,20,0.6)"}
                 stroke={virtue.color}
-                strokeWidth={isActive ? 4 : isCompleted ? 3 : isAccepted ? 2.5 : 2}
-                strokeOpacity={isCompleted ? 1 : isActive ? 0.9 : isAccepted ? 0.95 : 0.8}
-                filter={isAccepted && !isCompleted ? "url(#glow-accepted)" : `url(#glow-${virtue.key})`}
+                strokeWidth={isActive ? 90 : isCompleted ? 75 : isAccepted ? 65 : 46.3}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeOpacity={isCompleted ? 1 : isActive ? 1 : isAccepted ? 0.95 : 0.7}
+                filter={isActive || isAccepted || isCompleted ? `url(#glow-pw-${petal.key})` : undefined}
+                style={{ transition: "all 0.3s ease" }}
               />
-              {/* Vertex dots */}
-              <circle cx={x1} cy={y1} r="3" fill={virtue.color} fillOpacity={isCompleted ? 1 : 0.75} />
+              <text
+                x={petal.labelX}
+                y={petal.labelY}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={virtue.color}
+                fillOpacity={isCompleted ? 1 : isActive ? 1 : 0.75}
+                fontSize="160"
+                fontWeight="700"
+                letterSpacing="18"
+                fontFamily="monospace"
+                style={{ userSelect: "none", pointerEvents: "none" }}
+              >
+                {virtue.label}
+              </text>
             </g>
           );
         })}
 
-        {/* Close the last vertex dot */}
-        <circle cx={vertices[0][0]} cy={vertices[0][1]} r="3"
-          fill={completedVirtues.includes("wisdom") ? VIRTUES[0].color : VIRTUES[0].color}
-          fillOpacity={completedVirtues.includes("wisdom") ? 1 : 0.4}
+        {/* Decorative accent line on transcendence */}
+        <path
+          d="M2333.28,2546.38c-76.921,-226.496 -616.856,-1290.84 -908.264,-1521.33"
+          fill="none"
+          stroke="#7dd3fc"
+          strokeWidth="46.3"
+          strokeLinecap="round"
+          strokeOpacity="0.4"
+          style={{ pointerEvents: "none" }}
         />
-
-        {/* Virtue labels */}
-        {VIRTUES.map((virtue, i) => {
-          const pos = edgeLabelPos(i);
-          const angle = edgeAngle(i);
-          const isCompleted = completedVirtues.includes(virtue.key);
-          return (
-            <text
-              key={`label-${virtue.key}`}
-              x={pos.x}
-              y={pos.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill={virtue.color}
-              fillOpacity={isCompleted ? 1 : 0.85}
-              fontSize="7"
-              fontWeight="600"
-              letterSpacing="1.5"
-              fontFamily="monospace"
-              transform={`rotate(${angle}, ${pos.x}, ${pos.y})`}
-              style={{ cursor: "pointer", userSelect: "none" }}
-              onClick={() => onVirtueClick(virtue.key)}
-            >
-              {virtue.label}
-            </text>
-          );
-        })}
       </svg>
     </div>
   );
