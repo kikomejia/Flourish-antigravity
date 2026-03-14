@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { generateLearningContent } from "@/functions/generateLearningContent";
 import BottomNav from "@/components/BottomNav";
-import { BookOpen, Lightbulb, Zap, FlaskConical, RefreshCw } from "lucide-react";
+import { BookOpen, Lightbulb, Zap, FlaskConical } from "lucide-react";
 import { VIRTUE_COLORS } from "@/components/VirtueCard";
 import { format } from "date-fns";
 
