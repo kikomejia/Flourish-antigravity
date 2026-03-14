@@ -417,7 +417,7 @@ export default function Daily() {
 
           {todayProgress?.is_complete && (
             <div className="px-4 pb-24">
-              <div className="flex items-center gap-2 mb-4 mt-2">
+              <div className="flex items-center gap-2 mb-4 mt-8">
                 <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
                 <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#f3afee" }}>Today's Achievements</span>
                 <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
