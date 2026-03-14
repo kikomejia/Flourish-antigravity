@@ -31,37 +31,50 @@ export default function Learn() {
   const [loading, setLoading] = useState(true);
   const [hasActivities, setHasActivities] = useState(false);
 
-  const fetchContent = async () => {
-    setLoading(true);
-    setContent(null);
-    try {
-      let activityLogs = [];
-      let userName = "Seeker";
+  const CACHE_KEY = `learn_cache_${getTodayStr()}`;
 
-      try {
-        const u = await base44.auth.me();
-        if (u?.email) {
-          userName = u.full_name || "Seeker";
-          activityLogs = await base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 50);
-          // Only today's
-          activityLogs = activityLogs.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr());
-        }
-      } catch {
-        // Guest user
-        const all = JSON.parse(localStorage.getItem("guest_activities") || "[]");
+  const getTodayActivities = async () => {
+    let activityLogs = [];
+    let userName = "Seeker";
+    try {
+      const u = await base44.auth.me();
+      if (u?.email) {
+        userName = u.full_name || "Seeker";
+        const all = await base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 50);
         activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr());
       }
+    } catch {
+      const all = JSON.parse(localStorage.getItem("guest_activities") || "[]");
+      activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr());
+    }
+    return { activityLogs, userName };
+  };
 
-      if (activityLogs.length === 0) {
-        setHasActivities(false);
-        setLoading(false);
-        return;
-      }
+  const fetchContent = async (force = false) => {
+    const { activityLogs, userName } = await getTodayActivities();
 
-      setHasActivities(true);
+    if (activityLogs.length === 0) {
+      setHasActivities(false);
+      setLoading(false);
+      return;
+    }
 
+    setHasActivities(true);
+
+    // Check cache
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+    if (!force && cached && cached.activityCount === activityLogs.length) {
+      setContent(cached.content);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    try {
       const res = await generateLearningContent({ activityLogs, userName });
-      setContent(res.data);
+      const newContent = res.data;
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ content: newContent, activityCount: activityLogs.length }));
+      setContent(newContent);
     } catch (e) {
       console.error(e);
     } finally {
