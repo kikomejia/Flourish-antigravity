@@ -89,6 +89,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
                 fontWeight="700"
                 letterSpacing="16"
                 fontFamily="monospace"
+                transform={petal.rotation ? `rotate(${petal.rotation}, ${petal.labelX}, ${petal.labelY})` : undefined}
                 style={{ userSelect: "none", pointerEvents: "none" }}
               >
                 {virtue.label}
