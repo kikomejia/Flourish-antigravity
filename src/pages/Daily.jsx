@@ -134,7 +134,7 @@ export default function Daily() {
   };
 
   const handleComplete = async (virtueKey) => {
-    if (!user || !todayProgress || saving) return;
+    if (!user || saving) return;
     if (todayProgress.completed_virtues?.includes(virtueKey)) return;
 
     setSaving(true);
