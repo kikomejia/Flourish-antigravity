@@ -304,7 +304,10 @@ export default function Daily() {
       {/* Hexagon */}
       <div className="flex flex-col items-center justify-center flex-1 py-2">
         <VirtueHexagon
-...
+          completedVirtues={completedVirtues}
+          acceptedVirtues={isViewingToday ? Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k) : []}
+          onVirtueClick={handleVirtueClick}
+          activeVirtue={isViewingToday ? activeVirtue : null}
         />
         <div className="mt-3 text-xs text-white/30 tracking-widest">
           {completedCount}/6
