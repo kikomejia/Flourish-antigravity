@@ -302,14 +302,11 @@ export default function Daily() {
       )}
 
       {/* Hexagon */}
-      <div className="flex flex-col items-center flex-1 pt-2">
+      <div className="flex flex-col items-center flex-1 pt-1">
         <VirtueHexagon
-          completedVirtues={completedVirtues}
-          acceptedVirtues={isViewingToday ? Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k) : []}
-          onVirtueClick={handleVirtueClick}
-          activeVirtue={isViewingToday ? activeVirtue : null}
+...
         />
-        <div className="mt-6 text-xs text-white/30 tracking-widest">
+        <div className="mt-2 text-xs text-white/30 tracking-widest">
           {completedCount}/6
           {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
         </div>
