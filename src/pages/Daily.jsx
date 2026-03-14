@@ -149,8 +149,29 @@ export default function Daily() {
       fireConfetti();
     }
 
-    // Persist to DB only if logged in
-    if (!user) return;
+    // Persist to localStorage for guest users
+    if (!user) {
+      try {
+        const prevStats = JSON.parse(localStorage.getItem("guest_stats") || "{}");
+        const prevCounts = prevStats.virtue_counts || {};
+        const totalPoints = (prevStats.total_points || 0) + POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
+        const newStats = {
+          total_points: totalPoints,
+          level: Math.floor(totalPoints / 100) + 1,
+          total_completions: (prevStats.total_completions || 0) + (isNowComplete ? 1 : 0),
+          virtue_counts: { ...prevCounts, [virtueKey]: (prevCounts[virtueKey] || 0) + 1 },
+          current_streak: prevStats.current_streak || 1,
+        };
+        localStorage.setItem("guest_stats", JSON.stringify(newStats));
+
+        const changeCount = virtueStates[virtueKey]?.changeCount ?? 0;
+        const item = getDailyItem(virtueKey, changeCount);
+        const prevActs = JSON.parse(localStorage.getItem("guest_activities") || "[]");
+        prevActs.unshift({ id: Date.now(), virtue: virtueKey, activity_type: item?.type || "challenge", action: "completed", title: item?.title || "", text: item?.text || "", created_date: new Date().toISOString() });
+        localStorage.setItem("guest_activities", JSON.stringify(prevActs.slice(0, 200)));
+      } catch {}
+      return;
+    }
 
     setSaving(true);
     try {
