@@ -63,10 +63,18 @@ export default function Daily() {
 
   useEffect(() => {
     const init = async () => {
-      const u = await base44.auth.me();
-      setUser(u);
-      await loadTodayProgress(u.email);
-      setLoading(false);
+      try {
+        const u = await base44.auth.me();
+        setUser(u);
+        if (u?.email) {
+          await loadTodayProgress(u.email);
+        }
+      } catch (error) {
+        console.error("Failed to load user:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
     };
     init();
   }, []);
