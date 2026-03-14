@@ -134,31 +134,38 @@ export default function Daily() {
   };
 
   const handleComplete = async (virtueKey) => {
-    if (!user) {
-      base44.auth.redirectToLogin(window.location.pathname);
-      return;
-    }
     if (saving) return;
     if (todayProgress.completed_virtues?.includes(virtueKey)) return;
 
+    const newCompleted = [...(todayProgress.completed_virtues || []), virtueKey];
+    const isNowComplete = newCompleted.length === 6;
+    const pointsEarned = newCompleted.length * POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
+    const updated = { ...todayProgress, completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete };
+
+    // Optimistically update UI immediately (works with or without a user)
+    setTodayProgress(updated);
+    if (isNowComplete) {
+      setActiveVirtue(null);
+      fireConfetti();
+    }
+
+    // Persist to DB only if logged in
+    if (!user) return;
+
     setSaving(true);
     try {
-      const newCompleted = [...(todayProgress.completed_virtues || []), virtueKey];
-      const isNowComplete = newCompleted.length === 6;
-      const pointsEarned = newCompleted.length * POINTS_PER_VIRTUE + (isNowComplete ? BONUS_POINTS : 0);
-
-      let updated;
+      let saved;
       if (todayProgress.id) {
-        updated = await base44.entities.DailyProgress.update(todayProgress.id, {
+        saved = await base44.entities.DailyProgress.update(todayProgress.id, {
           completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete,
         });
       } else {
-        updated = await base44.entities.DailyProgress.create({
+        saved = await base44.entities.DailyProgress.create({
           user_email: user.email, date: todayStr,
           completed_virtues: newCompleted, points_earned: pointsEarned, is_complete: isNowComplete,
         });
       }
-      setTodayProgress(updated);
+      setTodayProgress(saved);
 
       const statsArr = await base44.entities.UserStats.filter({ user_email: user.email });
       const existingStats = statsArr[0];
@@ -188,11 +195,6 @@ export default function Daily() {
         activity_type: item?.type || "challenge", action: "completed",
         title: item?.title || "", text: item?.text || "",
       });
-
-      if (isNowComplete) {
-        setActiveVirtue(null);
-        fireConfetti();
-      }
     } finally {
       setSaving(false);
     }
