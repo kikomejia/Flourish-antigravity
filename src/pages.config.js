@@ -49,6 +49,7 @@
  */
 import Daily from './pages/Daily';
 import You from './pages/You';
+import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
@@ -59,4 +60,5 @@ export const PAGES = {
 export const pagesConfig = {
     mainPage: "Daily",
     Pages: PAGES,
+    Layout: __Layout,
 };
