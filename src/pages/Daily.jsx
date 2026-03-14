@@ -261,36 +261,34 @@ export default function Daily() {
 
       {/* Week calendar */}
       <div className="px-4 pb-3">
-        {/* Month label */}
-        <div className="text-center mb-2">
-          <span className="text-xs text-white/40 tracking-widest uppercase">
+        {/* Month label with arrows */}
+        <div className="flex items-center justify-between mb-3">
+          <button
+            onClick={() => changeWeek(-1)}
+            className="w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity"
+            style={{ color: "rgba(255,255,255,0.6)" }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.55)" }}>
             {format(weekStart, "MMMM yyyy")}
           </span>
+          <button
+            onClick={() => changeWeek(1)}
+            disabled={weekOffset >= 0}
+            className="w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100 disabled:opacity-20 transition-opacity"
+            style={{ color: "rgba(255,255,255,0.6)" }}
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
 
         <div>
-          {/* Day labels row with arrows aligned to M and S */}
+          {/* Day labels row */}
           <div className="grid grid-cols-7 gap-1 mb-1">
             {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-              <div key={i} className="relative flex items-center justify-center text-xs text-white/25 pb-1">
-                {i === 0 && (
-                  <button
-                    onClick={() => changeWeek(-1)}
-                    className="absolute left-0 opacity-50 hover:opacity-90 transition-opacity"
-                  >
-                    <ChevronLeft size={14} />
-                  </button>
-                )}
+              <div key={i} className="flex items-center justify-center text-xs pb-1" style={{ color: "rgba(255,255,255,0.45)" }}>
                 <span>{d}</span>
-                {i === 6 && (
-                  <button
-                    onClick={() => changeWeek(1)}
-                    disabled={weekOffset >= 0}
-                    className="absolute right-0 opacity-50 hover:opacity-90 disabled:opacity-15 transition-opacity"
-                  >
-                    <ChevronRight size={14} />
-                  </button>
-                )}
               </div>
             ))}
           </div>
