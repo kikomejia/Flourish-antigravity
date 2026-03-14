@@ -122,13 +122,12 @@ export default function Learn() {
             <Section icon={<Lightbulb size={13} style={{ color: "#f3afee" }} />} title="Practical Takeaways">
               <div className="space-y-3">
                 {content.practical_takeaways?.map((item, i) => {
-                  const [title, ...rest] = item.split(":");
+                  const color = VIRTUE_COLORS[item.virtue?.toLowerCase()] || "#f3afee";
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: "rgba(243,175,238,0.05)", border: "1px solid rgba(243,175,238,0.12)" }}>
-                      <p className="text-sm text-white/80 leading-relaxed">
-                        <span className="font-bold text-white">{title}:</span>
-                        {rest.join(":")}
-                      </p>
+                    <div key={i} className="rounded-xl p-4" style={{ background: `${color}0d`, border: `1px solid ${color}33` }}>
+                      <p className="text-xs font-bold tracking-widest uppercase mb-1" style={{ color }}>{item.virtue}</p>
+                      <p className="text-sm font-semibold text-white mb-1">{item.title}</p>
+                      <p className="text-sm text-white/65 leading-relaxed">{item.explanation}</p>
                     </div>
                   );
                 })}
