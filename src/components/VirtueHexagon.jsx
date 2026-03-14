@@ -56,14 +56,14 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
           >
             {activeVirtueData.label}
           </span>
-        ) : (
+        ) : showPrompt ? (
           <span
             className="text-base font-bold tracking-widest"
             style={{ color: "#f3afee", fontFamily: "monospace", textShadow: "0 0 20px #f3afee55" }}
           >
             TAP ON A PETAL TO START
           </span>
-        )}
+        ) : null}
       </div>
       <svg width="307" height="348" viewBox="-600 -500 5867 6200" style={{ overflow: "visible" }}>
         <defs>
