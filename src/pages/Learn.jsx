@@ -111,9 +111,9 @@ export default function Learn() {
           </div>
         ) : !hasActivities ? (
           <div className="flex flex-col items-center justify-center py-32 gap-3 text-center">
-            <BookOpen size={32} className="opacity-20" />
-            <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
-              Complete some virtues today to unlock your learning insights.
+            <BookOpen size={32} style={{ color: "#f3afee" }} />
+            <p className="text-sm" style={{ color: "#f3afee" }}>
+              Take on today's pledges and challenges to unlock your learning insights.
             </p>
           </div>
         ) : content ? (
