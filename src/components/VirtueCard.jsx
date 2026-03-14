@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CheckCircle, Circle } from "lucide-react";
 import VIRTUE_CONTENT from "./virtueContent";
 
@@ -82,7 +82,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, accepted: 
       {!isCompleted && (
         <div className="space-y-2">
           <button
-            onClick={() => onAccept?.(!accepted)}
+            onClick={handleAccept}
             className="flex items-center gap-2 cursor-pointer text-sm text-white/60 hover:text-white/90 transition-colors w-full text-left"
           >
             {accepted ? (
