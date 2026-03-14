@@ -39,7 +39,7 @@ const PETALS = [
   {
     key: "wisdom",
     d: "M2337.22,2546.38c0,-0 -384.778,-912.075 -858.245,-1481.48c-77.124,-146.159 -16.235,-1013.25 856.688,-1041.74c630.12,-3.624 955.849,609.918 853.856,1017.9c-145.291,581.174 -852.299,1505.32 -852.299,1505.32Z",
-    labelX: 2333, labelY: -280, anchor: "middle", rotation: 0,
+    labelX: 2333, labelY: -524, anchor: "middle", rotation: 0,
   },
 ];
 
@@ -85,7 +85,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
                 dominantBaseline="middle"
                 fill={virtue.color}
                 fillOpacity={isCompleted ? 1 : isActive ? 1 : 0.7}
-                fontSize="155"
+                fontSize="194"
                 fontWeight="700"
                 letterSpacing="16"
                 fontFamily="monospace"
