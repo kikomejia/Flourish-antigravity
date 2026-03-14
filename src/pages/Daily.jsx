@@ -365,7 +365,7 @@ export default function Daily() {
       </div>
 
       {/* Historical view */}
-      {!isViewingToday && (
+      {!isViewingToday && !historicalLoading && (
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedDate}
@@ -375,11 +375,7 @@ export default function Daily() {
             transition={{ type: "spring", stiffness: 260, damping: 28 }}
             className="px-4 pb-24 mt-2"
           >
-            {historicalLoading ? (
-              <div className="flex justify-center py-8">
-                <div className="w-6 h-6 border-2 border-white/20 border-t-white/60 rounded-full animate-spin" />
-              </div>
-            ) : completedVirtues.length === 0 ? (
+            {completedVirtues.length === 0 ? (
               <div className="text-center py-8 text-sm" style={{ color: "rgba(255,255,255,0.25)" }}>
                 No virtues completed on this day
               </div>
