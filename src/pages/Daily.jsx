@@ -364,7 +364,7 @@ export default function Daily() {
       )}
 
       {/* Hexagon */}
-      <div className="flex flex-col items-center justify-center py-0">
+      <div className="flex flex-col items-center justify-center" style={{ marginTop: "-14px", marginBottom: "-14px" }}>
         <VirtueHexagon
           completedVirtues={completedVirtues}
           acceptedVirtues={isViewingToday ? Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k) : []}
@@ -373,7 +373,7 @@ export default function Daily() {
           showPrompt={isViewingToday}
         />
         {isViewingToday && activeVirtue && VIRTUE_CULTIVATE[activeVirtue] && (
-          <p className="mt-0 text-xs text-center px-6 leading-relaxed" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
+          <p className="mt-0 text-sm text-center px-6 leading-relaxed" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
             {VIRTUE_CULTIVATE[activeVirtue]}
           </p>
         )}
