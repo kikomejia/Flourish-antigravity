@@ -355,9 +355,9 @@ export default function Daily() {
           <p className="text-sm font-bold tracking-widest uppercase mb-1" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
             {activeVirtue}
           </p>
-          {VIRTUE_CULTIVATE[activeVirtue] && (
+          {VIRTUE_DEFINITIONS[activeVirtue] && (
             <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-              {VIRTUE_CULTIVATE[activeVirtue]}
+              {VIRTUE_DEFINITIONS[activeVirtue]}
             </p>
           )}
         </div>
