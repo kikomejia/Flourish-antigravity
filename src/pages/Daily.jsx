@@ -373,7 +373,7 @@ export default function Daily() {
           showPrompt={isViewingToday}
         />
         {isViewingToday && activeVirtue && VIRTUE_CULTIVATE[activeVirtue] && (
-          <p className="mt-0 text-sm text-center px-6 leading-relaxed" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
+          <p className="mt-0 mb-3 text-sm text-center px-6 leading-relaxed" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
             {VIRTUE_CULTIVATE[activeVirtue]}
           </p>
         )}
