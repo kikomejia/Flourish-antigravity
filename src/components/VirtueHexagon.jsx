@@ -48,7 +48,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
 
   return (
     <div className="relative flex flex-col items-center justify-center">
-      <div className="h-8 flex items-center justify-center mb-1">
+      <div className="h-6 flex items-center justify-center mb-0">
         {!activeVirtueData && showPrompt && (
           <span
             className="text-base font-bold tracking-widest"
