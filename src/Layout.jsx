@@ -2,6 +2,32 @@ import React, { useEffect } from "react";
 
 export default function Layout({ children }) {
   useEffect(() => {
+    // Inject PWA manifest dynamically
+    const manifestData = {
+      name: "Flourish",
+      short_name: "Flourish",
+      description: "A daily virtue practice app",
+      start_url: "/",
+      display: "standalone",
+      scope: "/",
+      background_color: "#050508",
+      theme_color: "#f3afee",
+      orientation: "portrait-primary",
+      icons: [
+        { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+        { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" }
+      ]
+    };
+    const blob = new Blob([JSON.stringify(manifestData)], { type: "application/json" });
+    const manifestUrl = URL.createObjectURL(blob);
+    let link = document.querySelector('link[rel="manifest"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'manifest';
+      document.head.appendChild(link);
+    }
+    link.href = manifestUrl;
+
     // Add PWA meta tags for fullscreen display
     const addMetaTag = (name, content) => {
       let meta = document.querySelector(`meta[name="${name}"]`);
