@@ -69,11 +69,6 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
         )}
       </div>
 
-      {/* Definition */}
-      {VIRTUE_DEFINITIONS[virtue] && (
-        <p className="text-white/60 text-sm leading-relaxed mb-4 italic">{VIRTUE_DEFINITIONS[virtue]}</p>
-      )}
-
       {/* Content */}
       <p className="text-white font-bold text-xl mb-3 leading-snug">{item?.title}</p>
       <p className="text-white/60 text-sm leading-relaxed mb-6">{item?.text}</p>
