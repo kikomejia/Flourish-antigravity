@@ -351,12 +351,12 @@ export default function Daily() {
 
       {/* Active virtue title + definition */}
       {isViewingToday && activeVirtue && (
-        <div className="text-center px-6 pb-2">
-          <p className="text-sm font-bold tracking-widest uppercase mb-1" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
-            {activeVirtue}
+        <div className="text-center px-6 pb-0">
+          <p className="text-xl font-bold mb-1" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
+            {activeVirtue.charAt(0).toUpperCase() + activeVirtue.slice(1)}
           </p>
           {VIRTUE_DEFINITIONS[activeVirtue] && (
-            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
               {VIRTUE_DEFINITIONS[activeVirtue]}
             </p>
           )}
@@ -364,7 +364,7 @@ export default function Daily() {
       )}
 
       {/* Hexagon */}
-      <div className="flex flex-col items-center justify-center py-4">
+      <div className="flex flex-col items-center justify-center py-1">
         <VirtueHexagon
           completedVirtues={completedVirtues}
           acceptedVirtues={isViewingToday ? Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k) : []}
