@@ -443,7 +443,7 @@ export default function Daily() {
       {isViewingToday && (
         <>
           {!todayProgress?.is_complete && activeVirtue && (
-            <div className="px-4 pb-28 mt-2">
+            <div className="px-4 mt-2">
               <div
                 className="rounded-2xl p-4 transition-all duration-300"
                 style={{
@@ -460,6 +460,16 @@ export default function Daily() {
                   onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1 } }))}
                 />
               </div>
+              <div className="mt-3 mb-24 text-center text-xs text-white/30 tracking-widest">
+                {completedCount}/6
+                {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
+              </div>
+            </div>
+          )}
+          {!todayProgress?.is_complete && !activeVirtue && (
+            <div className="mt-3 mb-4 text-center text-xs text-white/30 tracking-widest">
+              {completedCount}/6
+              {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
             </div>
           )}
 
