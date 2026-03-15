@@ -349,6 +349,20 @@ export default function Daily() {
         </div>
       )}
 
+      {/* Active virtue title + definition */}
+      {isViewingToday && activeVirtue && (
+        <div className="text-center px-6 pb-2">
+          <p className="text-sm font-bold tracking-widest uppercase mb-1" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
+            {activeVirtue}
+          </p>
+          {VIRTUE_CULTIVATE[activeVirtue] && (
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+              {VIRTUE_CULTIVATE[activeVirtue]}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Hexagon */}
       <div className="flex flex-col items-center justify-center py-4">
         <VirtueHexagon
