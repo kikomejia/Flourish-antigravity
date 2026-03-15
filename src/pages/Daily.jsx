@@ -377,10 +377,6 @@ export default function Daily() {
             {VIRTUE_CULTIVATE[activeVirtue]}
           </p>
         )}
-        <div className="mt-3 text-xs text-white/30 tracking-widest">
-          {completedCount}/6
-          {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
-        </div>
       </div>
 
       {/* Historical view */}

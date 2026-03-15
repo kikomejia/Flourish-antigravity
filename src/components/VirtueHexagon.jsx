@@ -49,21 +49,14 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
   return (
     <div className="relative flex flex-col items-center justify-center">
       <div className="h-8 flex items-center justify-center mb-1">
-        {activeVirtueData ? (
-          <span
-            className="text-base font-bold tracking-widest uppercase"
-            style={{ color: activeVirtueData.color, fontFamily: "monospace", textShadow: `0 0 12px ${activeVirtueData.color}66` }}
-          >
-            {activeVirtueData.label}
-          </span>
-        ) : showPrompt ? (
+        {!activeVirtueData && showPrompt && (
           <span
             className="text-base font-bold tracking-widest"
             style={{ color: "#f3afee", fontFamily: "monospace", textShadow: "0 0 20px #f3afee55" }}
           >
             TAP ON A PETAL TO START
           </span>
-        ) : null}
+        )}
       </div>
       <svg width="307" height="348" viewBox="-600 -500 5867 6200" style={{ overflow: "visible" }}>
         <defs>
