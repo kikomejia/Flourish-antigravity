@@ -358,6 +358,11 @@ export default function Daily() {
           activeVirtue={isViewingToday ? activeVirtue : null}
           showPrompt={isViewingToday}
         />
+        {isViewingToday && activeVirtue && VIRTUE_CULTIVATE[activeVirtue] && (
+          <p className="mt-2 text-xs text-center px-6 leading-relaxed" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
+            {VIRTUE_CULTIVATE[activeVirtue]}
+          </p>
+        )}
         <div className="mt-3 text-xs text-white/30 tracking-widest">
           {completedCount}/6
           {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
