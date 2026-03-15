@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
 import BottomNav from "@/components/BottomNav";
 import VirtueHexagon, { VIRTUES } from "@/components/VirtueHexagon";
-import VirtueCard, { VIRTUE_COLORS, getDailyItem } from "@/components/VirtueCard";
+import VirtueCard, { VIRTUE_COLORS, VIRTUE_CULTIVATE, getDailyItem } from "@/components/VirtueCard";
 import { format, startOfWeek, addDays, isSameDay, addWeeks, parseISO } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 
