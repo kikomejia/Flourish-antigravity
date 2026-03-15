@@ -1,6 +1,14 @@
 import React from "react";
 import VIRTUE_CONTENT from "./virtueContent";
 
+export const VIRTUE_DEFINITIONS = {
+  wisdom: "The ability to see things as they really are and use that clarity to make better choices.",
+};
+
+export const VIRTUE_CULTIVATE = {
+  wisdom: "Cultivate Judgement, Creativity, Love of Learning, Perspective and Curiosity",
+};
+
 export const VIRTUE_COLORS = {
   wisdom: "#d8b4fe",
   courage: "#fef08a",
@@ -60,6 +68,11 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
           </span>
         )}
       </div>
+
+      {/* Definition */}
+      {VIRTUE_DEFINITIONS[virtue] && (
+        <p className="text-white/60 text-sm leading-relaxed mb-4 italic">{VIRTUE_DEFINITIONS[virtue]}</p>
+      )}
 
       {/* Content */}
       <p className="text-white font-bold text-xl mb-3 leading-snug">{item?.title}</p>
