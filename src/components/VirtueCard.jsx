@@ -2,10 +2,10 @@ import React from "react";
 import VIRTUE_CONTENT from "./virtueContent";
 
 export const VIRTUE_DEFINITIONS = {
-  wisdom: "Cultivate your knowledge and experience to strengthen your ability to make better decisions.",
+  wisdom: "Cultivate your knowledge and experience to improve your decision-making.",
   courage: "Build the mental strength to value what is right more than the comfort of staying safe.",
-  humanity: "Practice acting with kindness and care to build strong, reliable relationships with others.",
-  justice: "Commit to doing your fair share and work on ensuring others are treated with the same rules and respect.",
+  humanity: "Practice acting with kindness and care to build strong, reliable relationships.",
+  justice: "Commit to doing your fair share and ensuring others are treated with the same rules and respect.",
   temperance: "Practice managing your impulses and habits so they don't get in the way of your long-term goals.",
   transcendence: "Seek specific reasons to be hopeful and grateful in your everyday environment.",
 };
