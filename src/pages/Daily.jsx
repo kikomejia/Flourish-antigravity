@@ -488,22 +488,29 @@ export default function Daily() {
         <>
           {!todayProgress?.is_complete && activeVirtue && (
             <div className="px-4 mt-2">
-              <div
-                className="rounded-2xl p-4 transition-all duration-300"
-                style={{
-                  background: "rgba(15,5,25,0.97)",
-                  border: `1px solid ${VIRTUE_COLORS[activeVirtue]}99`,
-                  boxShadow: `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`,
-                }}
-              >
-                <VirtueCard
-                  virtue={activeVirtue}
-                  isCompleted={completedVirtues.includes(activeVirtue)}
-                  onComplete={handleComplete}
-                  changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
-                  onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1 } }))}
-                />
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeVirtue}
+                  initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="rounded-2xl p-4"
+                  style={{
+                    background: "rgba(15,5,25,0.97)",
+                    border: `1px solid ${VIRTUE_COLORS[activeVirtue]}99`,
+                    boxShadow: `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`,
+                  }}
+                >
+                  <VirtueCard
+                    virtue={activeVirtue}
+                    isCompleted={completedVirtues.includes(activeVirtue)}
+                    onComplete={handleComplete}
+                    changeCount={virtueStates[activeVirtue]?.changeCount ?? 0}
+                    onChange={() => setVirtueStates(s => ({ ...s, [activeVirtue]: { ...s[activeVirtue], changeCount: (s[activeVirtue]?.changeCount ?? 0) + 1 } }))}
+                  />
+                </motion.div>
+              </AnimatePresence>
               <div className="mt-3 mb-24 text-center text-xs text-white/30 tracking-widest">
                 {completedCount}/6
                 {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
