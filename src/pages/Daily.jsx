@@ -393,7 +393,7 @@ export default function Daily() {
       )}
 
       {/* Hexagon */}
-      <div className="flex flex-col items-center justify-center" style={{ marginTop: "-14px", marginBottom: "-8px" }}>
+      <div className="flex flex-col items-center justify-center" style={{ marginTop: "-14px", marginBottom: "-20px" }}>
         <VirtueHexagon
           completedVirtues={completedVirtues}
           acceptedVirtues={isViewingToday ? Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k) : []}
