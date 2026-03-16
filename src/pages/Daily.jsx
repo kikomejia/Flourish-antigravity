@@ -403,7 +403,7 @@ export default function Daily() {
         />
         {/* Cultivate text — always reserves space so hexagon never shifts */}
         {isViewingToday && (
-          <div style={{ height: "52px", overflow: "hidden" }} className="flex items-start justify-center">
+          <div style={{ height: "52px", overflow: "hidden" }} className="flex items-center justify-center">
             <AnimatePresence mode="wait">
               {activeVirtue && VIRTUE_CULTIVATE[activeVirtue] && (
                 <motion.p
