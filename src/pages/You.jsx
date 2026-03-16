@@ -224,7 +224,7 @@ export default function You() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
                         <p className="font-bold text-sm text-white capitalize leading-snug">
-                          {act.virtue}: Completed {typeLabel}
+                          {act.virtue}: Accepted {typeLabel}
                         </p>
                         <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>
                           {timeStr}

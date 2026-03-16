@@ -73,8 +73,8 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
           {item?.type}
         </span>
         {isCompleted && (
-          <span className="ml-auto text-xs px-2 py-0.5 rounded-full" style={{ background: `${color}22`, color, border: `1px solid ${color}55` }}>
-            Done
+          <span className="ml-auto text-xs px-2 py-0.5 rounded-full flex items-center gap-1" style={{ background: `${color}22`, color, border: `1px solid ${color}55` }}>
+            Accepted <span style={{ opacity: 0.7 }}>+1</span>
           </span>
         )}
       </div>
