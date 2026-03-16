@@ -29,11 +29,7 @@ export const VIRTUE_COLORS = {
   transcendence: "#7dd3fc",
 };
 
-export function useVirtueColors() {
-  const ctx = React.useContext(require("@/lib/ThemeContext").ThemeContext);
-  if (!ctx) return VIRTUE_COLORS;
-  return ctx.theme.virtueColors;
-}
+
 
 function seededRandom(seed) {
   let s = seed;
