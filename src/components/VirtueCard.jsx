@@ -1,5 +1,6 @@
 import React from "react";
 import VIRTUE_CONTENT from "./virtueContent";
+import { useTheme } from "@/lib/ThemeContext";
 
 export const VIRTUE_DEFINITIONS = {
   wisdom: "Cultivate your knowledge and experience to improve your decision-making.",
@@ -27,6 +28,12 @@ export const VIRTUE_COLORS = {
   temperance: "#ffedd5",
   transcendence: "#7dd3fc",
 };
+
+export function useVirtueColors() {
+  const ctx = React.useContext(require("@/lib/ThemeContext").ThemeContext);
+  if (!ctx) return VIRTUE_COLORS;
+  return ctx.theme.virtueColors;
+}
 
 function seededRandom(seed) {
   let s = seed;
