@@ -43,13 +43,22 @@ export function getDailyItem(virtue, offset = 0) {
   const seed = dayOfYear * 100 + Object.keys(VIRTUE_CONTENT).indexOf(virtue) + offset * 1000;
 
   const content = VIRTUE_CONTENT[virtue];
-  const allItems = [
-    ...content.pledges.map(p => ({ ...p, type: "pledge" })),
-    ...content.challenges.map(c => ({ ...c, type: "challenge" })),
-  ];
+  const items = content.pledges.map(p => ({ ...p, type: "pledge" }));
 
-  const idx = Math.floor(seededRandom(seed) * allItems.length);
-  return allItems[idx];
+  const idx = Math.floor(seededRandom(seed) * items.length);
+  return items[idx];
+}
+
+export function getDailyChallenge(virtue, offset = 0) {
+  const now = new Date();
+  const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+  const seed = dayOfYear * 77 + Object.keys(VIRTUE_CONTENT).indexOf(virtue) + offset * 999;
+
+  const content = VIRTUE_CONTENT[virtue];
+  const items = content.challenges.map(c => ({ ...c, type: "challenge" }));
+
+  const idx = Math.floor(seededRandom(seed) * items.length);
+  return items[idx];
 }
 
 export const MAX_CHANGES = 3;
