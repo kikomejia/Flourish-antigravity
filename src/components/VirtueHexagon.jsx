@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const VIRTUES = [
   { key: "wisdom", label: "WISDOM", color: "#d8b4fe" },
