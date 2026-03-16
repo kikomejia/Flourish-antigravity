@@ -81,7 +81,7 @@ export default function Act() {
     setSelectedVirtue(key);
   };
 
-  const handleSelectDuration = (days) => {
+  const handleSelectDuration = async (days) => {
     const virtue = selectedVirtue;
     const challenge = getDailyChallenge(virtue);
     const deadline = new Date();
