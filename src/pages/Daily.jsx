@@ -351,7 +351,7 @@ export default function Daily() {
 
       {/* Active virtue title + definition — always reserves space so hexagon never shifts */}
       {isViewingToday && (
-        <div className="text-center px-6 pb-0" style={{ minHeight: "60px" }}>
+        <div className="text-center px-6 pb-0" style={{ height: "72px", overflow: "hidden" }}>
           <AnimatePresence mode="wait">
             {activeVirtue ? (
               <motion.div
