@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { useTheme } from "@/lib/ThemeContext";
 import { format } from "date-fns";
 import { Flame, CheckCircle2, Shield, Sparkles, Lightbulb, Heart, Scale, Leaf, Settings, Share2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +36,7 @@ function StatCard({ icon, label, children }) {
 }
 
 export default function You() {
+  const { theme } = useTheme();
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState(null);
   const [activities, setActivities] = useState([]);
@@ -96,7 +98,7 @@ export default function You() {
   }
 
   return (
-    <div className="min-h-screen pb-28" style={{ background: "#050508", color: "white" }}>
+    <div className="min-h-screen pb-28" style={{ background: theme.bg, color: theme.text }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <button
@@ -106,7 +108,7 @@ export default function You() {
         >
           <Settings size={15} className="opacity-50" />
         </button>
-        <h1 className="text-lg font-semibold tracking-wide" style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}>
+        <h1 className="text-lg font-semibold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: `0 0 20px ${theme.accent}55` }}>
           Profile
         </h1>
         <button

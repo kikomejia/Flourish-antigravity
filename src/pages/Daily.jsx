@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { useTheme } from "@/lib/ThemeContext";
 import { Settings, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
@@ -29,6 +30,7 @@ function fireConfetti() {
 export default function Daily() {
   const [user, setUser] = useState(null);
   const [todayProgress, setTodayProgress] = useState({ completed_virtues: [], points_earned: 0, is_complete: false });
+  const { theme } = useTheme();
   const [activeVirtue, setActiveVirtue] = useState(null);
   const [weekOffset, setWeekOffset] = useState(0);
   const [slideDir, setSlideDir] = useState(-1);
@@ -247,11 +249,11 @@ export default function Daily() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#050508", color: "white" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: theme.bg, color: theme.text }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <div className="w-8" />
-        <h1 className="text-xl font-bold tracking-wide" style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}>
+        <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: `0 0 20px ${theme.accent}55` }}>
           Flourish
         </h1>
         <button onClick={() => navigate("/Settings")} className="w-8 h-8 flex items-center justify-center opacity-50 hover:opacity-80 transition-opacity">
