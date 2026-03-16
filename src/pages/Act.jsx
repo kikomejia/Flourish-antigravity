@@ -260,7 +260,7 @@ export default function Act() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 80, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="w-full max-w-md rounded-t-3xl p-6 pb-24"
+              className="w-full max-w-md rounded-t-3xl p-6 pb-36"
               style={{ background: "rgba(15,5,25,0.98)", border: "1px solid rgba(243,175,238,0.2)" }}
               onClick={e => e.stopPropagation()}
             >
@@ -307,7 +307,7 @@ export default function Act() {
       {!acceptedChallenge && (
         <div className="px-4 mt-2">
           <p className="text-sm text-center mb-5 px-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
-            Take on a challenge to strengthen your character through action
+            Take on a challenge to strengthen your character through action. You'll have up to 1 week to complete.
           </p>
 
           {/* Virtue filter chips */}
