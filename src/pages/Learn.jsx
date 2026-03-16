@@ -41,11 +41,11 @@ export default function Learn() {
       if (u?.email) {
         userName = u.full_name || "Seeker";
         const all = await base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 50);
-        activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr());
+        activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr() && a.activity_type === "pledge");
       }
     } catch {
       const all = JSON.parse(localStorage.getItem("guest_activities") || "[]");
-      activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr());
+      activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr() && a.activity_type === "pledge");
     }
     return { activityLogs, userName };
   };
@@ -101,13 +101,13 @@ export default function Learn() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 gap-4">
             <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin" />
-            <p className="text-xs tracking-widest text-white/30 uppercase">Generating insights...</p>
+            <p className="text-xs text-white/30 text-center px-6 leading-relaxed">Generating insights based on today's accepted pledges. Hold tight!</p>
           </div>
         ) : !hasActivities ? (
           <div className="flex flex-col items-center justify-center py-32 gap-3 text-center">
             <BookOpen size={32} style={{ color: "#f3afee" }} />
             <p className="text-sm" style={{ color: "#f3afee" }}>
-              Take on today's pledges and challenges to unlock your learning insights.
+              Accept today's pledges to unlock your learning insights.
             </p>
           </div>
         ) : content ? (

@@ -11,7 +11,7 @@ Deno.serve(async (req) => {
         }
 
         const prompt = `
-The user "${userName || "a seeker"}" has completed the following virtues, pledges, and challenges today:
+The user "${userName || "a seeker"}" has accepted the following daily pledges today:
 
 ${activityLogs.map(act => `- Virtue: ${act.virtue}, Type: ${act.activity_type}, Title: "${act.title}", Description: "${act.text}"`).join('\n')}
 
