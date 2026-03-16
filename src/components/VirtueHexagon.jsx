@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useTheme } from "@/lib/ThemeContext";
 
 const VIRTUES = [
   { key: "wisdom", label: "WISDOM", color: "#d8b4fe" },
@@ -44,6 +45,7 @@ const PETALS = [
 ];
 
 export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues = [], onVirtueClick, activeVirtue, showPrompt = true }) {
+  const { theme } = useTheme();
   const [pulseKey, setPulseKey] = React.useState(0);
   const [isPulsing, setIsPulsing] = React.useState(false);
   const prevActiveVirtue = React.useRef(null);
@@ -87,7 +89,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
 
 
         {PETALS.map((petal) => {
-          const virtue = VIRTUES.find((v) => v.key === petal.key);
+          const virtue = { ...VIRTUES.find((v) => v.key === petal.key), color: theme.virtueColors[petal.key] || VIRTUES.find(v => v.key === petal.key)?.color };
           const isCompleted = completedVirtues.includes(petal.key);
           const isAccepted = acceptedVirtues.includes(petal.key);
           const isActive = activeVirtue === petal.key;

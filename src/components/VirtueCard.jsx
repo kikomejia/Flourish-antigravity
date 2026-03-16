@@ -67,7 +67,8 @@ export function getDailyChallenge(virtue, offset = 0) {
 export const MAX_CHANGES = 3;
 
 export default function VirtueCard({ virtue, isCompleted, onComplete, changeCount, onChange }) {
-  const color = VIRTUE_COLORS[virtue];
+  const { theme } = useTheme();
+  const color = theme.virtueColors[virtue] || VIRTUE_COLORS[virtue];
   const item = getDailyItem(virtue, changeCount ?? 0);
   const canChange = (changeCount ?? 0) < MAX_CHANGES;
 
