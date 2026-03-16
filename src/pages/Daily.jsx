@@ -487,7 +487,7 @@ export default function Daily() {
       {isViewingToday && (
         <>
           {!todayProgress?.is_complete && activeVirtue && (
-            <div className="px-4 mt-2">
+            <div className="px-4 mt-5">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeVirtue}
