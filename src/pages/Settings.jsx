@@ -3,6 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, LogOut, Trash2, Download, Info, Mail, Shield, Camera, Check } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+import { useTheme, THEMES } from "@/lib/ThemeContext";
 
 function SettingsRow({ icon, label, sublabel, onClick, danger }) {
   return (
@@ -51,6 +52,7 @@ function Section({ title, children }) {
 
 export default function Settings() {
   const navigate = useNavigate();
+  const { themeId, setTheme, theme } = useTheme();
   const [confirmReset, setConfirmReset] = useState(false);
   const [nickname, setNickname] = useState(() => localStorage.getItem("profile_nickname") || "");
   const [photo, setPhoto] = useState(() => localStorage.getItem("profile_photo") || "");
@@ -198,6 +200,35 @@ export default function Settings() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Theme section */}
+        <div className="mb-6">
+          <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: "rgba(243,175,238,0.5)" }}>Theme</p>
+          <div className="rounded-2xl p-4 flex gap-3" style={{ background: "rgba(15,5,25,0.95)", border: "1px solid rgba(243,175,238,0.12)" }}>
+            {Object.values(THEMES).map(t => (
+              <button
+                key={t.id}
+                onClick={() => setTheme(t.id)}
+                className="flex-1 flex flex-col items-center gap-2 py-3 px-2 rounded-xl transition-all"
+                style={{
+                  background: themeId === t.id ? "rgba(243,175,238,0.1)" : "transparent",
+                  border: `1.5px solid ${themeId === t.id ? "rgba(243,175,238,0.5)" : "rgba(255,255,255,0.08)"}`,
+                }}
+              >
+                {/* Mini preview */}
+                <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: t.bg, border: `2px solid ${t.accent}` }}>
+                  <div className="w-4 h-4 rounded-full" style={{ background: t.accent }} />
+                </div>
+                <span className="text-xs font-semibold" style={{ color: themeId === t.id ? "#f3afee" : "rgba(255,255,255,0.4)" }}>
+                  {t.name}
+                </span>
+                {themeId === t.id && (
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#f3afee" }} />
+                )}
+              </button>
+            ))}
           </div>
         </div>
 
