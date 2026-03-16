@@ -79,13 +79,8 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
           {virtue}
         </span>
         <span className="text-sm italic" style={{ color: "rgba(255,255,255,0.45)", fontFamily: "serif" }}>
-          {item?.type}
+          Today's pledge
         </span>
-        {isCompleted && (
-          <span className="ml-auto text-xs px-2 py-0.5 rounded-full flex items-center gap-1" style={{ background: `${color}22`, color, border: `1px solid ${color}55` }}>
-            Accepted <span style={{ opacity: 0.7 }}>+1</span>
-          </span>
-        )}
       </div>
 
       {/* Content */}
@@ -93,7 +88,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
       <p className="text-white/60 text-sm leading-relaxed mb-6">{item?.text}</p>
 
       {/* Actions */}
-      {!isCompleted && (
+      {!isCompleted ? (
         <div className="flex gap-3">
           <button
             onClick={canChange ? onChange : undefined}
@@ -119,6 +114,17 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
           >
             Accept
           </button>
+        </div>
+      ) : (
+        <div
+          className="w-full py-3 rounded-full text-sm font-bold text-center"
+          style={{
+            background: `${color}22`,
+            color,
+            border: `1.5px solid ${color}66`,
+          }}
+        >
+          Accepted +1
         </div>
       )}
     </div>
