@@ -44,11 +44,33 @@ const PETALS = [
 ];
 
 export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues = [], onVirtueClick, activeVirtue, showPrompt = true }) {
+  const [pulseKey, setPulseKey] = React.useState(0);
+  const [isPulsing, setIsPulsing] = React.useState(false);
+  const prevActiveVirtue = React.useRef(null);
+
+  React.useEffect(() => {
+    if (activeVirtue && activeVirtue !== prevActiveVirtue.current) {
+      setPulseKey(k => k + 1);
+      setIsPulsing(true);
+      const t = setTimeout(() => setIsPulsing(false), 400);
+      prevActiveVirtue.current = activeVirtue;
+      return () => clearTimeout(t);
+    }
+    if (!activeVirtue) prevActiveVirtue.current = null;
+  }, [activeVirtue]);
+
   const activeVirtueData = activeVirtue ? VIRTUES.find(v => v.key === activeVirtue) : null;
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <svg width="307" height="348" viewBox="-600 -500 5867 6200" style={{ overflow: "visible" }}>
+      <svg
+        width="307" height="348" viewBox="-600 -500 5867 6200"
+        style={{
+          overflow: "visible",
+          transform: isPulsing ? "scale(1.045)" : "scale(1)",
+          transition: isPulsing ? "transform 0.12s ease-out" : "transform 0.28s ease-out",
+        }}
+      >
         <defs>
           {VIRTUES.map((v) => (
             <filter key={v.key} id={`glow-pw-${v.key}`} x="-40%" y="-40%" width="180%" height="180%">
