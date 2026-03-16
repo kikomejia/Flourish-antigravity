@@ -90,6 +90,21 @@ export default function Act() {
     setAcceptedChallenge(ac);
     saveState({ acceptedChallenge: ac });
     setSelectedVirtue(null);
+
+    // Log "accepted" entry
+    try {
+      const u = user || await base44.auth.me().catch(() => null);
+      if (u?.email) {
+        await base44.entities.ActivityLog.create({
+          user_email: u.email,
+          virtue,
+          activity_type: "challenge",
+          action: "accepted",
+          title: challenge.title,
+          text: challenge.text,
+        });
+      }
+    } catch {}
   };
 
   const handleComplete = async () => {
@@ -228,7 +243,7 @@ export default function Act() {
                 <CheckCircle2 size={48} className="mx-auto mb-4" style={{ color: "#86efac" }} />
                 <p className="text-xl font-bold text-white mb-2">Challenge Completed!</p>
                 <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>You earned 10 bonus points</p>
-                <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
+                <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.4)" }}>
                   A new set of challenges will appear tomorrow
                 </p>
               </motion.div>

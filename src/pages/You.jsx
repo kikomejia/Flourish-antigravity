@@ -211,7 +211,15 @@ export default function You() {
                 const Icon = virtue?.Icon || Sparkles;
                 const color = virtue?.color || "#f3afee";
                 const timeStr = act.created_date ? format(new Date(act.created_date), "hh:mm a") : "";
-                const typeLabel = act.activity_type === "pledge" ? "Pledge" : "Challenge";
+
+                let actionLabel;
+                if (act.activity_type === "pledge") {
+                  actionLabel = "Accepted Pledge";
+                } else if (act.action === "completed") {
+                  actionLabel = "Completed Challenge";
+                } else {
+                  actionLabel = "Accepted Challenge";
+                }
 
                 return (
                   <div key={act.id} className="flex gap-3">
@@ -224,7 +232,7 @@ export default function You() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
                         <p className="font-bold text-sm text-white capitalize leading-snug">
-                          {act.virtue}: Accepted {typeLabel}
+                          {act.virtue}: {actionLabel}
                         </p>
                         <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>
                           {timeStr}
