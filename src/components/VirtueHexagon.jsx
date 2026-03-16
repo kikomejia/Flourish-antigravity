@@ -47,24 +47,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
   const activeVirtueData = activeVirtue ? VIRTUES.find(v => v.key === activeVirtue) : null;
 
   return (
-    <div className="relative flex flex-col items-center justify-center">
-      <style>{pulseStyle}</style>
-
-      {/* Pulsing glow behind hexagon when a virtue is active */}
-      {activeVirtueData && (
-        <div
-          className="virtue-pulse-ring absolute rounded-full pointer-events-none"
-          style={{
-            width: "260px",
-            height: "260px",
-            background: `radial-gradient(circle, ${activeVirtueData.color}55 0%, transparent 70%)`,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-      )}
-
+    <div className="flex flex-col items-center justify-center">
       <svg width="307" height="348" viewBox="-600 -500 5867 6200" style={{ overflow: "visible" }}>
         <defs>
           {VIRTUES.map((v) => (
