@@ -349,17 +349,46 @@ export default function Daily() {
         </div>
       )}
 
-      {/* Active virtue title + definition */}
-      {isViewingToday && activeVirtue && (
-        <div className="text-center px-6 pb-0">
-          <p className="text-xl font-bold mb-1" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
-            {activeVirtue.charAt(0).toUpperCase() + activeVirtue.slice(1)}
-          </p>
-          {VIRTUE_DEFINITIONS[activeVirtue] && (
-            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-              {VIRTUE_DEFINITIONS[activeVirtue]}
-            </p>
-          )}
+      {/* Active virtue title + definition — always reserves space so hexagon never shifts */}
+      {isViewingToday && (
+        <div className="text-center px-6 pb-0" style={{ minHeight: "60px" }}>
+          <AnimatePresence mode="wait">
+            {activeVirtue ? (
+              <motion.div
+                key={activeVirtue}
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+              >
+                <p className="text-xl font-bold mb-1" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
+                  {activeVirtue.charAt(0).toUpperCase() + activeVirtue.slice(1)}
+                </p>
+                {VIRTUE_DEFINITIONS[activeVirtue] && (
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                    {VIRTUE_DEFINITIONS[activeVirtue]}
+                  </p>
+                )}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="prompt"
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+                className="flex items-center justify-center"
+                style={{ height: "60px" }}
+              >
+                <span
+                  className="text-base font-bold tracking-widest"
+                  style={{ color: "#f3afee", fontFamily: "monospace", textShadow: "0 0 20px #f3afee55" }}
+                >
+                  TAP ON A PETAL TO START
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
 
@@ -370,12 +399,27 @@ export default function Daily() {
           acceptedVirtues={isViewingToday ? Object.entries(virtueStates).filter(([, s]) => s?.accepted).map(([k]) => k) : []}
           onVirtueClick={handleVirtueClick}
           activeVirtue={isViewingToday ? activeVirtue : null}
-          showPrompt={isViewingToday}
+          showPrompt={false}
         />
-        {isViewingToday && activeVirtue && VIRTUE_CULTIVATE[activeVirtue] && (
-          <p className="mt-0 mb-3 text-sm text-center px-6 leading-relaxed" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
-            {VIRTUE_CULTIVATE[activeVirtue]}
-          </p>
+        {/* Cultivate text — always reserves space so hexagon never shifts */}
+        {isViewingToday && (
+          <div style={{ minHeight: "36px" }} className="flex items-start justify-center">
+            <AnimatePresence mode="wait">
+              {activeVirtue && VIRTUE_CULTIVATE[activeVirtue] && (
+                <motion.p
+                  key={activeVirtue}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  className="mt-0 mb-3 text-sm text-center px-6 leading-relaxed"
+                  style={{ color: VIRTUE_COLORS[activeVirtue] }}
+                >
+                  {VIRTUE_CULTIVATE[activeVirtue]}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
         )}
       </div>
 
