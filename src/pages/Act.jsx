@@ -228,16 +228,9 @@ export default function Act() {
                 <CheckCircle2 size={48} className="mx-auto mb-4" style={{ color: "#86efac" }} />
                 <p className="text-xl font-bold text-white mb-2">Challenge Completed!</p>
                 <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>You earned 10 bonus points</p>
-                <p className="text-xs mb-8" style={{ color: "rgba(255,255,255,0.2)" }}>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
                   A new set of challenges will appear tomorrow
                 </p>
-                <button
-                  onClick={handleReset}
-                  className="px-8 py-3 rounded-full text-sm font-semibold"
-                  style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.6)" }}
-                >
-                  Take another challenge
-                </button>
               </motion.div>
             )}
           </AnimatePresence>
