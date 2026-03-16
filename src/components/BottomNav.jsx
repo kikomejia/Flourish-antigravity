@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Calendar, User, BookOpen } from "lucide-react";
+import { Calendar, User, BookOpen, Zap } from "lucide-react";
 
 export default function BottomNav({ active }) {
   return (
@@ -17,7 +17,7 @@ export default function BottomNav({ active }) {
       >
         <Link
           to="/Daily"
-          className="flex flex-col items-center px-10 py-3 transition-colors"
+          className="flex flex-col items-center px-6 py-3 transition-colors"
           style={{ color: active === "daily" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
         >
           <Calendar size={20} />
@@ -26,7 +26,7 @@ export default function BottomNav({ active }) {
         </Link>
         <Link
           to="/Learn"
-          className="flex flex-col items-center px-10 py-3 transition-colors"
+          className="flex flex-col items-center px-6 py-3 transition-colors"
           style={{ color: active === "learn" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
         >
           <BookOpen size={20} />
@@ -34,8 +34,17 @@ export default function BottomNav({ active }) {
           {active === "learn" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
         </Link>
         <Link
+          to="/Act"
+          className="flex flex-col items-center px-6 py-3 transition-colors"
+          style={{ color: active === "act" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
+        >
+          <Zap size={20} />
+          <span className="text-xs mt-0.5">Act</span>
+          {active === "act" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
+        </Link>
+        <Link
           to="/You"
-          className="flex flex-col items-center px-10 py-3 transition-colors"
+          className="flex flex-col items-center px-6 py-3 transition-colors"
           style={{ color: active === "you" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
         >
           <User size={20} />

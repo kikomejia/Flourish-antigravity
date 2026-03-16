@@ -14,6 +14,7 @@ import Daily from "./pages/Daily";
 import You from "./pages/You";
 import Learn from "./pages/Learn";
 import Settings from "./pages/Settings";
+import Act from "./pages/Act";
 
 
 const AuthenticatedApp = () => {
