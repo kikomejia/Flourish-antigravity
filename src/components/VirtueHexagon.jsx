@@ -84,12 +84,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
         </defs>
 
         {/* Pulsing glow circle in center when a virtue is active */}
-        {activeVirtueData && (
-          <circle cx="2333" cy="2548" r="900" fill={activeVirtueData.color} opacity="0" style={{ pointerEvents: "none" }}>
-            <animate attributeName="opacity" values="0;0.35;0" dur="1.6s" repeatCount="indefinite" />
-            <animate attributeName="r" values="600;1200;600" dur="1.6s" repeatCount="indefinite" />
-          </circle>
-        )}
+
 
         {PETALS.map((petal) => {
           const virtue = VIRTUES.find((v) => v.key === petal.key);
