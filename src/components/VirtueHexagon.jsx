@@ -1,5 +1,16 @@
 import React from "react";
 
+const pulseStyle = `
+  @keyframes virtue-pulse {
+    0%   { opacity: 0.18; transform: scale(1); }
+    50%  { opacity: 0.38; transform: scale(1.06); }
+    100% { opacity: 0.18; transform: scale(1); }
+  }
+  .virtue-pulse-ring {
+    animation: virtue-pulse 2s ease-in-out infinite;
+  }
+`;
+
 const VIRTUES = [
   { key: "wisdom", label: "WISDOM", color: "#d8b4fe" },
   { key: "courage", label: "COURAGE", color: "#fef08a" },
