@@ -126,7 +126,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen pb-28" style={{ background: "#050508", color: "white" }}>
+    <div className="min-h-screen pb-28" style={{ background: theme.bg, color: theme.text }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-6">
         <button
@@ -136,7 +136,7 @@ export default function Settings() {
         >
           <ChevronLeft size={18} style={{ color: "rgba(255,255,255,0.7)" }} />
         </button>
-        <h1 className="text-xl font-bold tracking-wide" style={{ color: "#f3afee", fontFamily: "serif", textShadow: "0 0 20px #f3afee55" }}>
+        <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: `0 0 20px ${theme.accent}55` }}>
           Settings
         </h1>
         <div className="w-9" />

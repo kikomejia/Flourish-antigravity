@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Calendar, User, BookOpen, Zap } from "lucide-react";
+import { useTheme } from "@/lib/ThemeContext";
 
 export default function BottomNav({ active }) {
+  const { theme } = useTheme();
   return (
     <div className="fixed bottom-6 left-0 right-0 flex justify-center z-50">
       <div
@@ -18,38 +20,38 @@ export default function BottomNav({ active }) {
         <Link
           to="/Daily"
           className="flex flex-col items-center px-6 py-3 transition-colors"
-          style={{ color: active === "daily" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
+          style={{ color: active === "daily" ? theme.accent : `${theme.accent}55` }}
         >
           <Calendar size={20} />
           <span className="text-xs mt-0.5">Daily</span>
-          {active === "daily" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
+          {active === "daily" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: theme.accent }} />}
         </Link>
         <Link
           to="/Learn"
           className="flex flex-col items-center px-6 py-3 transition-colors"
-          style={{ color: active === "learn" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
+          style={{ color: active === "learn" ? theme.accent : `${theme.accent}55` }}
         >
           <BookOpen size={20} />
           <span className="text-xs mt-0.5">Learn</span>
-          {active === "learn" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
+          {active === "learn" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: theme.accent }} />}
         </Link>
         <Link
           to="/Act"
           className="flex flex-col items-center px-6 py-3 transition-colors"
-          style={{ color: active === "act" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
+          style={{ color: active === "act" ? theme.accent : `${theme.accent}55` }}
         >
           <Zap size={20} />
           <span className="text-xs mt-0.5">Act</span>
-          {active === "act" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
+          {active === "act" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: theme.accent }} />}
         </Link>
         <Link
           to="/You"
           className="flex flex-col items-center px-6 py-3 transition-colors"
-          style={{ color: active === "you" ? "#f3afee" : "rgba(255,255,255,0.35)" }}
+          style={{ color: active === "you" ? theme.accent : `${theme.accent}55` }}
         >
           <User size={20} />
           <span className="text-xs mt-0.5">You</span>
-          {active === "you" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: "#f3afee" }} />}
+          {active === "you" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: theme.accent }} />}
         </Link>
       </div>
     </div>
