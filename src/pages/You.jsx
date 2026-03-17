@@ -17,10 +17,13 @@ const VIRTUES = [
 ];
 
 function StatCard({ icon, label, children, theme }) {
+  const cardStyle = theme.isLight
+    ? { background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }
+    : { background: theme.cardBg, border: `1px solid ${theme.accent}55`, boxShadow: `0 0 16px ${theme.accent}22` };
   return (
     <div
       className="rounded-2xl p-4"
-      style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}
+      style={cardStyle}
     >
       <div className="flex items-center gap-1.5 mb-2">
         {icon}
