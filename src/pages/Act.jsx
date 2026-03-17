@@ -270,7 +270,7 @@ export default function Act() {
               exit={{ y: 80, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="w-full max-w-md rounded-t-3xl p-6 pb-36"
-              style={{ background: theme.isLight ? "#fce8fa" : "rgba(15,5,25,0.98)" }}
+              style={{ background: theme.isLight ? "#fff" : "rgba(15,5,25,0.98)" }}
               onClick={e => e.stopPropagation()}
             >
               {(() => {
@@ -296,12 +296,10 @@ export default function Act() {
                           key={opt.days}
                           onClick={() => handleSelectDuration(opt.days)}
                           className="flex-1 py-3 rounded-full text-sm font-bold transition-all duration-200"
-                          style={{
-                            background: `${color}22`,
-                            color,
-                            border: `1.5px solid ${color}66`,
-                            boxShadow: `0 0 14px ${color}33`,
-                          }}
+                          style={theme.isLight
+                            ? { background: color, color: "#fff", border: "none" }
+                            : { background: `${color}22`, color, border: `1.5px solid ${color}66`, boxShadow: `0 0 14px ${color}33` }
+                          }
                         >
                           {opt.label}
                         </button>

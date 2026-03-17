@@ -33,7 +33,7 @@ function Section({ title, children, theme }) {
       <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: theme.subText }}>
         {title}
       </p>
-      <div className="rounded-2xl overflow-hidden divide-y" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
+      <div className="rounded-2xl overflow-hidden divide-y" style={{ background: theme.isLight ? "#ffffff" : theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
         {children}
       </div>
     </div>
@@ -126,7 +126,7 @@ export default function Settings() {
         >
           <ChevronLeft size={18} style={{ color: theme.subText }} />
         </button>
-        <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: `0 0 20px ${theme.accent}55` }}>
+        <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}55` : "none" }}>
           Settings
         </h1>
         <div className="w-9" />
@@ -136,7 +136,7 @@ export default function Settings() {
         {/* Profile section */}
         <div className="mb-6">
           <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: theme.subText }}>Profile</p>
-          <div className="rounded-2xl p-5" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
+          <div className="rounded-2xl p-5" style={{ background: theme.isLight ? "#ffffff" : theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
             {/* Photo */}
             <div className="flex flex-col items-center mb-5">
               <div className="relative">
@@ -188,7 +188,7 @@ export default function Settings() {
         {/* Theme section */}
         <div className="mb-6">
           <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: theme.subText }}>Theme</p>
-          <div className="rounded-2xl p-4 flex gap-3" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
+          <div className="rounded-2xl p-4 flex gap-3" style={{ background: theme.isLight ? "#ffffff" : theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
             {Object.values(THEMES).map(t => (
               <button
                 key={t.id}

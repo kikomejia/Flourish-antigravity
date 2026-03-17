@@ -19,7 +19,7 @@ const VIRTUES = [
 function StatCard({ icon, label, children, theme }) {
   const cardStyle = theme.cardGlow
     ? { background: theme.cardBg, border: `1px solid ${theme.accent}55`, boxShadow: `0 0 16px ${theme.accent}22` }
-    : { background: theme.cardBg, border: "none" };
+    : { background: "#ffffff", border: "none" };
   return (
     <div
       className="rounded-2xl p-4"
@@ -107,7 +107,7 @@ export default function You() {
         >
           <Settings size={15} className="opacity-50" />
         </button>
-        <h1 className="text-lg font-semibold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}55` : "none" }}>
+        <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}55` : "none" }}>
           Profile
         </h1>
         <button
