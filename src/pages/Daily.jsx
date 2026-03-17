@@ -496,9 +496,8 @@ export default function Daily() {
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   className="rounded-2xl p-4"
                   style={{
-                    background: theme.cardBg,
-                    border: `1px solid ${theme.cardBorder}`,
-                    boxShadow: theme.isLight ? "none" : `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55`,
+                    background: "transparent",
+                    border: "none",
                   }}
                 >
                   <VirtueCard
