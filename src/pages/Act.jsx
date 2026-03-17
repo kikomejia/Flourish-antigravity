@@ -195,14 +195,14 @@ export default function Act() {
                 {/* Challenge card */}
                 {(() => {
                   const v = VIRTUES.find(x => x.key === acceptedChallenge.virtue);
-                  const color = v?.color || "#f3afee";
+                  const color = theme.virtueColors[acceptedChallenge.virtue] || v?.color || theme.accent;
                   return (
                     <div
                       className="rounded-2xl p-5 mb-4"
                       style={{
-                        background: "rgba(15,5,25,0.97)",
-                        border: `1px solid ${color}99`,
-                        boxShadow: `0 0 28px ${color}44`,
+                        background: theme.cardBg,
+                        border: `1px solid ${color}66`,
+                        boxShadow: theme.isLight ? "none" : `0 0 28px ${color}44`,
                       }}
                     >
                       <div className="flex items-center gap-3 mb-4">
@@ -212,26 +212,26 @@ export default function Act() {
                         >
                           {acceptedChallenge.virtue}
                         </span>
-                        <span className="text-sm italic" style={{ color: "rgba(255,255,255,0.45)", fontFamily: "serif" }}>
+                        <span className="text-sm italic" style={{ color: theme.subText, fontFamily: "serif" }}>
                           Active challenge
                         </span>
-                        <span className="ml-auto text-xs font-semibold" style={{ color: `${color}cc` }}>
+                        <span className="ml-auto text-xs font-semibold" style={{ color }}>
                           {timeLeft()}
                         </span>
                       </div>
-                      <p className="text-white font-bold text-xl mb-3 leading-snug">{acceptedChallenge.challenge.title}</p>
-                      <p className="text-white/60 text-sm leading-relaxed mb-6">{acceptedChallenge.challenge.text}</p>
+                      <p className="font-bold text-xl mb-3 leading-snug" style={{ color: theme.text }}>{acceptedChallenge.challenge.title}</p>
+                      <p className="text-sm leading-relaxed mb-6" style={{ color: theme.subText }}>{acceptedChallenge.challenge.text}</p>
                       <button
                         onClick={handleComplete}
                         className="w-full py-3 rounded-full text-sm font-bold transition-all duration-200"
-                        style={{ background: color, color: "#0a0a14", boxShadow: `0 0 20px ${color}66` }}
+                        style={{ background: color, color: theme.isLight ? "#fff" : "#0a0a14", boxShadow: `0 0 20px ${color}66` }}
                       >
                         Mark as Completed
                       </button>
                     </div>
                   );
                 })()}
-                <p className="text-center text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
+                <p className="text-center text-xs" style={{ color: theme.mutedText }}>
                   A new set of challenges will appear tomorrow
                 </p>
               </motion.div>
@@ -242,10 +242,10 @@ export default function Act() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-10"
               >
-                <CheckCircle2 size={48} className="mx-auto mb-4" style={{ color: "#86efac" }} />
-                <p className="text-xl font-bold text-white mb-2">Challenge Completed!</p>
-                <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>You earned 10 bonus points</p>
-                <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <CheckCircle2 size={48} className="mx-auto mb-4" style={{ color: theme.virtueColors.justice }} />
+                <p className="text-xl font-bold mb-2" style={{ color: theme.text }}>Challenge Completed!</p>
+                <p className="text-sm mb-1" style={{ color: theme.subText }}>You earned 10 bonus points</p>
+                <p className="text-sm mt-2" style={{ color: theme.subText }}>
                   A new set of challenges will appear tomorrow
                 </p>
               </motion.div>
@@ -271,7 +271,7 @@ export default function Act() {
               exit={{ y: 80, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="w-full max-w-md rounded-t-3xl p-6 pb-36"
-              style={{ background: "rgba(15,5,25,0.98)", border: "1px solid rgba(243,175,238,0.2)" }}
+              style={{ background: theme.isLight ? "#fce8fa" : "rgba(15,5,25,0.98)", border: `1px solid ${theme.accent}33` }}
               onClick={e => e.stopPropagation()}
             >
               {(() => {
@@ -283,9 +283,9 @@ export default function Act() {
                     <p className="text-xs font-bold tracking-widest uppercase mb-1" style={{ color }}>
                       {selectedVirtue} · Challenge
                     </p>
-                    <p className="text-white font-bold text-lg mb-1 leading-snug">{challenge?.title}</p>
-                    <p className="text-white/50 text-sm leading-relaxed mb-6">{challenge?.text}</p>
-                    <p className="text-sm font-semibold mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>
+                    <p className="font-bold text-lg mb-1 leading-snug" style={{ color: theme.text }}>{challenge?.title}</p>
+                    <p className="text-sm leading-relaxed mb-6" style={{ color: theme.subText }}>{challenge?.text}</p>
+                    <p className="text-sm font-semibold mb-4" style={{ color: theme.subText }}>
                       How long do you need to complete this?
                     </p>
                     <div className="flex gap-3">
@@ -316,7 +316,7 @@ export default function Act() {
       {/* Challenge cards grid — only shown when no active challenge */}
       {!acceptedChallenge && (
         <div className="px-4 mt-2">
-          <p className="text-sm text-center mb-5 px-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+          <p className="text-sm text-center mb-5 px-2 leading-relaxed" style={{ color: theme.subText }}>
             Take on a challenge to strengthen your character through action. You'll have up to 1 week to complete.
           </p>
 
@@ -324,16 +324,16 @@ export default function Act() {
           <div className="flex gap-2 overflow-x-auto pb-3 mb-4" style={{ scrollbarWidth: "none" }}>
             {VIRTUES.map(v => {
               const isActive = activeFilter === v.key;
+              const vColor = theme.virtueColors[v.key] || v.color;
               return (
                 <button
                   key={v.key}
                   onClick={() => setActiveFilter(isActive ? null : v.key)}
                   className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200"
                   style={{
-                    background: isActive ? `${v.color}20` : "rgba(255,255,255,0.05)",
-                    border: `1px solid ${isActive ? v.color + "80" : "rgba(255,255,255,0.1)"}`,
-                    color: isActive ? v.color : "rgba(255,255,255,0.45)",
-                    boxShadow: isActive ? `0 0 12px ${v.color}30` : "none",
+                    background: isActive ? `${vColor}20` : theme.inputBg,
+                    border: `1px solid ${isActive ? vColor + "80" : theme.cardBorder}`,
+                    color: isActive ? vColor : theme.subText,
                   }}
                 >
                   {v.label}
@@ -346,7 +346,7 @@ export default function Act() {
           <div className="space-y-3">
             {filteredVirtues.map(v => {
               const challenge = getDailyChallenge(v.key);
-              const color = v.color;
+              const color = theme.virtueColors[v.key] || v.color;
               return (
                 <motion.div
                   key={v.key}
@@ -355,9 +355,8 @@ export default function Act() {
                   transition={{ duration: 0.2 }}
                   className="rounded-2xl p-5 cursor-pointer"
                   style={{
-                    background: "rgba(15,5,25,0.97)",
+                    background: theme.cardBg,
                     border: `1px solid ${color}55`,
-                    boxShadow: `0 0 16px ${color}18`,
                   }}
                   onClick={() => handleSelectVirtue(v.key)}
                 >
@@ -368,12 +367,12 @@ export default function Act() {
                     >
                       {v.label}
                     </span>
-                    <span className="text-sm italic" style={{ color: "rgba(255,255,255,0.45)", fontFamily: "serif" }}>
+                    <span className="text-sm italic" style={{ color: theme.subText, fontFamily: "serif" }}>
                       Challenge
                     </span>
                   </div>
-                  <p className="text-white font-bold text-xl mb-2 leading-snug">{challenge?.title}</p>
-                  <p className="text-white/60 text-sm leading-relaxed mb-4">{challenge?.text}</p>
+                  <p className="font-bold text-xl mb-2 leading-snug" style={{ color: theme.text }}>{challenge?.title}</p>
+                  <p className="text-sm leading-relaxed mb-4" style={{ color: theme.subText }}>{challenge?.text}</p>
                   <div
                     className="w-full py-3 rounded-full text-sm font-bold text-center"
                     style={{ background: `${color}22`, color, border: `1.5px solid ${color}66` }}
