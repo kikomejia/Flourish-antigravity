@@ -19,7 +19,7 @@ export const THEMES = {
       humanity: "#fda4af",
       justice: "#86efac",
       temperance: "#ffedd5",
-      transcendence: "#7dd3fc",
+      transcendence: "#67e8c8",
     },
   },
   orchid: {
@@ -40,7 +40,7 @@ export const THEMES = {
       humanity: "#C0356A",
       justice: "#1A7A4A",
       temperance: "#4F5D75",
-      transcendence: "#B87000",
+      transcendence: "#0A8A7A",
     },
   },
 };
