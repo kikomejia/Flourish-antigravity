@@ -33,7 +33,7 @@ function Section({ title, children, theme }) {
       <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: theme.subText }}>
         {title}
       </p>
-      <div className="rounded-2xl overflow-hidden divide-y" style={{ background: theme.cardBg, divideColor: theme.cardBorder }}>
+      <div className="rounded-2xl overflow-hidden divide-y" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
         {children}
       </div>
     </div>

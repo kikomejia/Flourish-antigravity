@@ -113,7 +113,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
             className="flex-1 py-3 rounded-full text-sm font-bold transition-all duration-200"
             style={{
               background: color,
-              color: isLight ? "#fff" : "#0a0a14",
+              color: theme.pillTextColor || "#fff",
               boxShadow: `0 0 20px ${color}66`,
               cursor: "pointer",
             }}
