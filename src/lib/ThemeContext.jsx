@@ -53,7 +53,7 @@ export const THEMES = {
 
 /**
  * Returns the style for a virtue pill/badge.
- * Glow: dark bg, colored border + colored text (outlined)
+ * Glow: dark bg with soft transparent virtue fill, colored border + colored text
  * Orchid: filled with virtue color, white text
  */
 export function getPillStyle(theme, virtueColor) {
@@ -64,11 +64,11 @@ export function getPillStyle(theme, virtueColor) {
       border: "none",
     };
   }
-  // Glow: outlined
+  // Glow: soft transparent fill with colored border
   return {
-    background: "rgba(255,255,255,0.04)",
+    background: `${virtueColor}18`,
     color: virtueColor,
-    border: `1.5px solid ${virtueColor}`,
+    border: `1.5px solid ${virtueColor}88`,
   };
 }
 
