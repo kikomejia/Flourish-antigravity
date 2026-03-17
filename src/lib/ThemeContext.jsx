@@ -35,7 +35,7 @@ export const THEMES = {
     accent: "#2D3142",
     text: "#2D3142",
     subText: "rgba(45,49,66,0.65)",
-    mutedText: "rgba(45,49,66,0.35)",
+    mutedText: "rgba(45,49,66,0.65)",
     cardBg: "rgba(255,220,252,0.75)",
     cardBorder: "transparent",
     inputBg: "rgba(45,49,66,0.06)",
