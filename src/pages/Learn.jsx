@@ -122,7 +122,7 @@ export default function Learn() {
                     <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
                       <span
                         className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded inline-block mb-2"
-                        style={{ background: color, color: theme.pillTextColor || "#fff" }}
+                        style={getPillStyle(theme, color)}
                       >{item.virtue}</span>
                       <p className="text-sm font-semibold mb-1" style={{ color: theme.text }}>{item.title}</p>
                       <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>{item.explanation}</p>
@@ -143,7 +143,7 @@ export default function Learn() {
                       <div>
                         <span
                           className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded inline-block mb-1"
-                          style={{ background: color, color: theme.pillTextColor || "#fff" }}
+                          style={getPillStyle(theme, color)}
                         >{item.virtue}</span>
                         <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>{item.skill}</p>
                       </div>
@@ -163,7 +163,7 @@ export default function Learn() {
                       <div className="flex items-center gap-2 mb-1">
                         <span
                           className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded"
-                          style={{ background: color, color: theme.pillTextColor || "#fff" }}
+                          style={getPillStyle(theme, color)}
                         >{item.virtue}</span>
                         <span style={{ color: theme.mutedText }} className="text-xs">•</span>
                         <span className="text-sm font-semibold" style={{ color: theme.text }}>{item.author_source}</span>
