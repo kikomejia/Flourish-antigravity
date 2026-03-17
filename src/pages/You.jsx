@@ -221,31 +221,35 @@ export default function You() {
                   actionLabel = "Accepted Challenge";
                 }
 
+                // Glow: circle with soft transparent fill + virtue border, icon in virtue color
+                // Orchid: solid filled circle, white icon
+                const circleStyle = theme.isLight
+                  ? { background: color }
+                  : { background: `${color}18`, border: `1.5px solid ${color}88` };
+                const iconColor = theme.isLight ? "#fff" : color;
+
                 return (
-                  <div key={act.id} className="flex gap-3">
-                    <div
-                      className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mt-0.5"
-                      style={{ background: color }}
-                    >
-                      <Icon size={17} style={{ color: "#fff" }} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2">
-                        <p className="font-bold text-sm capitalize leading-snug" style={{ color: theme.text }}>
-                          <span
-                            className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded mr-1"
-                            style={getPillStyle(theme, color)}
-                          >{act.virtue}</span>{actionLabel}
-                        </p>
-                        <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: theme.mutedText }}>
-                          {timeStr}
-                        </span>
-                      </div>
-                      <p className="text-xs mt-1 leading-relaxed" style={{ color: theme.subText }}>
-                        {act.title ? `${act.title}: ` : ""}{act.text}
-                      </p>
-                    </div>
+                <div key={act.id} className="flex gap-3">
+                  <div
+                    className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mt-0.5"
+                    style={circleStyle}
+                  >
+                    <Icon size={17} style={{ color: iconColor }} />
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="font-bold text-sm leading-snug capitalize" style={{ color: theme.text }}>
+                        {act.virtue.charAt(0).toUpperCase() + act.virtue.slice(1)}: {actionLabel}
+                      </p>
+                      <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: theme.mutedText }}>
+                        {timeStr}
+                      </span>
+                    </div>
+                    <p className="text-xs mt-1 leading-relaxed" style={{ color: theme.subText }}>
+                      {act.title ? `${act.title}: ` : ""}{act.text}
+                    </p>
+                  </div>
+                </div>
                 );
               })
             )}
