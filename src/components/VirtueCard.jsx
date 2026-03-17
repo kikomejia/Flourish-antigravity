@@ -72,8 +72,13 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
   const item = getDailyItem(virtue, changeCount ?? 0);
   const canChange = (changeCount ?? 0) < MAX_CHANGES;
 
+  // Glow: virtue-colored border with glow. Orchid: standard card border.
+  const cardStyle = theme.isLight
+    ? { background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }
+    : { background: theme.cardBg, border: `1px solid ${color}66`, boxShadow: `0 0 24px ${color}33` };
+
   return (
-    <div className="rounded-2xl p-5 transition-all duration-300" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
+    <div className="rounded-2xl p-5 transition-all duration-300" style={cardStyle}>
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
         <span
