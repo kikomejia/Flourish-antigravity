@@ -92,6 +92,7 @@ const AuthenticatedApp = () => {
 };
 
 function App() {
+  usePWAManifest();
   return (
     <AuthProvider>
       <ThemeProvider>
