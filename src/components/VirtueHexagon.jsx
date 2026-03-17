@@ -95,15 +95,17 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
           const isActive = activeVirtue === petal.key;
           const isLight = theme.isLight;
 
-          // Orchid theme: no stroke, fill only — faint when idle, vivid when accepted/completed
+          // Orchid theme: outlined (no fill) when idle, filled when accepted/completed/active
           // Glow theme: existing stroke-based look
+          const isIdle = isLight && !isCompleted && !isAccepted && !isActive;
+
           const fill = isLight
-            ? (isCompleted || isAccepted ? `${baseColor}cc` : isActive ? `${baseColor}66` : `${baseColor}33`)
+            ? (isCompleted || isAccepted ? `${baseColor}cc` : isActive ? `${baseColor}66` : "none")
             : (isCompleted ? `${baseColor}20` : isAccepted ? `${baseColor}0e` : "rgba(10,10,20,0.6)");
 
-          const stroke = isLight ? "none" : baseColor;
-          const strokeWidth = isLight ? 0 : (isActive ? 90 : isCompleted ? 75 : isAccepted ? 65 : 46.3);
-          const strokeOpacity = isLight ? 0 : (isCompleted ? 1 : isActive ? 1 : isAccepted ? 0.95 : 0.7);
+          const stroke = isLight ? (isIdle ? "#2D3142" : baseColor) : baseColor;
+          const strokeWidth = isLight ? (isIdle ? 30 : isActive ? 60 : 0) : (isActive ? 90 : isCompleted ? 75 : isAccepted ? 65 : 46.3);
+          const strokeOpacity = isLight ? (isIdle ? 0.25 : 1) : (isCompleted ? 1 : isActive ? 1 : isAccepted ? 0.95 : 0.7);
 
           return (
             <g key={petal.key} onClick={() => onVirtueClick(petal.key)} style={{ cursor: "pointer" }}>
