@@ -16,19 +16,18 @@ const VIRTUES = [
   { key: "transcendence", label: "Transcendence", color: "#7dd3fc", Icon: Sparkles },
 ];
 
-function StatCard({ icon, label, children }) {
+function StatCard({ icon, label, children, theme }) {
   return (
     <div
       className="rounded-2xl p-4"
       style={{
-        background: "rgba(15,5,25,0.95)",
-        border: "1px solid rgba(243,175,238,0.45)",
-        boxShadow: "0 0 14px rgba(243,175,238,0.18)",
+        background: theme.cardBg,
+        border: `1px solid ${theme.cardBorder}`,
       }}
     >
       <div className="flex items-center gap-1.5 mb-2">
         {icon}
-        <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>{label}</span>
+        <span className="text-xs font-medium" style={{ color: theme.subText }}>{label}</span>
       </div>
       {children}
     </div>
@@ -104,7 +103,7 @@ export default function You() {
         <button
           onClick={() => navigate("/Settings")}
           className="w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}
+          style={{ background: theme.inputBg, border: `1px solid ${theme.cardBorder}` }}
         >
           <Settings size={15} className="opacity-50" />
         </button>
@@ -113,7 +112,7 @@ export default function You() {
         </h1>
         <button
           className="w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}
+          style={{ background: theme.inputBg, border: `1px solid ${theme.cardBorder}` }}
         >
           <Share2 size={15} className="opacity-50" />
         </button>
@@ -124,17 +123,16 @@ export default function You() {
         <div
           className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold mb-3 overflow-hidden"
           style={{
-            background: profilePhoto ? "transparent" : "linear-gradient(135deg, #e879f933, #60efff33)",
-            border: "2px solid rgba(243,175,238,0.45)",
-            boxShadow: "0 0 28px rgba(243,175,238,0.18)",
+            background: profilePhoto ? "transparent" : theme.inputBg,
+            border: `2px solid ${theme.accent}55`,
           }}
         >
           {profilePhoto
             ? <img src={profilePhoto} alt="profile" className="w-full h-full object-cover" />
             : (profileNickname?.[0]?.toUpperCase() || user?.full_name?.[0]?.toUpperCase() || "?")}
         </div>
-        <h2 className="text-xl font-bold text-white">{profileNickname || user?.full_name || "Seeker"}</h2>
-        <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+        <h2 className="text-xl font-bold" style={{ color: theme.text }}>{profileNickname || user?.full_name || "Seeker"}</h2>
+        <p className="text-sm mt-1" style={{ color: theme.subText }}>
           Level {level} • Path of Wisdom
         </p>
       </div>
@@ -142,26 +140,26 @@ export default function You() {
       <div className="px-4 space-y-4">
         {/* 2x2 Stats Grid */}
         <div className="grid grid-cols-2 gap-3">
-          <StatCard icon={<Flame size={15} style={{ color: "#ff6b6b" }} />} label="Streak">
-            <p className="text-xl font-bold text-white">{stats?.current_streak || 0} <span className="text-base">Days</span></p>
+          <StatCard theme={theme} icon={<Flame size={15} style={{ color: theme.isLight ? "#c0356a" : "#ff6b6b" }} />} label="Streak">
+            <p className="text-xl font-bold" style={{ color: theme.text }}>{stats?.current_streak || 0} <span className="text-base">Days</span></p>
           </StatCard>
 
-          <StatCard icon={<CheckCircle2 size={15} style={{ color: "#86efac" }} />} label="Challenges">
-            <p className="text-xl font-bold text-white">{challengesDone} <span className="text-base">Done</span></p>
+          <StatCard theme={theme} icon={<CheckCircle2 size={15} style={{ color: theme.virtueColors.justice }} />} label="Challenges">
+            <p className="text-xl font-bold" style={{ color: theme.text }}>{challengesDone} <span className="text-base">Done</span></p>
           </StatCard>
 
-          <StatCard icon={<Shield size={15} style={{ color: "#fda4af" }} />} label="Pledges">
-            <p className="text-xl font-bold text-white">{pledgesDone} <span className="text-base">Done</span></p>
+          <StatCard theme={theme} icon={<Shield size={15} style={{ color: theme.virtueColors.humanity }} />} label="Pledges">
+            <p className="text-xl font-bold" style={{ color: theme.text }}>{pledgesDone} <span className="text-base">Done</span></p>
           </StatCard>
 
-          <StatCard icon={<Sparkles size={15} style={{ color: "#f3afee" }} />} label="Progress">
-            <div className="h-2 rounded-full overflow-hidden mb-1.5" style={{ background: "rgba(255,255,255,0.07)" }}>
+          <StatCard theme={theme} icon={<Sparkles size={15} style={{ color: theme.accent }} />} label="Progress">
+            <div className="h-2 rounded-full overflow-hidden mb-1.5" style={{ background: theme.inputBg }}>
               <div
                 className="h-full rounded-full transition-all duration-700"
-                style={{ width: `${pointsInLevel}%`, background: "#f3afee", boxShadow: "0 0 8px #f3afee88" }}
+                style={{ width: `${pointsInLevel}%`, background: theme.accent }}
               />
             </div>
-            <p className="text-xs text-right" style={{ color: "rgba(255,255,255,0.35)" }}>{pointsInLevel} / 100</p>
+            <p className="text-xs text-right" style={{ color: theme.mutedText }}>{pointsInLevel} / 100</p>
           </StatCard>
         </div>
 
@@ -169,11 +167,11 @@ export default function You() {
         <div>
           {/* Header */}
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-base font-bold text-white">Activity History</h3>
+            <h3 className="text-base font-bold" style={{ color: theme.text }}>Activity History</h3>
             <button
               onClick={() => setActiveFilter(null)}
               className="text-sm transition-colors"
-              style={{ color: activeFilter ? "#f3afee" : "rgba(255,255,255,0.25)" }}
+              style={{ color: activeFilter ? theme.accent : theme.mutedText }}
             >
               See all
             </button>
@@ -183,16 +181,16 @@ export default function You() {
           <div className="flex gap-2 overflow-x-auto pb-2 mb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
             {VIRTUES.map(v => {
               const isActive = activeFilter === v.key;
+              const vColor = theme.virtueColors[v.key] || v.color;
               return (
                 <button
                   key={v.key}
                   onClick={() => setActiveFilter(isActive ? null : v.key)}
                   className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200"
                   style={{
-                    background: isActive ? `${v.color}20` : "rgba(255,255,255,0.05)",
-                    border: `1px solid ${isActive ? v.color + "80" : "rgba(255,255,255,0.1)"}`,
-                    color: isActive ? v.color : "rgba(255,255,255,0.45)",
-                    boxShadow: isActive ? `0 0 12px ${v.color}30` : "none",
+                    background: isActive ? `${vColor}20` : theme.inputBg,
+                    border: `1px solid ${isActive ? vColor + "80" : theme.cardBorder}`,
+                    color: isActive ? vColor : theme.subText,
                   }}
                 >
                   {v.label}
@@ -204,14 +202,14 @@ export default function You() {
           {/* Activity list */}
           <div className="space-y-4">
             {filteredActivities.length === 0 ? (
-              <p className="text-center py-10 text-sm" style={{ color: "rgba(255,255,255,0.25)" }}>
+              <p className="text-center py-10 text-sm" style={{ color: theme.mutedText }}>
                 No activities yet
               </p>
             ) : (
               filteredActivities.map(act => {
                 const virtue = VIRTUES.find(v => v.key === act.virtue);
                 const Icon = virtue?.Icon || Sparkles;
-                const color = virtue?.color || "#f3afee";
+                const color = theme.virtueColors[act.virtue] || virtue?.color || theme.accent;
                 const timeStr = act.created_date ? format(new Date(act.created_date), "hh:mm a") : "";
 
                 let actionLabel;
@@ -233,14 +231,14 @@ export default function You() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
-                        <p className="font-bold text-sm text-white capitalize leading-snug">
+                        <p className="font-bold text-sm capitalize leading-snug" style={{ color: theme.text }}>
                           {act.virtue}: {actionLabel}
                         </p>
-                        <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>
+                        <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: theme.mutedText }}>
                           {timeStr}
                         </span>
                       </div>
-                      <p className="text-xs mt-1 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+                      <p className="text-xs mt-1 leading-relaxed" style={{ color: theme.subText }}>
                         {act.title ? `${act.title}: ` : ""}{act.text}
                       </p>
                     </div>
