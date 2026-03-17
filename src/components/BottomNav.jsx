@@ -6,7 +6,7 @@ import { useTheme } from "@/lib/ThemeContext";
 export default function BottomNav({ active }) {
   const { theme } = useTheme();
   return (
-    <div className="fixed bottom-6 left-0 right-0 flex justify-center z-50">
+    <div className="fixed left-0 right-0 flex justify-center z-50" style={{ bottom: "calc(env(safe-area-inset-bottom) + 24px)" }}>
       <div
         className="flex rounded-full overflow-hidden"
         style={{
