@@ -80,7 +80,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
       <div className="flex items-center gap-3 mb-4">
         <span
           className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-          style={{ background: isLight ? `${color}33` : `${color}22`, color: isLight ? theme.accent : color }}
+          style={{ background: color, color: "#fff" }}
         >
           {virtue}
         </span>
@@ -124,7 +124,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
       ) : (
         <div
           className="w-full py-3 rounded-full text-sm font-bold text-center"
-          style={{ background: isLight ? `${color}33` : `${color}22`, color: isLight ? theme.accent : color }}
+          style={{ background: `${color}22`, color: isLight ? theme.accent : color }}
         >
           Accepted +1
         </div>
