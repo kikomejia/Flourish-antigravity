@@ -145,6 +145,16 @@ export function ThemeProvider({ children }) {
     localStorage.setItem("app_theme", id);
   };
 
+  // Keep html/body/root background in sync with the active theme
+  // so overscroll/bounce areas match instead of showing black
+  React.useEffect(() => {
+    const bg = theme.bg;
+    document.documentElement.style.backgroundColor = bg;
+    document.body.style.backgroundColor = bg;
+    const root = document.getElementById("root");
+    if (root) root.style.backgroundColor = bg;
+  }, [theme.bg]);
+
   return (
     <ThemeContext.Provider value={{ theme, themeId, setTheme }}>
       {children}
