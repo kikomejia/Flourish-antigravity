@@ -7,7 +7,7 @@ const VIRTUES = [
   { key: "humanity", label: "HUMANITY", color: "#fda4af" },
   { key: "justice", label: "JUSTICE", color: "#86efac" },
   { key: "temperance", label: "TEMPERANCE", color: "#ffedd5" },
-  { key: "transcendence", label: "TRANSCENDENCE", color: "#67e8c8" },
+  { key: "transcendence", label: "TRANSCENDENCE", color: "#38bdf8" },
 ];
 
 // Labels placed outside the petal tips

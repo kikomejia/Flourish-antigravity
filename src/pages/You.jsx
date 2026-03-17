@@ -13,7 +13,7 @@ const VIRTUES = [
   { key: "humanity", label: "Humanity", color: "#fda4af", Icon: Heart },
   { key: "justice", label: "Justice", color: "#86efac", Icon: Scale },
   { key: "temperance", label: "Temperance", color: "#ffedd5", Icon: Leaf },
-  { key: "transcendence", label: "Transcendence", color: "#67e8c8", Icon: Sparkles },
+  { key: "transcendence", label: "Transcendence", color: "#38bdf8", Icon: Sparkles },
 ];
 
 function StatCard({ icon, label, children, theme }) {

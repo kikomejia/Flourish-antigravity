@@ -14,7 +14,7 @@ const VIRTUES = [
   { key: "humanity", label: "Humanity", color: "#fda4af" },
   { key: "justice", label: "Justice", color: "#86efac" },
   { key: "temperance", label: "Temperance", color: "#ffedd5" },
-  { key: "transcendence", label: "Transcendence", color: "#67e8c8" },
+  { key: "transcendence", label: "Transcendence", color: "#38bdf8" },
 ];
 
 const DURATION_OPTIONS = [
