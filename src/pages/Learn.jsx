@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { useTheme, getPillStyle, getVirtueCardStyle } from "@/lib/ThemeContext.jsx";
+import { useTheme, getPillStyle, getVirtueCardStyle } from "@/lib/ThemeContext";
 import { generateLearningContent } from "@/functions/generateLearningContent";
 import BottomNav from "@/components/BottomNav";
 import { BookOpen, Lightbulb, Zap, FlaskConical } from "lucide-react";
