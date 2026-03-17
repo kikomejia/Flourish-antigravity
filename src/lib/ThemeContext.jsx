@@ -12,6 +12,9 @@ export const THEMES = {
     cardBg: "rgba(20,10,30,0.95)",
     cardBorder: "rgba(243,175,238,0.15)",
     inputBg: "rgba(255,255,255,0.05)",
+    headerGlow: true,
+    cardGlow: true,
+    calendarGlow: true,
     // Pills in glow: dark bg with colored border and colored text (outlined style)
     pillFilled: false,
     pillTextColor: null, // will use virtue color per-pill
@@ -34,8 +37,11 @@ export const THEMES = {
     subText: "rgba(45,49,66,0.65)",
     mutedText: "rgba(45,49,66,0.35)",
     cardBg: "rgba(255,220,252,0.75)",
-    cardBorder: "rgba(45,49,66,0.15)",
+    cardBorder: "transparent",
     inputBg: "rgba(45,49,66,0.06)",
+    headerGlow: false,
+    cardGlow: false,
+    calendarGlow: false,
     // Pills in orchid: filled with virtue color, white text
     pillFilled: true,
     pillTextColor: "#fff",
