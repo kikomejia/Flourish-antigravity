@@ -119,7 +119,7 @@ export default function Learn() {
                 {content.practical_takeaways?.map((item, i) => {
                   const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
+                    <div key={i} className="rounded-xl p-4" style={getVirtueCardStyle(theme, color)}>
                       <span
                         className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded inline-block mb-2"
                         style={getPillStyle(theme, color)}
