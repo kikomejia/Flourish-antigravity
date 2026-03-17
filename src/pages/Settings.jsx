@@ -118,7 +118,7 @@ export default function Settings() {
   return (
     <div className="min-h-screen pb-28" style={{ background: theme.bg, color: theme.text }}>
       {/* Header */}
-      <div className="flex items-center justify-between px-4 pt-4 pb-6">
+      <div className="flex items-center justify-between px-4 pb-6" style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}>
         <button
           onClick={() => navigate(-1)}
           className="w-9 h-9 rounded-full flex items-center justify-center"

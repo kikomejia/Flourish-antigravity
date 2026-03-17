@@ -175,7 +175,7 @@ export default function Act() {
   return (
     <div className="min-h-screen flex flex-col pb-28" style={{ background: theme.bg, color: theme.text }}>
       {/* Header */}
-      <div className="flex items-center justify-center px-4 pt-4 pb-2">
+      <div className="flex items-center justify-center px-4 pb-2" style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}>
         <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: `0 0 20px ${theme.accent}55` }}>
           Act
         </h1>
