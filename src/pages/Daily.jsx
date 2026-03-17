@@ -253,7 +253,7 @@ export default function Daily() {
       {/* Header */}
       <div className="flex items-center justify-between px-4 pb-2" style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}>
         <div className="w-8" />
-        <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: `0 0 20px ${theme.accent}55` }}>
+        <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}55` : "none" }}>
           Flourish
         </h1>
         <button onClick={() => navigate("/Settings")} className="w-8 h-8 flex items-center justify-center opacity-50 hover:opacity-80 transition-opacity">
@@ -326,7 +326,7 @@ export default function Daily() {
                             : isToday
                             ? theme.accent
                             : theme.subText,
-                          boxShadow: isSelected ? `0 0 12px ${theme.accent}66` : "none",
+                          boxShadow: isSelected && theme.calendarGlow ? `0 0 12px ${theme.accent}66` : "none",
                           cursor: isFuture ? "default" : "pointer",
                           border: isToday && !isSelected ? `1px solid ${theme.accent}55` : "none",
                         }}
@@ -384,7 +384,7 @@ export default function Daily() {
               >
                 <span
                   className="text-base font-bold tracking-widest"
-                  style={{ color: theme.accent, fontFamily: "monospace", textShadow: `0 0 20px ${theme.accent}33` }}
+                  style={{ color: theme.accent, fontFamily: "monospace", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}33` : "none" }}
                 >
                   TAP ON A PETAL TO START
                 </span>
