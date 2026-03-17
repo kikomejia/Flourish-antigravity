@@ -199,16 +199,12 @@ export default function Act() {
                   return (
                     <div
                       className="rounded-2xl p-5 mb-4"
-                      style={{
-                        background: theme.cardBg,
-                        border: `1px solid ${color}66`,
-                        boxShadow: theme.isLight ? "none" : `0 0 28px ${color}44`,
-                      }}
+                      style={{ background: theme.cardBg }}
                     >
                       <div className="flex items-center gap-3 mb-4">
                         <span
                           className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                          style={{ background: `${color}22`, color, border: `1px solid ${color}66` }}
+                          style={{ background: `${color}33`, color: theme.isLight ? theme.accent : color }}
                         >
                           {acceptedChallenge.virtue}
                         </span>
@@ -271,7 +267,7 @@ export default function Act() {
               exit={{ y: 80, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="w-full max-w-md rounded-t-3xl p-6 pb-36"
-              style={{ background: theme.isLight ? "#fce8fa" : "rgba(15,5,25,0.98)", border: `1px solid ${theme.accent}33` }}
+              style={{ background: theme.isLight ? "#fce8fa" : "rgba(15,5,25,0.98)" }}
               onClick={e => e.stopPropagation()}
             >
               {(() => {
@@ -354,16 +350,13 @@ export default function Act() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2 }}
                   className="rounded-2xl p-5 cursor-pointer"
-                  style={{
-                    background: theme.cardBg,
-                    border: `1px solid ${color}55`,
-                  }}
+                  style={{ background: theme.cardBg }}
                   onClick={() => handleSelectVirtue(v.key)}
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <span
                       className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                      style={{ background: `${color}22`, color, border: `1px solid ${color}66` }}
+                      style={{ background: `${color}33`, color: theme.isLight ? theme.accent : color }}
                     >
                       {v.label}
                     </span>
@@ -375,7 +368,7 @@ export default function Act() {
                   <p className="text-sm leading-relaxed mb-4" style={{ color: theme.subText }}>{challenge?.text}</p>
                   <div
                     className="w-full py-3 rounded-full text-sm font-bold text-center"
-                    style={{ background: `${color}22`, color, border: `1.5px solid ${color}66` }}
+                    style={{ background: `${color}33`, color: theme.isLight ? theme.accent : color }}
                   >
                     Take this challenge
                   </div>
