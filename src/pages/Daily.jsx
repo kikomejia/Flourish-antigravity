@@ -268,18 +268,18 @@ export default function Daily() {
           <button
             onClick={() => changeWeek(-1)}
             className="w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity"
-            style={{ color: "rgba(255,255,255,0.6)" }}
+            style={{ color: theme.subText }}
           >
             <ChevronLeft size={18} />
           </button>
-          <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.55)" }}>
+          <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: theme.subText }}>
             {format(weekStart, "MMMM yyyy")}
           </span>
           <button
             onClick={() => changeWeek(1)}
             disabled={weekOffset >= 0}
             className="w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100 disabled:opacity-20 transition-opacity"
-            style={{ color: "rgba(255,255,255,0.6)" }}
+            style={{ color: theme.subText }}
           >
             <ChevronRight size={18} />
           </button>
@@ -289,7 +289,7 @@ export default function Daily() {
           {/* Day labels row */}
           <div className="grid grid-cols-7 gap-1 mb-1">
             {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-              <div key={i} className="flex items-center justify-center text-xs pb-1" style={{ color: "rgba(255,255,255,0.45)" }}>
+              <div key={i} className="flex items-center justify-center text-xs pb-1" style={{ color: theme.subText }}>
                 <span>{d}</span>
               </div>
             ))}
@@ -318,17 +318,17 @@ export default function Daily() {
                         onClick={() => !isFuture && handleDayClick(day)}
                         className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-200"
                         style={{
-                          background: isSelected ? "#f3afee" : "transparent",
+                          background: isSelected ? theme.accent : "transparent",
                           color: isFuture
-                            ? "rgba(255,255,255,0.15)"
+                            ? theme.mutedText
                             : isSelected
-                            ? "#1a0a1a"
+                            ? (theme.isLight ? "#fff" : "#1a0a1a")
                             : isToday
-                            ? "#f3afee"
-                            : "rgba(255,255,255,0.55)",
-                          boxShadow: isSelected ? "0 0 12px #f3afee66" : "none",
+                            ? theme.accent
+                            : theme.subText,
+                          boxShadow: isSelected ? `0 0 12px ${theme.accent}66` : "none",
                           cursor: isFuture ? "default" : "pointer",
-                          border: isToday && !isSelected ? "1px solid rgba(243,175,238,0.35)" : "none",
+                          border: isToday && !isSelected ? `1px solid ${theme.accent}55` : "none",
                         }}
                       >
                         {format(day, "d")}
@@ -345,7 +345,7 @@ export default function Daily() {
       {/* Historical date label */}
       {!isViewingToday && (
         <div className="text-center pb-1">
-          <span className="text-xs tracking-widest" style={{ color: "rgba(243,175,238,0.6)" }}>
+          <span className="text-xs tracking-widest" style={{ color: theme.subText }}>
             {format(parseISO(selectedDate), "MMMM d, yyyy")}
           </span>
         </div>
@@ -363,11 +363,11 @@ export default function Daily() {
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.22, ease: "easeOut" }}
               >
-                <p className="text-xl font-bold mb-1" style={{ color: VIRTUE_COLORS[activeVirtue] }}>
+                <p className="text-xl font-bold mb-1" style={{ color: theme.virtueColors[activeVirtue] || VIRTUE_COLORS[activeVirtue] }}>
                   {activeVirtue.charAt(0).toUpperCase() + activeVirtue.slice(1)}
                 </p>
                 {VIRTUE_DEFINITIONS[activeVirtue] && (
-                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>
                     {VIRTUE_DEFINITIONS[activeVirtue]}
                   </p>
                 )}
@@ -384,7 +384,7 @@ export default function Daily() {
               >
                 <span
                   className="text-base font-bold tracking-widest"
-                  style={{ color: "#f3afee", fontFamily: "monospace", textShadow: "0 0 20px #f3afee55" }}
+                  style={{ color: theme.accent, fontFamily: "monospace", textShadow: `0 0 20px ${theme.accent}33` }}
                 >
                   TAP ON A PETAL TO START
                 </span>
@@ -415,7 +415,7 @@ export default function Daily() {
                   exit={{ opacity: 0, y: 6 }}
                   transition={{ duration: 0.22, ease: "easeOut" }}
                   className="mt-0 mb-3 text-sm text-center px-6 leading-relaxed"
-                  style={{ color: VIRTUE_COLORS[activeVirtue] }}
+                  style={{ color: theme.virtueColors[activeVirtue] || VIRTUE_COLORS[activeVirtue] }}
                 >
                   {VIRTUE_CULTIVATE[activeVirtue]}
                 </motion.p>
@@ -437,42 +437,42 @@ export default function Daily() {
             className="px-4 pb-24 mt-2"
           >
             {completedVirtues.length === 0 ? (
-              <div className="text-center py-8 text-sm" style={{ color: "rgba(255,255,255,0.25)" }}>
+              <div className="text-center py-8 text-sm" style={{ color: theme.mutedText }}>
                 No virtues completed on this day
               </div>
             ) : (
               <>
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
-                  <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#f3afee" }}>Achievements</span>
-                  <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
+                  <div className="flex-1 h-px" style={{ background: `${theme.accent}25` }} />
+                  <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: theme.accent }}>Achievements</span>
+                  <div className="flex-1 h-px" style={{ background: `${theme.accent}25` }} />
                 </div>
                 <div className="space-y-3">
                   {VIRTUES.filter(v => completedVirtues.includes(v.key)).map(v => {
+                    const color = theme.virtueColors[v.key] || v.color;
                     const act = historicalActivities.find(a => a.virtue === v.key);
                     return (
                       <div
                         key={v.key}
                         className="rounded-xl p-3 flex items-start gap-3"
                         style={{
-                          background: `${v.color}0d`,
-                          border: `1px solid ${v.color}44`,
-                          boxShadow: `0 0 12px ${v.color}18`,
+                          background: theme.cardBg,
+                          border: `1px solid ${color}44`,
                         }}
                       >
                         <div
                           className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
-                          style={{ background: v.color, boxShadow: `0 0 6px ${v.color}` }}
+                          style={{ background: color }}
                         />
                         <div>
-                          <p className="text-xs font-bold tracking-widest uppercase mb-0.5" style={{ color: v.color }}>{v.label}</p>
+                          <p className="text-xs font-bold tracking-widest uppercase mb-0.5" style={{ color }}>{v.label}</p>
                           {act ? (
                             <>
-                              <p className="text-sm font-semibold text-white/90">{act.title}</p>
-                              <p className="text-xs text-white/50 mt-0.5">{act.text}</p>
+                              <p className="text-sm font-semibold" style={{ color: theme.text }}>{act.title}</p>
+                              <p className="text-xs mt-0.5" style={{ color: theme.subText }}>{act.text}</p>
                             </>
                           ) : (
-                            <p className="text-sm text-white/50">Completed</p>
+                            <p className="text-sm" style={{ color: theme.subText }}>Completed</p>
                           )}
                         </div>
                       </div>
@@ -499,9 +499,9 @@ export default function Daily() {
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   className="rounded-2xl p-4"
                   style={{
-                    background: "rgba(15,5,25,0.97)",
-                    border: `1px solid ${VIRTUE_COLORS[activeVirtue]}99`,
-                    boxShadow: `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55, inset 0 0 20px ${VIRTUE_COLORS[activeVirtue]}08`,
+                    background: theme.cardBg,
+                    border: `1px solid ${(theme.virtueColors[activeVirtue] || VIRTUE_COLORS[activeVirtue])}66`,
+                    boxShadow: theme.isLight ? "none" : `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55`,
                   }}
                 >
                   <VirtueCard
@@ -513,40 +513,42 @@ export default function Daily() {
                   />
                 </motion.div>
               </AnimatePresence>
-              <div className="mt-3 mb-24 text-center text-xs text-white/30 tracking-widest">
+              <div className="mt-3 mb-24 text-center text-xs tracking-widest" style={{ color: theme.mutedText }}>
                 {completedCount}/6
-                {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
+                {viewProgress?.is_complete && <span className="ml-2" style={{ color: theme.accent }}>✦ Complete</span>}
               </div>
             </div>
           )}
           {!todayProgress?.is_complete && !activeVirtue && (
-            <div className="mt-3 mb-4 text-center text-xs text-white/30 tracking-widest">
+            <div className="mt-3 mb-4 text-center text-xs tracking-widest" style={{ color: theme.mutedText }}>
               {completedCount}/6
-              {viewProgress?.is_complete && <span className="ml-2 text-purple-400">✦ Complete</span>}
+              {viewProgress?.is_complete && <span className="ml-2" style={{ color: theme.accent }}>✦ Complete</span>}
             </div>
           )}
 
           {todayProgress?.is_complete && (
             <div className="px-4 pb-24">
               <div className="flex items-center gap-2 mb-4 mt-8">
-                <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
-                <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#f3afee" }}>Today's Achievements</span>
-                <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.25)" }} />
+                <div className="flex-1 h-px" style={{ background: `${theme.accent}25` }} />
+                <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: theme.accent }}>Today's Achievements</span>
+                <div className="flex-1 h-px" style={{ background: `${theme.accent}25` }} />
               </div>
               <div className="space-y-3">
-                {VIRTUES.map(v => (
-                  <div
-                    key={v.key}
-                    className="rounded-xl p-0.5"
-                    style={{
-                      background: `linear-gradient(135deg, ${v.color}33, ${v.color}11)`,
-                      border: `1px solid ${v.color}55`,
-                      boxShadow: `0 0 16px ${v.color}22`,
-                    }}
-                  >
-                    <VirtueCard virtue={v.key} isCompleted={true} onComplete={() => {}} />
-                  </div>
-                ))}
+                {VIRTUES.map(v => {
+                  const color = theme.virtueColors[v.key] || v.color;
+                  return (
+                    <div
+                      key={v.key}
+                      className="rounded-xl p-0.5"
+                      style={{
+                        background: theme.cardBg,
+                        border: `1px solid ${color}55`,
+                      }}
+                    >
+                      <VirtueCard virtue={v.key} isCompleted={true} onComplete={() => {}} />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
