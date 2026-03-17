@@ -184,10 +184,10 @@ export default function You() {
                   key={v.key}
                   onClick={() => setActiveFilter(isActive ? null : v.key)}
                   className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200"
-                  style={{
-                    background: isActive ? vColor : `${vColor}20`,
-                    color: isActive ? (theme.pillTextColor || "#fff") : theme.subText,
-                  }}
+                  style={isActive
+                    ? getPillStyle(theme, vColor)
+                    : { background: "transparent", color: theme.subText, border: `1px solid ${theme.pillFilled ? `${vColor}40` : "rgba(255,255,255,0.15)"}` }
+                  }
                 >
                   {v.label}
                 </button>
@@ -230,7 +230,7 @@ export default function You() {
                         <p className="font-bold text-sm capitalize leading-snug" style={{ color: theme.text }}>
                           <span
                             className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded mr-1"
-                            style={{ background: color, color: theme.pillTextColor || "#fff" }}
+                            style={getPillStyle(theme, color)}
                           >{act.virtue}</span>{actionLabel}
                         </p>
                         <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: theme.mutedText }}>
