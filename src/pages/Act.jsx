@@ -355,7 +355,10 @@ export default function Act() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2 }}
                   className="rounded-2xl p-5 cursor-pointer"
-                  style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}
+                  style={theme.isLight
+                    ? { background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }
+                    : { background: theme.cardBg, border: `1px solid ${color}66`, boxShadow: `0 0 24px ${color}33` }
+                  }
                   onClick={() => handleSelectVirtue(v.key)}
                 >
                   <div className="flex items-center gap-3 mb-4">
