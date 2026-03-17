@@ -20,10 +20,7 @@ function StatCard({ icon, label, children, theme }) {
   return (
     <div
       className="rounded-2xl p-4"
-      style={{
-        background: theme.cardBg,
-        border: `1px solid ${theme.cardBorder}`,
-      }}
+      style={{ background: theme.cardBg }}
     >
       <div className="flex items-center gap-1.5 mb-2">
         {icon}
