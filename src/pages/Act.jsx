@@ -204,10 +204,10 @@ export default function Act() {
                       <div className="flex items-center gap-3 mb-4">
                         <span
                           className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                          style={{ background: color, color: "#fff" }}
-                        >
+                          style={{ background: color, color: theme.pillTextColor || "#fff" }}
+                          >
                           {acceptedChallenge.virtue}
-                        </span>
+                          </span>
                         <span className="text-sm italic" style={{ color: theme.subText, fontFamily: "serif" }}>
                           Active challenge
                         </span>
@@ -278,7 +278,7 @@ export default function Act() {
                   <>
                     <span
                       className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md inline-block mb-2"
-                      style={{ background: color, color: "#fff" }}
+                      style={{ background: color, color: theme.pillTextColor || "#fff" }}
                     >
                       {selectedVirtue} · Challenge
                     </span>
@@ -358,10 +358,10 @@ export default function Act() {
                   <div className="flex items-center gap-3 mb-4">
                     <span
                       className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                      style={{ background: color, color: "#fff" }}
-                    >
-                      {v.label}
-                    </span>
+                            style={{ background: color, color: theme.pillTextColor || "#fff" }}
+                          >
+                            {v.label}
+                          </span>
                     <span className="text-sm italic" style={{ color: theme.subText, fontFamily: "serif" }}>
                       Challenge
                     </span>
