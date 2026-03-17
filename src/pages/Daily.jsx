@@ -462,7 +462,7 @@ export default function Daily() {
                           style={{ background: color }}
                         />
                         <div>
-                          <p className="text-xs font-bold tracking-widest uppercase mb-0.5" style={{ background: color, color: "#fff", display: "inline-block", padding: "1px 8px", borderRadius: "4px" }}>{v.label}</p>
+                          <p className="text-xs font-bold tracking-widest uppercase mb-0.5" style={{ background: color, color: theme.pillTextColor || "#fff", display: "inline-block", padding: "1px 8px", borderRadius: "4px" }}>{v.label}</p>
                           {act ? (
                             <>
                               <p className="text-sm font-semibold" style={{ color: theme.text }}>{act.title}</p>

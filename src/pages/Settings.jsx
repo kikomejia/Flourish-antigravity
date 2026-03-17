@@ -136,7 +136,7 @@ export default function Settings() {
         {/* Profile section */}
         <div className="mb-6">
           <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: theme.subText }}>Profile</p>
-          <div className="rounded-2xl p-5" style={{ background: theme.cardBg }}>
+          <div className="rounded-2xl p-5" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
             {/* Photo */}
             <div className="flex flex-col items-center mb-5">
               <div className="relative">
@@ -188,7 +188,7 @@ export default function Settings() {
         {/* Theme section */}
         <div className="mb-6">
           <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: theme.subText }}>Theme</p>
-          <div className="rounded-2xl p-4 flex gap-3" style={{ background: theme.cardBg }}>
+          <div className="rounded-2xl p-4 flex gap-3" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
             {Object.values(THEMES).map(t => (
               <button
                 key={t.id}
