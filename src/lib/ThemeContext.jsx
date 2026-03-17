@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export const THEMES = {
   glow: {
@@ -9,10 +9,12 @@ export const THEMES = {
     text: "rgba(255,255,255,0.9)",
     subText: "rgba(255,255,255,0.45)",
     mutedText: "rgba(255,255,255,0.25)",
-    cardBg: "rgba(10,10,20,0.9)",
-    cardBorder: "rgba(243,175,238,0.18)",
+    cardBg: "rgba(20,10,30,0.95)",
+    cardBorder: "rgba(243,175,238,0.15)",
     inputBg: "rgba(255,255,255,0.05)",
-    pillTextColor: "#0a0a14",
+    // Pills in glow: dark bg with colored border and colored text (outlined style)
+    pillFilled: false,
+    pillTextColor: null, // will use virtue color per-pill
     isLight: false,
     virtueColors: {
       wisdom: "#d8b4fe",
@@ -34,6 +36,8 @@ export const THEMES = {
     cardBg: "rgba(255,220,252,0.75)",
     cardBorder: "rgba(45,49,66,0.15)",
     inputBg: "rgba(45,49,66,0.06)",
+    // Pills in orchid: filled with virtue color, white text
+    pillFilled: true,
     pillTextColor: "#fff",
     isLight: true,
     virtueColors: {
@@ -46,6 +50,39 @@ export const THEMES = {
     },
   },
 };
+
+/**
+ * Returns the style for a virtue pill/badge.
+ * Glow: dark bg, colored border + colored text (outlined)
+ * Orchid: filled with virtue color, white text
+ */
+export function getPillStyle(theme, virtueColor) {
+  if (theme.pillFilled) {
+    return {
+      background: virtueColor,
+      color: theme.pillTextColor || "#fff",
+      border: "none",
+    };
+  }
+  // Glow: outlined
+  return {
+    background: "rgba(255,255,255,0.04)",
+    color: virtueColor,
+    border: `1.5px solid ${virtueColor}`,
+  };
+}
+
+/**
+ * Returns style for a primary action button (Accept / Take this challenge / Mark Complete).
+ * Both themes: filled with virtue color. Glow uses white text, Orchid uses pillTextColor.
+ */
+export function getActionButtonStyle(theme, virtueColor) {
+  return {
+    background: virtueColor,
+    color: theme.pillFilled ? (theme.pillTextColor || "#fff") : "#fff",
+    boxShadow: theme.pillFilled ? "none" : `0 0 20px ${virtueColor}66`,
+  };
+}
 
 const ThemeContext = createContext(null);
 
