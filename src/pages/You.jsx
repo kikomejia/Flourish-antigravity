@@ -107,7 +107,7 @@ export default function You() {
         >
           <Settings size={15} className="opacity-50" />
         </button>
-        <h1 className="text-lg font-semibold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: `0 0 20px ${theme.accent}55` }}>
+        <h1 className="text-lg font-semibold tracking-wide" style={{ color: theme.accent, fontFamily: "serif", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}55` : "none" }}>
           Profile
         </h1>
         <button
