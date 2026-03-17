@@ -106,7 +106,8 @@ export function getActionButtonStyle(theme, virtueColor) {
  */
 export function getVirtueCardStyle(theme, virtueColor) {
   if (!theme.cardGlow) {
-    return { background: theme.cardBg, border: "none" };
+    // Orchid: very pale tint of the virtue color as the card background
+    return { background: `${virtueColor}12`, border: "none" };
   }
   return { background: theme.cardBg, border: `1px solid ${virtueColor}66`, boxShadow: `0 0 24px ${virtueColor}33` };
 }
