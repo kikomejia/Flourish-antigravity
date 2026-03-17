@@ -204,7 +204,7 @@ export default function Act() {
                       <div className="flex items-center gap-3 mb-4">
                         <span
                           className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                          style={{ background: `${color}33`, color: theme.isLight ? theme.accent : color }}
+                          style={{ background: color, color: "#fff" }}
                         >
                           {acceptedChallenge.virtue}
                         </span>
@@ -220,7 +220,7 @@ export default function Act() {
                       <button
                         onClick={handleComplete}
                         className="w-full py-3 rounded-full text-sm font-bold transition-all duration-200"
-                        style={{ background: color, color: theme.isLight ? "#fff" : "#0a0a14", boxShadow: `0 0 20px ${color}66` }}
+                        style={{ background: color, color: "#fff", boxShadow: `0 0 20px ${color}66` }}
                       >
                         Mark as Completed
                       </button>
@@ -356,7 +356,7 @@ export default function Act() {
                   <div className="flex items-center gap-3 mb-4">
                     <span
                       className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                      style={{ background: `${color}33`, color: theme.isLight ? theme.accent : color }}
+                      style={{ background: color, color: "#fff" }}
                     >
                       {v.label}
                     </span>
@@ -368,7 +368,7 @@ export default function Act() {
                   <p className="text-sm leading-relaxed mb-4" style={{ color: theme.subText }}>{challenge?.text}</p>
                   <div
                     className="w-full py-3 rounded-full text-sm font-bold text-center"
-                    style={{ background: `${color}33`, color: theme.isLight ? theme.accent : color }}
+                    style={{ background: color, color: "#fff" }}
                   >
                     Take this challenge
                   </div>
