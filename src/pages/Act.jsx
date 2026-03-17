@@ -275,7 +275,7 @@ export default function Act() {
             >
               {(() => {
                 const v = VIRTUES.find(x => x.key === selectedVirtue);
-                const color = v?.color || "#f3afee";
+                const color = theme.virtueColors[selectedVirtue] || v?.color || "#f3afee";
                 const challenge = getDailyChallenge(selectedVirtue);
                 return (
                   <>
