@@ -199,7 +199,10 @@ export default function Act() {
                   return (
                     <div
                       className="rounded-2xl p-5 mb-4"
-                      style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}
+                      style={theme.isLight
+                        ? { background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }
+                        : { background: theme.cardBg, border: `1px solid ${color}66`, boxShadow: `0 0 24px ${color}33` }
+                      }
                     >
                       <div className="flex items-center gap-3 mb-4">
                         <span
