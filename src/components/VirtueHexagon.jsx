@@ -104,8 +104,8 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
             : (isCompleted ? `${baseColor}20` : isAccepted ? `${baseColor}0e` : "rgba(10,10,20,0.6)");
 
           const stroke = isLight ? (isIdle ? "#2D3142" : baseColor) : baseColor;
-          const strokeWidth = isLight ? (isIdle ? 55 : isActive ? 80 : 0) : (isActive ? 90 : isCompleted ? 75 : isAccepted ? 65 : 46.3);
-          const strokeOpacity = isLight ? (isIdle ? 0.35 : 1) : (isCompleted ? 1 : isActive ? 1 : isAccepted ? 0.95 : 0.7);
+          const strokeWidth = isLight ? 55 : (isActive ? 90 : isCompleted ? 75 : isAccepted ? 65 : 46.3);
+          const strokeOpacity = isLight ? (isIdle ? 0.35 : 0.9) : (isCompleted ? 1 : isActive ? 1 : isAccepted ? 0.95 : 0.7);
 
           return (
             <g key={petal.key} onClick={() => onVirtueClick(petal.key)} style={{ cursor: "pointer" }}>
