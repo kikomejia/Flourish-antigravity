@@ -1,6 +1,6 @@
 import React from "react";
 import VIRTUE_CONTENT from "./virtueContent";
-import { useTheme } from "@/lib/ThemeContext";
+import { useTheme, getPillStyle, getActionButtonStyle } from "@/lib/ThemeContext";
 
 export const VIRTUE_DEFINITIONS = {
   wisdom: "Cultivate your knowledge and experience to improve your decision-making.",
