@@ -276,9 +276,12 @@ export default function Act() {
                 const challenge = getDailyChallenge(selectedVirtue);
                 return (
                   <>
-                    <p className="text-xs font-bold tracking-widest uppercase mb-1" style={{ color }}>
+                    <span
+                      className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md inline-block mb-2"
+                      style={{ background: color, color: "#fff" }}
+                    >
                       {selectedVirtue} · Challenge
-                    </p>
+                    </span>
                     <p className="font-bold text-lg mb-1 leading-snug" style={{ color: theme.text }}>{challenge?.title}</p>
                     <p className="text-sm leading-relaxed mb-6" style={{ color: theme.subText }}>{challenge?.text}</p>
                     <p className="text-sm font-semibold mb-4" style={{ color: theme.subText }}>
