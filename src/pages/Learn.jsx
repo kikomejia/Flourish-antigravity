@@ -119,10 +119,10 @@ export default function Learn() {
                 {content.practical_takeaways?.map((item, i) => {
                   const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg }}>
+                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
                       <span
                         className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded inline-block mb-2"
-                        style={{ background: color, color: "#fff" }}
+                        style={{ background: color, color: theme.pillTextColor || "#fff" }}
                       >{item.virtue}</span>
                       <p className="text-sm font-semibold mb-1" style={{ color: theme.text }}>{item.title}</p>
                       <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>{item.explanation}</p>
@@ -138,12 +138,12 @@ export default function Learn() {
                 {content.virtues_as_functional_skills?.map((item, i) => {
                   const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="flex items-start gap-3 rounded-xl p-3" style={{ background: theme.cardBg }}>
+                    <div key={i} className="flex items-start gap-3 rounded-xl p-3" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
                       <div className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={{ background: color }} />
                       <div>
                         <span
                           className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded inline-block mb-1"
-                          style={{ background: color, color: "#fff" }}
+                          style={{ background: color, color: theme.pillTextColor || "#fff" }}
                         >{item.virtue}</span>
                         <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>{item.skill}</p>
                       </div>
@@ -159,11 +159,11 @@ export default function Learn() {
                 {content.hard_hitting_resources?.map((item, i) => {
                   const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg }}>
+                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
                       <div className="flex items-center gap-2 mb-1">
                         <span
                           className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded"
-                          style={{ background: color, color: "#fff" }}
+                          style={{ background: color, color: theme.pillTextColor || "#fff" }}
                         >{item.virtue}</span>
                         <span style={{ color: theme.mutedText }} className="text-xs">•</span>
                         <span className="text-sm font-semibold" style={{ color: theme.text }}>{item.author_source}</span>
@@ -181,7 +181,7 @@ export default function Learn() {
                 {content.real_world_facts?.map((item, i) => {
                   const [title, ...rest] = item.split(":");
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg }}>
+                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
                       <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>
                         {rest.length > 0 ? (
                           <><span className="font-bold" style={{ color: theme.text }}>{title}:</span>{rest.join(":")}</>
