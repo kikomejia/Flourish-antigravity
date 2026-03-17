@@ -72,15 +72,13 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
   const item = getDailyItem(virtue, changeCount ?? 0);
   const canChange = (changeCount ?? 0) < MAX_CHANGES;
 
-  const isLight = theme.isLight;
-
   return (
     <div className="rounded-2xl p-5 transition-all duration-300" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
         <span
           className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-          style={{ background: color, color: theme.pillTextColor || "#fff" }}
+          style={getPillStyle(theme, color)}
         >
           {virtue}
         </span>
@@ -102,7 +100,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
             style={{
               background: "transparent",
               color: canChange ? theme.subText : theme.mutedText,
-              border: `1.5px solid ${canChange ? theme.cardBorder : "rgba(0,0,0,0.05)"}`,
+              border: `1.5px solid ${canChange ? (theme.pillFilled ? theme.cardBorder : "rgba(255,255,255,0.18)") : "rgba(255,255,255,0.06)"}`,
               cursor: canChange ? "pointer" : "not-allowed",
             }}
           >
@@ -111,12 +109,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
           <button
             onClick={() => onComplete(virtue)}
             className="flex-1 py-3 rounded-full text-sm font-bold transition-all duration-200"
-            style={{
-              background: color,
-              color: theme.pillTextColor || "#fff",
-              boxShadow: `0 0 20px ${color}66`,
-              cursor: "pointer",
-            }}
+            style={{ ...getActionButtonStyle(theme, color), cursor: "pointer" }}
           >
             Accept
           </button>
@@ -124,7 +117,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
       ) : (
         <div
           className="w-full py-3 rounded-full text-sm font-bold text-center"
-          style={{ background: `${color}22`, color: isLight ? theme.accent : color }}
+          style={{ background: `${color}22`, color: theme.isLight ? theme.accent : color }}
         >
           Accepted +1
         </div>
