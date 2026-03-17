@@ -376,7 +376,7 @@ export default function Act() {
                   <p className="text-sm leading-relaxed mb-4" style={{ color: theme.subText }}>{challenge?.text}</p>
                   <div
                     className="w-full py-3 rounded-full text-sm font-bold text-center"
-                    style={getActionButtonStyle(theme, color)}
+                    style={getChallengeButtonStyle(theme, color)}
                   >
                     Take this challenge
                   </div>
