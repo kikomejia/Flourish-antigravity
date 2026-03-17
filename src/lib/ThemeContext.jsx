@@ -10,8 +10,9 @@ export const THEMES = {
     subText: "rgba(255,255,255,0.45)",
     mutedText: "rgba(255,255,255,0.25)",
     cardBg: "rgba(10,10,20,0.9)",
-    cardBorder: "rgba(243,175,238,0.12)",
+    cardBorder: "rgba(243,175,238,0.18)",
     inputBg: "rgba(255,255,255,0.05)",
+    pillTextColor: "#0a0a14",
     isLight: false,
     virtueColors: {
       wisdom: "#d8b4fe",
@@ -33,6 +34,7 @@ export const THEMES = {
     cardBg: "rgba(255,220,252,0.75)",
     cardBorder: "rgba(45,49,66,0.15)",
     inputBg: "rgba(45,49,66,0.06)",
+    pillTextColor: "#fff",
     isLight: true,
     virtueColors: {
       wisdom: "#8E44AD",
