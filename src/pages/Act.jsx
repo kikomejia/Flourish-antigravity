@@ -203,11 +203,11 @@ export default function Act() {
                     >
                       <div className="flex items-center gap-3 mb-4">
                         <span
-                          className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                          style={{ background: color, color: theme.pillTextColor || "#fff" }}
-                          >
-                          {acceptedChallenge.virtue}
-                          </span>
+                         className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
+                         style={getPillStyle(theme, color)}
+                         >
+                         {acceptedChallenge.virtue}
+                         </span>
                         <span className="text-sm italic" style={{ color: theme.subText, fontFamily: "serif" }}>
                           Active challenge
                         </span>
@@ -220,7 +220,7 @@ export default function Act() {
                       <button
                         onClick={handleComplete}
                         className="w-full py-3 rounded-full text-sm font-bold transition-all duration-200"
-                        style={{ background: color, color: theme.pillTextColor || "#fff", boxShadow: `0 0 20px ${color}66` }}
+                        style={getActionButtonStyle(theme, color)}
                       >
                         Mark as Completed
                       </button>
@@ -278,7 +278,7 @@ export default function Act() {
                   <>
                     <span
                       className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md inline-block mb-2"
-                      style={{ background: color, color: theme.pillTextColor || "#fff" }}
+                      style={getPillStyle(theme, color)}
                     >
                       {selectedVirtue} · Challenge
                     </span>
@@ -329,10 +329,10 @@ export default function Act() {
                   key={v.key}
                   onClick={() => setActiveFilter(isActive ? null : v.key)}
                   className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200"
-                  style={{
-                    background: isActive ? vColor : `${vColor}20`,
-                    color: isActive ? (theme.pillTextColor || "#fff") : theme.subText,
-                  }}
+                  style={isActive
+                    ? getPillStyle(theme, vColor)
+                    : { background: "transparent", color: theme.subText, border: `1px solid ${theme.pillFilled ? `${vColor}40` : "rgba(255,255,255,0.15)"}` }
+                  }
                 >
                   {v.label}
                 </button>
@@ -358,10 +358,10 @@ export default function Act() {
                   <div className="flex items-center gap-3 mb-4">
                     <span
                       className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                            style={{ background: color, color: theme.pillTextColor || "#fff" }}
-                          >
-                            {v.label}
-                          </span>
+                      style={getPillStyle(theme, color)}
+                    >
+                      {v.label}
+                    </span>
                     <span className="text-sm italic" style={{ color: theme.subText, fontFamily: "serif" }}>
                       Challenge
                     </span>
@@ -370,10 +370,10 @@ export default function Act() {
                   <p className="text-sm leading-relaxed mb-4" style={{ color: theme.subText }}>{challenge?.text}</p>
                   <div
                     className="w-full py-3 rounded-full text-sm font-bold text-center"
-                    style={{ background: color, color: theme.pillTextColor || "#fff" }}
-                    >
+                    style={getActionButtonStyle(theme, color)}
+                  >
                     Take this challenge
-                    </div>
+                  </div>
                 </motion.div>
               );
             })}
