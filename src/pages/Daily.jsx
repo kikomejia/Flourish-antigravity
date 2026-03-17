@@ -455,10 +455,7 @@ export default function Daily() {
                       <div
                         key={v.key}
                         className="rounded-xl p-3 flex items-start gap-3"
-                        style={{
-                          background: theme.cardBg,
-                          border: `1px solid ${color}44`,
-                        }}
+                        style={{ background: theme.cardBg }}
                       >
                         <div
                           className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
@@ -500,7 +497,6 @@ export default function Daily() {
                   className="rounded-2xl p-4"
                   style={{
                     background: theme.cardBg,
-                    border: `1px solid ${(theme.virtueColors[activeVirtue] || VIRTUE_COLORS[activeVirtue])}66`,
                     boxShadow: theme.isLight ? "none" : `0 0 28px ${VIRTUE_COLORS[activeVirtue]}55`,
                   }}
                 >
@@ -540,10 +536,7 @@ export default function Daily() {
                     <div
                       key={v.key}
                       className="rounded-xl p-0.5"
-                      style={{
-                        background: theme.cardBg,
-                        border: `1px solid ${color}55`,
-                      }}
+                      style={{ background: theme.cardBg }}
                     >
                       <VirtueCard virtue={v.key} isCompleted={true} onComplete={() => {}} />
                     </div>
