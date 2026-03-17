@@ -124,7 +124,8 @@ export default function You() {
           className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold mb-3 overflow-hidden"
           style={{
             background: profilePhoto ? "transparent" : theme.inputBg,
-            border: `2px solid ${theme.accent}55`,
+            border: `2px solid ${theme.accent}${theme.isLight ? "55" : "99"}`,
+            boxShadow: theme.isLight ? "none" : `0 0 20px ${theme.accent}44`,
           }}
         >
           {profilePhoto
