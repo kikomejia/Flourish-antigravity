@@ -159,7 +159,7 @@ export default function Learn() {
                 {content.hard_hitting_resources?.map((item, i) => {
                   const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
+                    <div key={i} className="rounded-xl p-4" style={getVirtueCardStyle(theme, color)}>
                       <div className="flex items-center gap-2 mb-1">
                         <span
                           className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded"
