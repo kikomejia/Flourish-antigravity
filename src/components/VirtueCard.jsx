@@ -26,7 +26,7 @@ export const VIRTUE_COLORS = {
   humanity: "#fda4af",
   justice: "#86efac",
   temperance: "#ffedd5",
-  transcendence: "#7dd3fc",
+  transcendence: "#67e8c8",
 };
 
 
