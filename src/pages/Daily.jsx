@@ -462,7 +462,7 @@ export default function Daily() {
                           style={{ background: color }}
                         />
                         <div>
-                          <p className="text-xs font-bold tracking-widest uppercase mb-0.5" style={{ color }}>{v.label}</p>
+                          <p className="text-xs font-bold tracking-widest uppercase mb-0.5" style={{ background: color, color: "#fff", display: "inline-block", padding: "1px 8px", borderRadius: "4px" }}>{v.label}</p>
                           {act ? (
                             <>
                               <p className="text-sm font-semibold" style={{ color: theme.text }}>{act.title}</p>
@@ -530,18 +530,9 @@ export default function Daily() {
                 <div className="flex-1 h-px" style={{ background: `${theme.accent}25` }} />
               </div>
               <div className="space-y-3">
-                {VIRTUES.map(v => {
-                  const color = theme.virtueColors[v.key] || v.color;
-                  return (
-                    <div
-                      key={v.key}
-                      className="rounded-xl p-0.5"
-                      style={{ background: theme.cardBg }}
-                    >
-                      <VirtueCard virtue={v.key} isCompleted={true} onComplete={() => {}} />
-                    </div>
-                  );
-                })}
+                {VIRTUES.map(v => (
+                <VirtueCard key={v.key} virtue={v.key} isCompleted={true} onComplete={() => {}} />
+                ))}
               </div>
             </div>
           )}
