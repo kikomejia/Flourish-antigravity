@@ -89,38 +89,51 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
 
 
         {PETALS.map((petal) => {
-          const virtue = { ...VIRTUES.find((v) => v.key === petal.key), color: theme.virtueColors[petal.key] || VIRTUES.find(v => v.key === petal.key)?.color };
+          const baseColor = theme.virtueColors[petal.key] || VIRTUES.find(v => v.key === petal.key)?.color;
           const isCompleted = completedVirtues.includes(petal.key);
           const isAccepted = acceptedVirtues.includes(petal.key);
           const isActive = activeVirtue === petal.key;
+          const isLight = theme.isLight;
+
+          // Orchid theme: no stroke, fill only — faint when idle, vivid when accepted/completed
+          // Glow theme: existing stroke-based look
+          const fill = isLight
+            ? (isCompleted || isAccepted ? `${baseColor}cc` : isActive ? `${baseColor}66` : `${baseColor}33`)
+            : (isCompleted ? `${baseColor}20` : isAccepted ? `${baseColor}0e` : "rgba(10,10,20,0.6)");
+
+          const stroke = isLight ? "none" : baseColor;
+          const strokeWidth = isLight ? 0 : (isActive ? 90 : isCompleted ? 75 : isAccepted ? 65 : 46.3);
+          const strokeOpacity = isLight ? 0 : (isCompleted ? 1 : isActive ? 1 : isAccepted ? 0.95 : 0.7);
 
           return (
             <g key={petal.key} onClick={() => onVirtueClick(petal.key)} style={{ cursor: "pointer" }}>
               <path
                 d={petal.d}
-                fill={isCompleted ? `${virtue.color}20` : isAccepted ? `${virtue.color}0e` : "rgba(10,10,20,0.6)"}
-                stroke={virtue.color}
-                strokeWidth={isActive ? 90 : isCompleted ? 75 : isAccepted ? 65 : 46.3}
+                fill={fill}
+                stroke={stroke}
+                strokeWidth={strokeWidth}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeOpacity={isCompleted ? 1 : isActive ? 1 : isAccepted ? 0.95 : 0.7}
-                filter={isActive || isAccepted || isCompleted ? `url(#glow-pw-${petal.key})` : undefined}
+                strokeOpacity={strokeOpacity}
+                filter={!isLight && (isActive || isAccepted || isCompleted) ? `url(#glow-pw-${petal.key})` : undefined}
                 style={{ transition: "all 0.3s ease" }}
               />
             </g>
           );
         })}
 
-        {/* Decorative accent line on transcendence */}
-        <path
-          d="M2333.28,2546.38c-76.921,-226.496 -616.856,-1290.84 -908.264,-1521.33"
-          fill="none"
-          stroke="#7dd3fc"
-          strokeWidth="46.3"
-          strokeLinecap="round"
-          strokeOpacity="0.4"
-          style={{ pointerEvents: "none" }}
-        />
+        {/* Decorative accent line on transcendence — glow theme only */}
+        {!theme.isLight && (
+          <path
+            d="M2333.28,2546.38c-76.921,-226.496 -616.856,-1290.84 -908.264,-1521.33"
+            fill="none"
+            stroke="#7dd3fc"
+            strokeWidth="46.3"
+            strokeLinecap="round"
+            strokeOpacity="0.4"
+            style={{ pointerEvents: "none" }}
+          />
+        )}
       </svg>
     </div>
   );

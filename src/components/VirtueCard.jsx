@@ -72,8 +72,10 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
   const item = getDailyItem(virtue, changeCount ?? 0);
   const canChange = (changeCount ?? 0) < MAX_CHANGES;
 
+  const isLight = theme.isLight;
+
   return (
-    <div className="rounded-2xl p-5 transition-all duration-300" style={{ background: "rgba(10,10,20,0.9)" }}>
+    <div className="rounded-2xl p-5 transition-all duration-300" style={{ background: theme.cardBg }}>
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
         <span
@@ -82,14 +84,14 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
         >
           {virtue}
         </span>
-        <span className="text-sm italic" style={{ color: "rgba(255,255,255,0.45)", fontFamily: "serif" }}>
+        <span className="text-sm italic" style={{ color: theme.subText, fontFamily: "serif" }}>
           Today's pledge
         </span>
       </div>
 
       {/* Content */}
-      <p className="text-white font-bold text-xl mb-3 leading-snug">{item?.title}</p>
-      <p className="text-white/60 text-sm leading-relaxed mb-6">{item?.text}</p>
+      <p className="font-bold text-xl mb-3 leading-snug" style={{ color: theme.text }}>{item?.title}</p>
+      <p className="text-sm leading-relaxed mb-6" style={{ color: theme.subText }}>{item?.text}</p>
 
       {/* Actions */}
       {!isCompleted ? (
@@ -99,8 +101,8 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
             className="flex-1 py-3 rounded-full text-sm font-semibold transition-all duration-200"
             style={{
               background: "transparent",
-              color: canChange ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.2)",
-              border: `1.5px solid ${canChange ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.08)"}`,
+              color: canChange ? theme.subText : theme.mutedText,
+              border: `1.5px solid ${canChange ? theme.cardBorder : "rgba(0,0,0,0.05)"}`,
               cursor: canChange ? "pointer" : "not-allowed",
             }}
           >
@@ -111,7 +113,7 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
             className="flex-1 py-3 rounded-full text-sm font-bold transition-all duration-200"
             style={{
               background: color,
-              color: "#0a0a14",
+              color: isLight ? "#fff" : "#0a0a14",
               boxShadow: `0 0 20px ${color}66`,
               cursor: "pointer",
             }}
