@@ -74,13 +74,45 @@ export function getPillStyle(theme, virtueColor) {
 
 /**
  * Returns style for a primary action button (Accept / Take this challenge / Mark Complete).
- * Both themes: filled with virtue color. Glow uses white text, Orchid uses pillTextColor.
+ * Orchid: filled with virtue color, white text.
+ * Glow (challenge cards): transparent soft fill with virtue border + colored text.
+ * Glow (pledge accept): filled with virtue color, black text.
  */
 export function getActionButtonStyle(theme, virtueColor) {
+  if (theme.pillFilled) {
+    // Orchid: solid fill, white text
+    return {
+      background: virtueColor,
+      color: theme.pillTextColor || "#fff",
+      boxShadow: "none",
+    };
+  }
+  // Glow: solid fill, black text, glow shadow
   return {
     background: virtueColor,
-    color: theme.pillFilled ? (theme.pillTextColor || "#fff") : "#fff",
-    boxShadow: theme.pillFilled ? "none" : `0 0 20px ${virtueColor}66`,
+    color: "#000",
+    boxShadow: `0 0 20px ${virtueColor}66`,
+  };
+}
+
+/**
+ * Glow-only: style for challenge "Take this challenge" buttons — transparent soft fill, virtue border.
+ */
+export function getChallengeButtonStyle(theme, virtueColor) {
+  if (theme.pillFilled) {
+    // Orchid: same as action button
+    return {
+      background: virtueColor,
+      color: theme.pillTextColor || "#fff",
+      boxShadow: "none",
+    };
+  }
+  // Glow: soft transparent fill, virtue colored border + text
+  return {
+    background: `${virtueColor}18`,
+    color: virtueColor,
+    border: `1.5px solid ${virtueColor}88`,
+    boxShadow: `0 0 14px ${virtueColor}33`,
   };
 }
 
