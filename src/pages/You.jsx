@@ -229,7 +229,10 @@ export default function You() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
                         <p className="font-bold text-sm capitalize leading-snug" style={{ color: theme.text }}>
-                          {act.virtue}: {actionLabel}
+                          <span
+                            className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded mr-1"
+                            style={{ background: color, color: "#fff" }}
+                          >{act.virtue}</span>{actionLabel}
                         </p>
                         <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: theme.mutedText }}>
                           {timeStr}
