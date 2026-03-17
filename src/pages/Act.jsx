@@ -199,7 +199,7 @@ export default function Act() {
                   return (
                     <div
                       className="rounded-2xl p-5 mb-4"
-                      style={{ background: theme.cardBg }}
+                      style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}
                     >
                       <div className="flex items-center gap-3 mb-4">
                         <span
@@ -220,7 +220,7 @@ export default function Act() {
                       <button
                         onClick={handleComplete}
                         className="w-full py-3 rounded-full text-sm font-bold transition-all duration-200"
-                        style={{ background: color, color: "#fff", boxShadow: `0 0 20px ${color}66` }}
+                        style={{ background: color, color: theme.pillTextColor || "#fff", boxShadow: `0 0 20px ${color}66` }}
                       >
                         Mark as Completed
                       </button>
@@ -352,7 +352,7 @@ export default function Act() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2 }}
                   className="rounded-2xl p-5 cursor-pointer"
-                  style={{ background: theme.cardBg }}
+                  style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}
                   onClick={() => handleSelectVirtue(v.key)}
                 >
                   <div className="flex items-center gap-3 mb-4">
@@ -370,10 +370,10 @@ export default function Act() {
                   <p className="text-sm leading-relaxed mb-4" style={{ color: theme.subText }}>{challenge?.text}</p>
                   <div
                     className="w-full py-3 rounded-full text-sm font-bold text-center"
-                    style={{ background: color, color: "#fff" }}
-                  >
+                    style={{ background: color, color: theme.pillTextColor || "#fff" }}
+                    >
                     Take this challenge
-                  </div>
+                    </div>
                 </motion.div>
               );
             })}
