@@ -331,7 +331,7 @@ export default function Act() {
                   className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200"
                   style={{
                     background: isActive ? vColor : `${vColor}20`,
-                    color: isActive ? "#fff" : theme.subText,
+                    color: isActive ? (theme.pillTextColor || "#fff") : theme.subText,
                   }}
                 >
                   {v.label}

@@ -20,7 +20,7 @@ function StatCard({ icon, label, children, theme }) {
   return (
     <div
       className="rounded-2xl p-4"
-      style={{ background: theme.cardBg }}
+      style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}
     >
       <div className="flex items-center gap-1.5 mb-2">
         {icon}
@@ -186,7 +186,7 @@ export default function You() {
                   className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200"
                   style={{
                     background: isActive ? vColor : `${vColor}20`,
-                    color: isActive ? "#fff" : theme.subText,
+                    color: isActive ? (theme.pillTextColor || "#fff") : theme.subText,
                   }}
                 >
                   {v.label}
@@ -230,7 +230,7 @@ export default function You() {
                         <p className="font-bold text-sm capitalize leading-snug" style={{ color: theme.text }}>
                           <span
                             className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded mr-1"
-                            style={{ background: color, color: "#fff" }}
+                            style={{ background: color, color: theme.pillTextColor || "#fff" }}
                           >{act.virtue}</span>{actionLabel}
                         </p>
                         <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: theme.mutedText }}>

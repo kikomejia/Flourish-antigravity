@@ -75,12 +75,12 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
   const isLight = theme.isLight;
 
   return (
-    <div className="rounded-2xl p-5 transition-all duration-300" style={{ background: theme.cardBg, border: "none" }}>
+    <div className="rounded-2xl p-5 transition-all duration-300" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
         <span
           className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-          style={{ background: color, color: "#fff" }}
+          style={{ background: color, color: theme.pillTextColor || "#fff" }}
         >
           {virtue}
         </span>
