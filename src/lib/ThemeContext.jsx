@@ -31,7 +31,7 @@ export const THEMES = {
   orchid: {
     id: "orchid",
     name: "Orchid Pink",
-    bg: "#EBEBEB",
+    bg: "#F7E9F3",
     accent: "#2D3142",
     text: "#2D3142",
     subText: "rgba(45,49,66,0.65)",
