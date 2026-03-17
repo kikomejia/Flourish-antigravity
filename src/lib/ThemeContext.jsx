@@ -65,5 +65,7 @@ export function ThemeProvider({ children }) {
 }
 
 export function useTheme() {
-  return useContext(ThemeContext);
+  const ctx = useContext(ThemeContext);
+  if (!ctx) return { theme: THEMES.glow, themeId: "glow", setTheme: () => {} };
+  return ctx;
 }
