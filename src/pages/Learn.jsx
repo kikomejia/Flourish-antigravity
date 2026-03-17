@@ -138,7 +138,7 @@ export default function Learn() {
                 {content.virtues_as_functional_skills?.map((item, i) => {
                   const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="flex items-start gap-3 rounded-xl p-3" style={{ background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
+                    <div key={i} className="flex items-start gap-3 rounded-xl p-3" style={getVirtueCardStyle(theme, color)}>
                       <div className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={{ background: color }} />
                       <div>
                         <span
