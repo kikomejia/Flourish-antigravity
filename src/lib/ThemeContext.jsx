@@ -96,6 +96,16 @@ export function getActionButtonStyle(theme, virtueColor) {
 }
 
 /**
+ * Returns card style with virtue color border+glow for glow theme, standard for orchid.
+ */
+export function getVirtueCardStyle(theme, virtueColor) {
+  if (theme.isLight) {
+    return { background: theme.cardBg, border: `1px solid ${theme.cardBorder}` };
+  }
+  return { background: theme.cardBg, border: `1px solid ${virtueColor}66`, boxShadow: `0 0 24px ${virtueColor}33` };
+}
+
+/**
  * Glow-only: style for challenge "Take this challenge" buttons — transparent soft fill, virtue border.
  */
 export function getChallengeButtonStyle(theme, virtueColor) {
