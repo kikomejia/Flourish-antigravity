@@ -17,9 +17,9 @@ const VIRTUES = [
 ];
 
 function StatCard({ icon, label, children, theme }) {
-  const cardStyle = theme.isLight
-    ? { background: theme.cardBg, border: `1px solid ${theme.cardBorder}` }
-    : { background: theme.cardBg, border: `1px solid ${theme.accent}55`, boxShadow: `0 0 16px ${theme.accent}22` };
+  const cardStyle = theme.cardGlow
+    ? { background: theme.cardBg, border: `1px solid ${theme.accent}55`, boxShadow: `0 0 16px ${theme.accent}22` }
+    : { background: theme.cardBg, border: "none" };
   return (
     <div
       className="rounded-2xl p-4"
