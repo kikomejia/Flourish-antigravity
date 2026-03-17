@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { useTheme } from "@/lib/ThemeContext";
+import { useTheme, getPillStyle } from "@/lib/ThemeContext";
 import { format } from "date-fns";
 import { Flame, CheckCircle2, Shield, Sparkles, Lightbulb, Heart, Scale, Leaf, Settings, Share2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
