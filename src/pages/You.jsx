@@ -185,9 +185,8 @@ export default function You() {
                   onClick={() => setActiveFilter(isActive ? null : v.key)}
                   className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200"
                   style={{
-                    background: isActive ? `${vColor}20` : theme.inputBg,
-                    border: `1px solid ${isActive ? vColor + "80" : theme.cardBorder}`,
-                    color: isActive ? vColor : theme.subText,
+                    background: isActive ? vColor : `${vColor}20`,
+                    color: isActive ? "#fff" : theme.subText,
                   }}
                 >
                   {v.label}
@@ -222,9 +221,9 @@ export default function You() {
                   <div key={act.id} className="flex gap-3">
                     <div
                       className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mt-0.5"
-                      style={{ background: `${color}18`, border: `1px solid ${color}44` }}
+                      style={{ background: color }}
                     >
-                      <Icon size={17} style={{ color }} />
+                      <Icon size={17} style={{ color: "#fff" }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">

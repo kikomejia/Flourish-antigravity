@@ -11,16 +11,16 @@ function getTodayStr() {
   return format(new Date(), "yyyy-MM-dd");
 }
 
-function Section({ icon, title, children }) {
+function Section({ icon, title, children, theme }) {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
-        <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.2)" }} />
+        <div className="flex-1 h-px" style={{ background: `${theme.accent}30` }} />
         <div className="flex items-center gap-2">
-          {icon}
-          <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#f3afee" }}>{title}</span>
+          {React.cloneElement(icon, { style: { color: theme.accent } })}
+          <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: theme.accent }}>{title}</span>
         </div>
-        <div className="flex-1 h-px" style={{ background: "rgba(243,175,238,0.2)" }} />
+        <div className="flex-1 h-px" style={{ background: `${theme.accent}30` }} />
       </div>
       {children}
     </div>
@@ -54,23 +54,18 @@ export default function Learn() {
 
   const fetchContent = async (force = false) => {
     const { activityLogs, userName } = await getTodayActivities();
-
     if (activityLogs.length === 0) {
       setHasActivities(false);
       setLoading(false);
       return;
     }
-
     setHasActivities(true);
-
-    // Check cache
     const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
     if (!force && cached && cached.activityCount === activityLogs.length) {
       setContent(cached.content);
       setLoading(false);
       return;
     }
-
     setLoading(true);
     try {
       const res = await generateLearningContent({ activityLogs, userName });
@@ -84,9 +79,11 @@ export default function Learn() {
     }
   };
 
-  useEffect(() => {
-    fetchContent();
-  }, []);
+  useEffect(() => { fetchContent(); }, []);
+
+  // Resolve color from theme if available, else fall back to static map
+  const getColor = (virtueName) =>
+    (virtueName && (theme.virtueColors[virtueName.toLowerCase()] || VIRTUE_COLORS[virtueName.toLowerCase()])) || theme.accent;
 
   return (
     <div className="min-h-screen pb-28" style={{ background: theme.bg, color: theme.text }}>
@@ -102,28 +99,33 @@ export default function Learn() {
       <div className="px-4 pt-4">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 gap-4">
-            <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin" />
-            <p className="text-xs text-white/30 text-center px-6 leading-relaxed">Generating insights based on today's accepted pledges. Hold tight!</p>
+            <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: `${theme.accent}30`, borderTopColor: theme.accent }} />
+            <p className="text-xs text-center px-6 leading-relaxed" style={{ color: theme.mutedText }}>
+              Generating insights based on today's accepted pledges. Hold tight!
+            </p>
           </div>
         ) : !hasActivities ? (
           <div className="flex flex-col items-center justify-center py-32 gap-3 text-center">
-            <BookOpen size={32} style={{ color: "#f3afee" }} />
-            <p className="text-sm" style={{ color: "#f3afee" }}>
+            <BookOpen size={32} style={{ color: theme.accent }} />
+            <p className="text-sm" style={{ color: theme.subText }}>
               Accept today's pledges to unlock your learning insights.
             </p>
           </div>
         ) : content ? (
           <>
             {/* Practical Takeaways */}
-            <Section icon={<Lightbulb size={13} style={{ color: "#f3afee" }} />} title="Practical Takeaways">
+            <Section theme={theme} icon={<Lightbulb size={13} />} title="Practical Takeaways">
               <div className="space-y-3">
                 {content.practical_takeaways?.map((item, i) => {
-                  const color = VIRTUE_COLORS[item.virtue?.toLowerCase()] || "#f3afee";
+                  const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: `${color}0d`, border: `1px solid ${color}33` }}>
-                      <p className="text-xs font-bold tracking-widest uppercase mb-1" style={{ color }}>{item.virtue}</p>
-                      <p className="text-sm font-semibold text-white mb-1">{item.title}</p>
-                      <p className="text-sm text-white/65 leading-relaxed">{item.explanation}</p>
+                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg }}>
+                      <span
+                        className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded inline-block mb-2"
+                        style={{ background: color, color: "#fff" }}
+                      >{item.virtue}</span>
+                      <p className="text-sm font-semibold mb-1" style={{ color: theme.text }}>{item.title}</p>
+                      <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>{item.explanation}</p>
                     </div>
                   );
                 })}
@@ -131,16 +133,19 @@ export default function Learn() {
             </Section>
 
             {/* Virtues as Functional Skills */}
-            <Section icon={<Zap size={13} style={{ color: "#f3afee" }} />} title="Virtues as Functional Skills">
+            <Section theme={theme} icon={<Zap size={13} />} title="Virtues as Functional Skills">
               <div className="space-y-3">
                 {content.virtues_as_functional_skills?.map((item, i) => {
-                  const color = VIRTUE_COLORS[item.virtue?.toLowerCase()] || "#f3afee";
+                  const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="flex items-start gap-3 rounded-xl p-3" style={{ background: `${color}0d`, border: `1px solid ${color}33` }}>
-                      <div className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={{ background: color, boxShadow: `0 0 6px ${color}` }} />
+                    <div key={i} className="flex items-start gap-3 rounded-xl p-3" style={{ background: theme.cardBg }}>
+                      <div className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={{ background: color }} />
                       <div>
-                        <p className="text-xs font-bold tracking-widest uppercase mb-1" style={{ color }}>{item.virtue}</p>
-                        <p className="text-sm text-white/70 leading-relaxed">{item.skill}</p>
+                        <span
+                          className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded inline-block mb-1"
+                          style={{ background: color, color: "#fff" }}
+                        >{item.virtue}</span>
+                        <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>{item.skill}</p>
                       </div>
                     </div>
                   );
@@ -149,18 +154,21 @@ export default function Learn() {
             </Section>
 
             {/* Hard-Hitting Resources */}
-            <Section icon={<BookOpen size={13} style={{ color: "#f3afee" }} />} title="Hard-Hitting Resources">
+            <Section theme={theme} icon={<BookOpen size={13} />} title="Hard-Hitting Resources">
               <div className="space-y-3">
                 {content.hard_hitting_resources?.map((item, i) => {
-                  const color = VIRTUE_COLORS[item.virtue?.toLowerCase()] || "#f3afee";
+                  const color = getColor(item.virtue);
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg }}>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-bold tracking-widest uppercase" style={{ color }}>{item.virtue}</span>
-                        <span className="text-white/20 text-xs">•</span>
-                        <span className="text-sm font-semibold text-white/90">{item.author_source}</span>
+                        <span
+                          className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded"
+                          style={{ background: color, color: "#fff" }}
+                        >{item.virtue}</span>
+                        <span style={{ color: theme.mutedText }} className="text-xs">•</span>
+                        <span className="text-sm font-semibold" style={{ color: theme.text }}>{item.author_source}</span>
                       </div>
-                      <p className="text-xs text-white/50 leading-relaxed">{item.why_it_matters}</p>
+                      <p className="text-xs leading-relaxed" style={{ color: theme.subText }}>{item.why_it_matters}</p>
                     </div>
                   );
                 })}
@@ -168,15 +176,15 @@ export default function Learn() {
             </Section>
 
             {/* Real-World Facts */}
-            <Section icon={<FlaskConical size={13} style={{ color: "#f3afee" }} />} title="Real-World Facts">
+            <Section theme={theme} icon={<FlaskConical size={13} />} title="Real-World Facts">
               <div className="space-y-3">
                 {content.real_world_facts?.map((item, i) => {
                   const [title, ...rest] = item.split(":");
                   return (
-                    <div key={i} className="rounded-xl p-4" style={{ background: "rgba(134,239,172,0.05)", border: "1px solid rgba(134,239,172,0.15)" }}>
-                      <p className="text-sm text-white/80 leading-relaxed">
+                    <div key={i} className="rounded-xl p-4" style={{ background: theme.cardBg }}>
+                      <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>
                         {rest.length > 0 ? (
-                          <><span className="font-bold text-white">{title}:</span>{rest.join(":")}</>
+                          <><span className="font-bold" style={{ color: theme.text }}>{title}:</span>{rest.join(":")}</>
                         ) : item}
                       </p>
                     </div>

@@ -330,9 +330,8 @@ export default function Act() {
                   onClick={() => setActiveFilter(isActive ? null : v.key)}
                   className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200"
                   style={{
-                    background: isActive ? `${vColor}20` : theme.inputBg,
-                    border: `1px solid ${isActive ? vColor + "80" : theme.cardBorder}`,
-                    color: isActive ? vColor : theme.subText,
+                    background: isActive ? vColor : `${vColor}20`,
+                    color: isActive ? "#fff" : theme.subText,
                   }}
                 >
                   {v.label}
