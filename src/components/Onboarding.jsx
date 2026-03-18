@@ -102,7 +102,7 @@ function ScatteredFlywheels({ borderColor }) {
 const SAMPLE_CHALLENGES = [
   { virtue: "Courage", color: "#C07000", title: "Strike up a brief, genuine conversation with someone you don't know" },
   { virtue: "Wisdom", color: "#8E44AD", title: "Find a valid point in a perspective you'd normally disagree with" },
-  { virtue: "Humanity", color: "#C0356A", title: "Tell someone in your life three very specific things you appreciate about them and why those qualities matter to you" },
+  { virtue: "Humanity", color: "#C0356A", title: "Tell someone in your life three very specific things you appreciate about them and why" },
 ];
 
 function ChallengeCardsAnimation({ theme }) {
