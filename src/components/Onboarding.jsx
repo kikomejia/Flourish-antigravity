@@ -38,20 +38,22 @@ function MiniFlywheelSVG({ size = 60, borderColor = "#2D3142", opacity = 1 }) {
   );
 }
 
-// Scattered flywheels for slide 1
+// Scattered flywheels for slide 1 — fully visible, no clipping at top
 const SCATTER = [
-  { size: 28, x: 18, y: 10, rotate: -15, opacity: 0.35 },
-  { size: 52, x: 58, y: 4, rotate: 10, opacity: 0.55 },
-  { size: 38, x: 82, y: 18, rotate: 25, opacity: 0.4 },
-  { size: 70, x: 30, y: 30, rotate: -5, opacity: 0.65 },
-  { size: 24, x: 72, y: 42, rotate: 40, opacity: 0.3 },
-  { size: 44, x: 8, y: 48, rotate: 20, opacity: 0.45 },
-  { size: 34, x: 88, y: 60, rotate: -30, opacity: 0.35 },
+  { size: 32,  x: 12,  y: 18,  rotate: -15, opacity: 0.7 },
+  { size: 58,  x: 52,  y: 12,  rotate: 10,  opacity: 0.85 },
+  { size: 42,  x: 88,  y: 22,  rotate: 25,  opacity: 0.75 },
+  { size: 78,  x: 28,  y: 52,  rotate: -5,  opacity: 0.9 },
+  { size: 28,  x: 74,  y: 55,  rotate: 40,  opacity: 0.65 },
+  { size: 50,  x: 6,   y: 72,  rotate: 20,  opacity: 0.75 },
+  { size: 38,  x: 90,  y: 75,  rotate: -30, opacity: 0.7 },
+  { size: 24,  x: 60,  y: 80,  rotate: 15,  opacity: 0.6 },
+  { size: 44,  x: 38,  y: 88,  rotate: -20, opacity: 0.7 },
 ];
 
 function ScatteredFlywheels({ borderColor }) {
   return (
-    <div className="relative w-full" style={{ height: 160, overflow: "hidden" }}>
+    <div className="relative w-full" style={{ height: 200, overflow: "visible" }}>
       {SCATTER.map((s, i) => (
         <div
           key={i}
