@@ -253,16 +253,7 @@ export default function Onboarding({ onComplete }) {
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="flex items-center justify-center w-full h-full"
             >
-              {slide.visual ? (
-                slide.visual
-              ) : (
-                <div
-                  className="w-24 h-24 rounded-full flex items-center justify-center mx-auto"
-                  style={{ background: `${theme.accent}18`, border: `1.5px solid ${theme.accent}44` }}
-                >
-                  <slide.icon size={40} style={{ color: theme.accent }} />
-                </div>
-              )}
+              {slide.visual}
             </motion.div>
           </AnimatePresence>
         </div>
