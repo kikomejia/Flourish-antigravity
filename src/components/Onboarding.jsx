@@ -197,18 +197,18 @@ export default function Onboarding({ onComplete }) {
       )}
 
       {/* Slide content */}
-      <div className="w-full max-w-sm flex flex-col items-center" style={{ minHeight: 340 }}>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, x: dir * 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -dir * 60 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="flex flex-col items-center text-center w-full"
-          >
-            {/* Visual area */}
-            <div className="w-full mb-8">
+      <div className="w-full max-w-sm flex flex-col items-center">
+        {/* Fixed-height visual area so text never jumps */}
+        <div className="w-full flex items-center justify-center" style={{ height: 260 }}>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={current + "-visual"}
+              initial={{ opacity: 0, x: dir * 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -dir * 60 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="flex items-center justify-center w-full h-full"
+            >
               {slide.visual ? (
                 slide.visual
               ) : (
@@ -219,8 +219,20 @@ export default function Onboarding({ onComplete }) {
                   <slide.icon size={40} style={{ color: theme.accent }} />
                 </div>
               )}
-            </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
+        {/* Fixed text block — always at same vertical position */}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={current + "-text"}
+            initial={{ opacity: 0, x: dir * 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -dir * 60 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="flex flex-col items-center text-center w-full mt-6"
+          >
             <h2
               className="text-2xl font-bold mb-4 leading-snug"
               style={{ color: theme.text, fontFamily: "serif" }}
