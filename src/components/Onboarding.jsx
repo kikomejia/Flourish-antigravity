@@ -117,7 +117,7 @@ function ChallengeCardsAnimation({ theme }) {
   }, []);
 
   return (
-    <div className="w-full flex flex-col justify-center gap-2" style={{ height: 260 }}>
+    <div className="w-full flex flex-col justify-start gap-2" style={{ height: 260 }}>
       {SAMPLE_CHALLENGES.map((c, i) => {
         const color = theme.isLight ? c.color : (
           i === 0 ? "#fef08a" : i === 1 ? "#d8b4fe" : "#fda4af"
