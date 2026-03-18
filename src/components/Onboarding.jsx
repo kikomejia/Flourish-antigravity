@@ -297,7 +297,7 @@ export default function Onboarding({ onComplete }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -dir * 60 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="flex items-center justify-center w-full h-full"
+              className="flex items-start justify-center w-full h-full"
             >
               {slide.visual}
             </motion.div>
