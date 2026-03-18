@@ -100,9 +100,9 @@ function ScatteredFlywheels({ borderColor }) {
 
 // Sample challenges for the slide 3 animation
 const SAMPLE_CHALLENGES = [
-  { virtue: "Courage", color: "#C07000", title: "Have the difficult conversation", text: "Identify one conversation you've been avoiding. Commit to having it with honesty and care." },
-  { virtue: "Wisdom", color: "#8E44AD", title: "Read outside your comfort zone", text: "Pick up a book or article on a topic you know little about and take notes on 3 new ideas." },
-  { virtue: "Humanity", color: "#C0356A", title: "Perform one unsolicited act of kindness", text: "Do something generous for someone today without being asked — and without telling anyone." },
+  { virtue: "Courage", color: "#C07000", title: "Strike up a brief, genuine conversation with someone you don't know" },
+  { virtue: "Wisdom", color: "#8E44AD", title: "Find a valid point in a perspective you'd normally disagree with" },
+  { virtue: "Humanity", color: "#C0356A", title: "Tell someone in your life three very specific things you appreciate about them and why those qualities matter to you" },
 ];
 
 function ChallengeCardsAnimation({ theme }) {
@@ -117,7 +117,7 @@ function ChallengeCardsAnimation({ theme }) {
   }, []);
 
   return (
-    <div className="w-full flex flex-col gap-2" style={{ height: 260 }}>
+    <div className="w-full flex flex-col justify-center gap-2" style={{ height: 260 }}>
       {SAMPLE_CHALLENGES.map((c, i) => {
         const color = theme.isLight ? c.color : (
           i === 0 ? "#fef08a" : i === 1 ? "#d8b4fe" : "#fda4af"
