@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/lib/ThemeContext";
-import { Zap, TrendingUp } from "lucide-react";
+import { getPillStyle, getChallengeButtonStyle } from "@/lib/ThemeContext";
+import { TrendingUp } from "lucide-react";
 
 // The 6 petal paths from VirtueHexagon — fill colors are Sakura theme colors
 const PETALS = [
