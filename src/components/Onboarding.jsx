@@ -98,6 +98,60 @@ function ScatteredFlywheels({ borderColor }) {
   );
 }
 
+// Sample challenges for the slide 3 animation
+const SAMPLE_CHALLENGES = [
+  { virtue: "Courage", color: "#C07000", title: "Have the difficult conversation", text: "Identify one conversation you've been avoiding. Commit to having it with honesty and care." },
+  { virtue: "Wisdom", color: "#8E44AD", title: "Read outside your comfort zone", text: "Pick up a book or article on a topic you know little about and take notes on 3 new ideas." },
+  { virtue: "Humanity", color: "#C0356A", title: "Perform one unsolicited act of kindness", text: "Do something generous for someone today without being asked — and without telling anyone." },
+];
+
+function ChallengeCardsAnimation({ theme }) {
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  useEffect(() => {
+    setVisibleCount(0);
+    const timers = SAMPLE_CHALLENGES.map((_, i) =>
+      setTimeout(() => setVisibleCount(i + 1), 300 + i * 700)
+    );
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div className="w-full flex flex-col gap-2" style={{ height: 260 }}>
+      {SAMPLE_CHALLENGES.map((c, i) => {
+        const color = theme.isLight ? c.color : (
+          i === 0 ? "#fef08a" : i === 1 ? "#d8b4fe" : "#fda4af"
+        );
+        const cardStyle = theme.cardGlow
+          ? { background: theme.cardBg, border: `1px solid ${color}55`, boxShadow: `0 0 16px ${color}22` }
+          : { background: `${color}10`, border: "none" };
+
+        return (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 14, scale: 0.97 }}
+            animate={i < visibleCount ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 14, scale: 0.97 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="rounded-xl px-4 py-2.5"
+            style={cardStyle}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <span
+                className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded"
+                style={getPillStyle(theme, color)}
+              >
+                {c.virtue}
+              </span>
+              <span className="text-xs italic" style={{ color: theme.subText, fontFamily: "serif" }}>Challenge</span>
+            </div>
+            <p className="text-sm font-bold leading-snug" style={{ color: theme.text }}>{c.title}</p>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
+
 // Animated flywheel for slide 2: petals fill one by one, then virtue names appear
 function AnimatedFlywheelSVG({ borderColor }) {
   const [filledCount, setFilledCount] = useState(0);
