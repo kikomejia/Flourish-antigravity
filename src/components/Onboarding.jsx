@@ -117,7 +117,7 @@ function ChallengeCardsAnimation({ theme }) {
   }, []);
 
   return (
-    <div className="w-full flex flex-col justify-start gap-2" style={{ height: 260 }}>
+    <div className="w-full" style={{ height: 260, position: "relative" }}>
       {SAMPLE_CHALLENGES.map((c, i) => {
         const color = theme.isLight ? c.color : (
           i === 0 ? "#fef08a" : i === 1 ? "#d8b4fe" : "#fda4af"
@@ -130,10 +130,10 @@ function ChallengeCardsAnimation({ theme }) {
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 14, scale: 0.97 }}
-            animate={i < visibleCount ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 14, scale: 0.97 }}
+            animate={i < visibleCount ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 0, scale: 0.97 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="rounded-xl px-4 py-2.5"
-            style={cardStyle}
+            className="rounded-xl px-4 py-2.5 mb-2"
+            style={{ ...cardStyle, visibility: i < visibleCount ? "visible" : "hidden" }}
           >
             <div className="flex items-center gap-2 mb-1">
               <span
