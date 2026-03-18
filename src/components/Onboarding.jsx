@@ -239,7 +239,7 @@ export default function Onboarding({ onComplete }) {
     {
       visual: <ChallengeCardsAnimation theme={theme} />,
       headline: "Go Deeper with Challenges",
-      body: "Take on character-building challenges in the 'Act' tab and test yourself.",
+      body: "Take on character-building challenges in the 'Act' tab to test yourself and earn extra points.",
     },
     {
       visual: (
