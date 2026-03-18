@@ -84,10 +84,10 @@ function AnimatedFlywheelSVG({ borderColor }) {
   }, []);
 
   return (
-    <div className="flex items-center justify-center" style={{ height: 160 }}>
+    <div className="flex items-center justify-center" style={{ height: 200 }}>
       <svg
-        width={130}
-        height={147}
+        width={170}
+        height={192}
         viewBox="-600 -500 5867 6200"
         style={{ overflow: "visible" }}
       >
