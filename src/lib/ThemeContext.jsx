@@ -136,7 +136,7 @@ export function getChallengeButtonStyle(theme, virtueColor) {
 const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
-  const [themeId, setThemeId] = useState(() => localStorage.getItem("app_theme") || "glow");
+  const [themeId, setThemeId] = useState(() => localStorage.getItem("app_theme") || "orchid");
 
   const theme = THEMES[themeId] || THEMES.glow;
 
