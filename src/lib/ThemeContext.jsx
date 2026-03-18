@@ -30,7 +30,7 @@ export const THEMES = {
   },
   orchid: {
     id: "orchid",
-    name: "Orchid Pink",
+    name: "Sakura",
     bg: "#F7E9F3",
     accent: "#2D3142",
     text: "#2D3142",
