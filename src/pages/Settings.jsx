@@ -189,7 +189,7 @@ export default function Settings() {
         <div className="mb-6">
           <p className="text-xs font-bold tracking-widest uppercase px-4 mb-2" style={{ color: theme.subText }}>Theme</p>
           <div className="rounded-2xl p-4 flex gap-3" style={{ background: theme.isLight ? "#ffffff" : theme.cardBg, border: `1px solid ${theme.cardBorder}` }}>
-            {Object.values(THEMES).map(t => (
+            {["orchid", "glow"].map(id => THEMES[id]).map(t => (
               <button
                 key={t.id}
                 onClick={() => setTheme(t.id)}
