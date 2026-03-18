@@ -272,8 +272,8 @@ export default function Onboarding({ onComplete }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
-      style={{ background: theme.bg }}
+      className="fixed inset-0 z-50 flex flex-col items-center px-6"
+      style={{ background: theme.bg, paddingTop: "calc(env(safe-area-inset-top) + 48px)", paddingBottom: "calc(env(safe-area-inset-bottom) + 32px)" }}
     >
       {/* Skip */}
       {!isLast && (
@@ -286,10 +286,10 @@ export default function Onboarding({ onComplete }) {
         </button>
       )}
 
-      {/* Slide content */}
-      <div className="w-full max-w-sm flex flex-col items-center">
-        {/* Fixed-height visual area so text never jumps */}
-        <div className="w-full flex items-center justify-center" style={{ height: 260 }}>
+      {/* Slide content — fixed height block so dots/button never move */}
+      <div className="w-full max-w-sm flex flex-col items-center flex-1">
+        {/* Fixed-height visual area */}
+        <div className="w-full flex-shrink-0" style={{ height: 260 }}>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={current + "-visual"}
@@ -297,38 +297,40 @@ export default function Onboarding({ onComplete }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -dir * 60 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="flex items-start justify-center w-full h-full"
+              className="w-full h-full"
             >
               {slide.visual}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Fixed text block — always at same vertical position */}
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={current + "-text"}
-            initial={{ opacity: 0, x: dir * 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -dir * 60 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="flex flex-col items-center text-center w-full mt-6"
-          >
-            <h2
-              className="text-2xl font-bold mb-4 leading-snug"
-              style={{ color: theme.text, fontFamily: "serif" }}
+        {/* Fixed-height text block */}
+        <div className="w-full flex-shrink-0 mt-6" style={{ height: 140 }}>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={current + "-text"}
+              initial={{ opacity: 0, x: dir * 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -dir * 60 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="flex flex-col items-center text-center w-full"
             >
-              {slide.headline}
-            </h2>
-            <p className="text-base leading-relaxed" style={{ color: theme.subText }}>
-              {slide.body}
-            </p>
-          </motion.div>
-        </AnimatePresence>
+              <h2
+                className="text-2xl font-bold mb-4 leading-snug"
+                style={{ color: theme.text, fontFamily: "serif" }}
+              >
+                {slide.headline}
+              </h2>
+              <p className="text-base leading-relaxed" style={{ color: theme.subText }}>
+                {slide.body}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
-      {/* Dots */}
-      <div className="flex gap-2 mt-10 mb-8">
+      {/* Dots — always at fixed position */}
+      <div className="flex gap-2 mb-6 mt-8 flex-shrink-0">
         {SLIDES.map((_, i) => (
           <button
             key={i}
@@ -343,10 +345,10 @@ export default function Onboarding({ onComplete }) {
         ))}
       </div>
 
-      {/* CTA */}
+      {/* CTA — always at fixed position */}
       <button
         onClick={handleNext}
-        className="w-full max-w-sm py-4 rounded-full text-base font-bold transition-all duration-200"
+        className="w-full max-w-sm py-4 rounded-full text-base font-bold transition-all duration-200 flex-shrink-0"
         style={{
           background: theme.accent,
           color: theme.isLight ? "#fff" : "#1a0a1a",
