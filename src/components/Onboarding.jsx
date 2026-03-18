@@ -51,22 +51,48 @@ const SCATTER = [
   { size: 44,  x: 38,  y: 88,  rotate: -20, opacity: 0.7 },
 ];
 
+// Unique drift params per flywheel so they move independently
+const DRIFT = [
+  { duration: 9,  delay: 0,    dx: 18, dy: -6  },
+  { duration: 12, delay: 1.5,  dx: 22, dy: -4  },
+  { duration: 10, delay: 0.8,  dx: 15, dy: -8  },
+  { duration: 14, delay: 2.2,  dx: 20, dy: -5  },
+  { duration: 8,  delay: 0.4,  dx: 25, dy: -7  },
+  { duration: 11, delay: 1.8,  dx: 17, dy: -3  },
+  { duration: 13, delay: 0.6,  dx: 12, dy: -6  },
+  { duration: 9,  delay: 2.8,  dx: 21, dy: -9  },
+  { duration: 10, delay: 1.2,  dx: 16, dy: -4  },
+];
+
 function ScatteredFlywheels({ borderColor }) {
   return (
-    <div className="relative w-full" style={{ height: 200, overflow: "visible" }}>
-      {SCATTER.map((s, i) => (
-        <div
-          key={i}
-          className="absolute"
-          style={{
-            left: `${s.x}%`,
-            top: `${s.y}%`,
-            transform: `translate(-50%, -50%) rotate(${s.rotate}deg)`,
-          }}
-        >
-          <MiniFlywheelSVG size={s.size} borderColor={borderColor} opacity={s.opacity} />
-        </div>
-      ))}
+    <div className="relative w-full" style={{ height: 260, overflow: "visible" }}>
+      {SCATTER.map((s, i) => {
+        const d = DRIFT[i];
+        return (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              left: `${s.x}%`,
+              top: `${s.y}%`,
+              transform: `translate(-50%, -50%) rotate(${s.rotate}deg)`,
+            }}
+            animate={{
+              x: [0, d.dx, 0],
+              y: [0, d.dy, 0],
+            }}
+            transition={{
+              duration: d.duration,
+              delay: d.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <MiniFlywheelSVG size={s.size} borderColor={borderColor} opacity={s.opacity} />
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
