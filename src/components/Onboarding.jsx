@@ -182,12 +182,30 @@ export default function Onboarding({ onComplete }) {
       body: "Tap on the Virtue Flywheel petals to accept a daily pledge for each of the 6 virtues. Complete all 6 to earn daily points!",
     },
     {
-      icon: Zap,
+      visual: (
+        <div className="flex items-center justify-center w-full h-full">
+          <div
+            className="w-24 h-24 rounded-full flex items-center justify-center"
+            style={{ background: `${theme.accent}18`, border: `1.5px solid ${theme.accent}44` }}
+          >
+            <Zap size={40} style={{ color: theme.accent }} />
+          </div>
+        </div>
+      ),
       headline: "Go Deeper with Challenges",
       body: "Take on longer challenges in the Act tab to earn bonus points. The Learn tab then gives you personalized insights based on your progress.",
     },
     {
-      icon: TrendingUp,
+      visual: (
+        <div className="flex items-center justify-center w-full h-full">
+          <div
+            className="w-24 h-24 rounded-full flex items-center justify-center"
+            style={{ background: `${theme.accent}18`, border: `1.5px solid ${theme.accent}44` }}
+          >
+            <TrendingUp size={40} style={{ color: theme.accent }} />
+          </div>
+        </div>
+      ),
       headline: "Watch Your Character Flourish",
       body: "Track your points, streaks, and achievements in the You tab. Every day is a new chance to grow.",
     },
