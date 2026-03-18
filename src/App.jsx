@@ -51,6 +51,8 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import { ThemeProvider } from '@/lib/ThemeContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import { useState } from "react";
+import Onboarding from "@/components/Onboarding";
 import Daily from "./pages/Daily";
 import You from "./pages/You";
 import Learn from "./pages/Learn";
