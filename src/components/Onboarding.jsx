@@ -71,7 +71,7 @@ function ScatteredFlywheels({ borderColor }) {
   );
 }
 
-// Animated flywheel for slide 2: petals fill one by one
+// Animated flywheel for slide 2: petals fill one by one, then virtue names appear
 function AnimatedFlywheelSVG({ borderColor }) {
   const [filledCount, setFilledCount] = useState(0);
 
@@ -84,12 +84,13 @@ function AnimatedFlywheelSVG({ borderColor }) {
   }, []);
 
   return (
-    <div className="flex items-center justify-center" style={{ height: 200 }}>
+    <div className="flex flex-col items-center" style={{ height: 260 }}>
+      {/* Flywheel */}
       <svg
-        width={170}
-        height={192}
+        width={160}
+        height={181}
         viewBox="-600 -500 5867 6200"
-        style={{ overflow: "visible" }}
+        style={{ overflow: "visible", marginBottom: 12 }}
       >
         {PETALS.map((p, i) => {
           const filled = i < filledCount;
@@ -108,6 +109,29 @@ function AnimatedFlywheelSVG({ borderColor }) {
           );
         })}
       </svg>
+
+      {/* Virtue name pills */}
+      <div className="flex flex-wrap justify-center gap-1.5" style={{ maxWidth: 280 }}>
+        {PETALS.map((p, i) => {
+          const filled = i < filledCount;
+          return (
+            <motion.span
+              key={p.key}
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={filled ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="text-xs font-bold tracking-widest uppercase px-2.5 py-0.5 rounded"
+              style={{
+                background: `${p.color}22`,
+                color: p.color,
+                border: `1.5px solid ${p.color}88`,
+              }}
+            >
+              {p.key}
+            </motion.span>
+          );
+        })}
+      </div>
     </div>
   );
 }
