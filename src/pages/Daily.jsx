@@ -386,7 +386,7 @@ export default function Daily() {
                   className="text-base font-bold tracking-widest"
                   style={{ color: theme.accent, fontFamily: "monospace", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}33` : "none" }}
                 >
-                  TAP ON A PETAL TO START
+                  {todayProgress?.is_complete ? "TODAY'S PLEDGES COMPLETED" : "TAP ON A PETAL TO START"}
                 </span>
               </motion.div>
             )}

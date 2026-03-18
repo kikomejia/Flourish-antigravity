@@ -101,7 +101,7 @@ export default function Learn() {
           <div className="flex flex-col items-center justify-center py-32 gap-4">
             <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: `${theme.accent}30`, borderTopColor: theme.accent }} />
             <p className="text-xs text-center px-6 leading-relaxed" style={{ color: theme.mutedText }}>
-              Generating insights based on today's accepted pledges. Hold tight!
+              Generating personalized insights based on today's accepted pledges. Hold tight!
             </p>
           </div>
         ) : !hasActivities ? (
