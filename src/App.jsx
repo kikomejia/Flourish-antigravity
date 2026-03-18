@@ -88,6 +88,10 @@ const AuthenticatedApp = () => {
     }
   }
 
+  if (showOnboarding) {
+    return <Onboarding onComplete={handleOnboardingComplete} />;
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/Daily" replace />} />
