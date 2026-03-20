@@ -393,6 +393,11 @@ export default function Onboarding({ onComplete }) {
       headline: "Watch Your Character Flourish",
       body: "Track your points, streaks, and achievements in the You tab. Every day is a new chance to grow.",
     },
+    {
+      visual: <ProfileSetupSlide theme={theme} />,
+      headline: "One last thing",
+      body: "Add your name and a photo so we can personalise your experience. You can always do this later in Settings.",
+    },
   ];
 
   const goTo = (next) => {
