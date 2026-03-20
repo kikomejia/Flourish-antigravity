@@ -489,17 +489,40 @@ export default function Onboarding({ onComplete }) {
       </div>
 
       {/* CTA — always at fixed position */}
-      <button
-        onClick={handleNext}
-        className="w-full max-w-sm py-4 rounded-full text-base font-bold transition-all duration-200 flex-shrink-0"
-        style={{
-          background: theme.accent,
-          color: theme.isLight ? "#fff" : "#1a0a1a",
-          boxShadow: theme.headerGlow ? `0 0 24px ${theme.accent}55` : "none",
-        }}
-      >
-        {isLast ? "Get Started" : "Next"}
-      </button>
+      {isLast ? (
+        <div className="w-full max-w-sm flex flex-col gap-3 flex-shrink-0">
+          <button
+            onClick={onComplete}
+            className="w-full py-4 rounded-full text-base font-bold transition-all duration-200"
+            style={{
+              background: theme.accent,
+              color: theme.isLight ? "#fff" : "#1a0a1a",
+              boxShadow: theme.headerGlow ? `0 0 24px ${theme.accent}55` : "none",
+            }}
+          >
+            Get Started
+          </button>
+          <button
+            onClick={onComplete}
+            className="w-full py-3 text-sm font-semibold transition-all duration-200"
+            style={{ color: theme.mutedText, background: "transparent" }}
+          >
+            Do this later
+          </button>
+        </div>
+      ) : (
+        <button
+          onClick={handleNext}
+          className="w-full max-w-sm py-4 rounded-full text-base font-bold transition-all duration-200 flex-shrink-0"
+          style={{
+            background: theme.accent,
+            color: theme.isLight ? "#fff" : "#1a0a1a",
+            boxShadow: theme.headerGlow ? `0 0 24px ${theme.accent}55` : "none",
+          }}
+        >
+          Next
+        </button>
+      )}
     </div>
   );
 }
