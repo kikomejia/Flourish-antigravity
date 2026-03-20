@@ -196,43 +196,66 @@ export default function Act() {
                 {(() => {
                   const v = VIRTUES.find(x => x.key === acceptedChallenge.virtue);
                   const color = theme.virtueColors[acceptedChallenge.virtue] || v?.color || theme.accent;
+                  const isExpired = !!acceptedChallenge.expired;
                   return (
                     <div
                       className="rounded-2xl p-5 mb-4"
-                      style={theme.cardGlow
-                        ? { background: theme.cardBg, border: `1px solid ${color}66`, boxShadow: `0 0 24px ${color}33` }
-                        : { background: `${color}12`, border: "none" }
+                      style={isExpired
+                        ? { background: theme.isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.04)", border: `1px solid rgba(128,128,128,0.2)`, opacity: 0.75 }
+                        : theme.cardGlow
+                          ? { background: theme.cardBg, border: `1px solid ${color}66`, boxShadow: `0 0 24px ${color}33` }
+                          : { background: `${color}12`, border: "none" }
                       }
                     >
                       <div className="flex items-center gap-3 mb-4">
                         <span
                          className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-md"
-                         style={getPillStyle(theme, color)}
+                         style={isExpired ? { background: "rgba(128,128,128,0.15)", color: theme.mutedText, border: "none" } : getPillStyle(theme, color)}
                          >
                          {acceptedChallenge.virtue}
                          </span>
                         <span className="text-sm italic" style={{ color: theme.subText, fontFamily: "serif" }}>
-                          Active challenge
+                          {isExpired ? "Expired challenge" : "Active challenge"}
                         </span>
-                        <span className="ml-auto text-xs font-semibold" style={{ color }}>
-                          {timeLeft()}
+                        <span className="ml-auto text-xs font-semibold" style={{ color: isExpired ? theme.mutedText : color }}>
+                          {isExpired ? "Expired" : timeLeft()}
                         </span>
                       </div>
-                      <p className="font-bold text-xl mb-3 leading-snug" style={{ color: theme.text }}>{acceptedChallenge.challenge.title}</p>
-                      <p className="text-sm leading-relaxed mb-6" style={{ color: theme.subText }}>{acceptedChallenge.challenge.text}</p>
-                      <button
-                        onClick={handleComplete}
-                        className="w-full py-3 rounded-full text-sm font-bold transition-all duration-200"
-                        style={getActionButtonStyle(theme, color)}
-                      >
-                        Mark as Completed
-                      </button>
+                      <p className="font-bold text-xl mb-3 leading-snug" style={{ color: isExpired ? theme.mutedText : theme.text }}>{acceptedChallenge.challenge.title}</p>
+                      <p className="text-sm leading-relaxed mb-6" style={{ color: theme.mutedText }}>{acceptedChallenge.challenge.text}</p>
+                      {isExpired ? (
+                        <div className="flex flex-col gap-3">
+                          <div
+                            className="w-full py-3 rounded-full text-sm font-bold text-center"
+                            style={{ background: "rgba(128,128,128,0.12)", color: theme.mutedText, cursor: "not-allowed" }}
+                          >
+                            Mark as Completed
+                          </div>
+                          <button
+                            onClick={handleReset}
+                            className="w-full py-3 rounded-full text-sm font-bold transition-all duration-200"
+                            style={{ background: theme.inputBg, color: theme.accent, border: `1.5px solid ${theme.accent}44` }}
+                          >
+                            Start a New Challenge
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={handleComplete}
+                          className="w-full py-3 rounded-full text-sm font-bold transition-all duration-200"
+                          style={getActionButtonStyle(theme, color)}
+                        >
+                          Mark as Completed
+                        </button>
+                      )}
                     </div>
                   );
                 })()}
-                <p className="text-center text-xs" style={{ color: theme.mutedText }}>
-                  A new set of challenges will appear tomorrow
-                </p>
+                {!acceptedChallenge.expired && (
+                  <p className="text-center text-xs" style={{ color: theme.mutedText }}>
+                    A new set of challenges will appear tomorrow
+                  </p>
+                )}
               </motion.div>
             ) : (
               <motion.div
