@@ -383,10 +383,16 @@ export default function Daily() {
                 style={{ height: "60px" }}
               >
                 <span
-                  className="text-base font-bold tracking-widest"
-                  style={{ color: theme.accent, fontFamily: "monospace", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}33` : "none" }}
+                  className="text-base font-semibold"
+                  style={{ color: theme.accent, fontFamily: "serif", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}33` : "none" }}
                 >
-                  {todayProgress?.is_complete ? "TODAY'S PLEDGES COMPLETED" : "TAP ON A PETAL TO START"}
+                  {todayProgress?.is_complete
+                    ? "today's pledges completed"
+                    : (() => {
+                        const name = localStorage.getItem("profile_nickname");
+                        return name ? `welcome ${name}, tap on a petal to start` : "tap on a petal to start";
+                      })()
+                  }
                 </span>
               </motion.div>
             )}
