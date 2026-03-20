@@ -522,9 +522,13 @@ export default function Daily() {
             </div>
           )}
           {!todayProgress?.is_complete && !activeVirtue && (
-            <div className="mt-3 mb-4 text-center text-xs tracking-widest" style={{ color: theme.mutedText }}>
-              {completedCount}/6
-              {viewProgress?.is_complete && <span className="ml-2" style={{ color: theme.accent }}>✦ Complete</span>}
+            <div className="mt-3 mb-4 text-center px-8" style={{ color: theme.mutedText }}>
+              <p className="text-sm italic leading-relaxed" style={{ fontFamily: "serif" }}>
+                "The good life is one inspired by love and guided by knowledge."
+              </p>
+              <p className="text-xs mt-1 tracking-widest uppercase" style={{ color: theme.mutedText, opacity: 0.7 }}>
+                Bertrand Russell
+              </p>
             </div>
           )}
 
