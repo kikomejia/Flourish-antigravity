@@ -44,11 +44,11 @@ function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     const state = JSON.parse(raw);
-    // Check if challenge has expired
-    if (state.acceptedChallenge && state.deadline) {
-      if (new Date() > new Date(state.deadline)) {
-        localStorage.removeItem(STORAGE_KEY);
-        return null;
+    // Check if challenge has expired AND was not completed
+    if (state.acceptedChallenge && state.acceptedChallenge.deadline && !state.acceptedChallenge.completed) {
+      if (new Date() > new Date(state.acceptedChallenge.deadline)) {
+        // Mark as expired so we can show the expired state
+        return { acceptedChallenge: { ...state.acceptedChallenge, expired: true } };
       }
     }
     return state;
