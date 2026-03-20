@@ -249,7 +249,7 @@ export default function Daily() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: theme.bg, color: theme.text }}>
+    <div className="min-h-screen flex flex-col overflow-y-auto" style={{ background: theme.bg, color: theme.text }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 pb-2" style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}>
         <div className="w-8" />
@@ -390,7 +390,7 @@ export default function Daily() {
                     ? "today's pledges completed"
                     : (() => {
                         const name = localStorage.getItem("profile_nickname");
-                        return name ? `welcome ${name}, tap on a petal to start` : "tap on a petal to start";
+                        return name ? `Welcome ${name}, tap on a petal to start` : "Tap on a petal to start";
                       })()
                   }
                 </span>
