@@ -152,6 +152,92 @@ function ChallengeCardsAnimation({ theme }) {
   );
 }
 
+// Slide 4: pledges + challenge cards appear one by one, progress bar grows
+const PROGRESS_ITEMS = [
+  { type: "pledge", virtue: "Wisdom", color: "#8E44AD", glowColor: "#d8b4fe", points: 1 },
+  { type: "pledge", virtue: "Courage", color: "#C07000", glowColor: "#fef08a", points: 1 },
+  { type: "challenge", virtue: "Humanity", color: "#C0356A", glowColor: "#fda4af", points: 10 },
+  { type: "pledge", virtue: "Justice", color: "#1A7A4A", glowColor: "#86efac", points: 1 },
+];
+
+function ProgressAnimation({ theme }) {
+  const [step, setStep] = useState(0);
+  const total = PROGRESS_ITEMS.length;
+
+  useEffect(() => {
+    setStep(0);
+    const timers = PROGRESS_ITEMS.map((_, i) =>
+      setTimeout(() => setStep(i + 1), 400 + i * 750)
+    );
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  const earnedPoints = PROGRESS_ITEMS.slice(0, step).reduce((sum, it) => sum + it.points, 0);
+  const maxPoints = PROGRESS_ITEMS.reduce((sum, it) => sum + it.points, 0);
+  const progressPct = Math.min((earnedPoints / maxPoints) * 100, 100);
+
+  return (
+    <div className="w-full flex flex-col gap-2" style={{ height: 260 }}>
+      {/* Cards */}
+      <div className="flex flex-col gap-2 flex-1">
+        {PROGRESS_ITEMS.map((item, i) => {
+          const color = theme.isLight ? item.color : item.glowColor;
+          const visible = i < step;
+          const cardBg = theme.cardGlow
+            ? { background: theme.cardBg, border: `1px solid ${color}55`, boxShadow: `0 0 14px ${color}22` }
+            : { background: `${color}12`, border: "none" };
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: 20 }}
+              animate={visible ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="rounded-xl px-3 py-2 flex items-center gap-3"
+              style={{ ...cardBg, visibility: visible ? "visible" : "hidden" }}
+            >
+              <span
+                className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded flex-shrink-0"
+                style={getPillStyle(theme, color)}
+              >
+                {item.virtue}
+              </span>
+              <span className="text-xs italic flex-shrink-0" style={{ color: theme.subText, fontFamily: "serif" }}>
+                {item.type === "challenge" ? "Challenge" : "Pledge"}
+              </span>
+              <span className="ml-auto text-xs font-bold flex-shrink-0" style={{ color }}>
+                +{item.points}pt{item.points > 1 ? "s" : ""}
+              </span>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Progress bar */}
+      <div className="mt-1">
+        <div className="flex justify-between items-center mb-1.5">
+          <span className="text-xs font-semibold" style={{ color: theme.subText }}>Today's Progress</span>
+          <motion.span
+            className="text-xs font-bold"
+            style={{ color: theme.accent }}
+            animate={{ opacity: 1 }}
+          >
+            {earnedPoints} / {maxPoints} pts
+          </motion.span>
+        </div>
+        <div className="w-full rounded-full overflow-hidden" style={{ height: 10, background: `${theme.accent}20` }}>
+          <motion.div
+            className="h-full rounded-full"
+            style={{ background: theme.accent, boxShadow: theme.headerGlow ? `0 0 10px ${theme.accent}88` : "none" }}
+            initial={{ width: "0%" }}
+            animate={{ width: `${progressPct}%` }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Animated flywheel for slide 2: petals fill one by one, then virtue names appear
 function AnimatedFlywheelSVG({ borderColor }) {
   const [filledCount, setFilledCount] = useState(0);
