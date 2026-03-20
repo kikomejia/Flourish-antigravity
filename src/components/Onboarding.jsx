@@ -328,16 +328,7 @@ export default function Onboarding({ onComplete }) {
       body: "Take on character-building challenges in the 'Act' tab to test yourself and earn extra points.",
     },
     {
-      visual: (
-        <div className="flex items-center justify-center w-full h-full">
-          <div
-            className="w-24 h-24 rounded-full flex items-center justify-center"
-            style={{ background: `${theme.accent}18`, border: `1.5px solid ${theme.accent}44` }}
-          >
-            <TrendingUp size={40} style={{ color: theme.accent }} />
-          </div>
-        </div>
-      ),
+      visual: <ProgressAnimation theme={theme} />,
       headline: "Watch Your Character Flourish",
       body: "Track your points, streaks, and achievements in the You tab. Every day is a new chance to grow.",
     },
