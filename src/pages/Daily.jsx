@@ -516,7 +516,7 @@ export default function Daily() {
                 </motion.div>
               </AnimatePresence>
               <div className="mt-3 mb-24 text-center text-xs tracking-widest" style={{ color: theme.mutedText }}>
-                {completedCount}/6
+                {completedCount}/6 pledges
                 {viewProgress?.is_complete && <span className="ml-2" style={{ color: theme.accent }}>✦ Complete</span>}
               </div>
             </div>
