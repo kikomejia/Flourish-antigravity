@@ -303,6 +303,67 @@ function AnimatedFlywheelSVG({ borderColor }) {
   );
 }
 
+function ProfileSetupSlide({ theme }) {
+  const [name, setName] = useState(() => localStorage.getItem("profile_nickname") || "");
+  const [photo, setPhoto] = useState(() => localStorage.getItem("profile_photo") || "");
+  const fileRef = React.useRef();
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setPhoto(ev.target.result);
+      localStorage.setItem("profile_photo", ev.target.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+    localStorage.setItem("profile_nickname", e.target.value);
+  };
+
+  return (
+    <div className="w-full flex flex-col items-center gap-5" style={{ height: 260 }}>
+      {/* Avatar */}
+      <div className="relative">
+        <div
+          className="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden cursor-pointer"
+          style={{ background: photo ? "transparent" : `${theme.accent}22`, border: `2px solid ${theme.accent}44` }}
+          onClick={() => fileRef.current.click()}
+        >
+          {photo
+            ? <img src={photo} alt="profile" className="w-full h-full object-cover" />
+            : <span className="text-3xl font-bold" style={{ color: theme.accent }}>{name?.[0]?.toUpperCase() || "+"}</span>
+          }
+        </div>
+        <div
+          className="absolute bottom-0 right-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
+          style={{ background: theme.accent, color: theme.isLight ? "#fff" : "#1a0a1a" }}
+        >
+          +
+        </div>
+        <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
+      </div>
+      <p className="text-xs" style={{ color: theme.subText }}>Tap to add a photo</p>
+
+      {/* Name input */}
+      <div className="w-full">
+        <p className="text-sm font-semibold mb-2 text-center" style={{ color: theme.subText }}>How would you like to be called?</p>
+        <input
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Your name..."
+          className="w-full px-4 py-3 rounded-xl text-sm outline-none text-center"
+          style={{ background: theme.inputBg, color: theme.text }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function Onboarding({ onComplete }) {
   const { theme } = useTheme();
   const [current, setCurrent] = useState(0);
