@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#050508">
+    <meta name="theme-color" content="#050508" id="theme-color-meta">
+    <script>
+      // Set theme-color immediately before React loads, based on saved theme
+      (function() {
+        var theme = localStorage.getItem('app_theme') || 'orchid';
+        var bg = theme === 'orchid' ? '#F7E9F3' : '#050508';
+        document.getElementById('theme-color-meta').content = bg;
+        document.documentElement.style.backgroundColor = bg;
+      })();
+    </script>
 <style>
   html, body, #root {
     background-color: #050508;
