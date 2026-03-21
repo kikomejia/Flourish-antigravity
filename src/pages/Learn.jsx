@@ -38,16 +38,25 @@ export default function Learn() {
   const getTodayActivities = async () => {
     let activityLogs = [];
     let userName = "Seeker";
+    const todayStr = getTodayStr();
     try {
       const u = await base44.auth.me();
       if (u?.email) {
         userName = u.full_name || "Seeker";
-        const all = await base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 50);
-        activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr() && a.activity_type === "pledge");
+        // First check DailyProgress for completed virtues today
+        const progressArr = await base44.entities.DailyProgress.filter({ user_email: u.email, date: todayStr });
+        const completedVirtues = progressArr[0]?.completed_virtues || [];
+        if (completedVirtues.length > 0) {
+          // Build synthetic activity logs from completed virtues if needed
+          const all = await base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 100);
+          const todayLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === todayStr);
+          // Use today's logs if available, otherwise synthesize from completed virtues
+          activityLogs = todayLogs.length > 0 ? todayLogs : completedVirtues.map(v => ({ virtue: v, activity_type: "pledge", title: v, text: "" }));
+        }
       }
     } catch {
       const all = JSON.parse(localStorage.getItem("guest_activities") || "[]");
-      activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === getTodayStr() && a.activity_type === "pledge");
+      activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === todayStr);
     }
     return { activityLogs, userName };
   };
