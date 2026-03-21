@@ -77,13 +77,19 @@ export default function Learn() {
       return;
     }
     setLoading(true);
+    setError(null);
     try {
       const res = await generateLearningContent({ activityLogs, userName });
       const newContent = res.data;
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ content: newContent, activityCount: activityLogs.length }));
-      setContent(newContent);
+      if (newContent?.error) {
+        setError(newContent.error);
+      } else {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ content: newContent, activityCount: activityLogs.length }));
+        setContent(newContent);
+      }
     } catch (e) {
       console.error(e);
+      setError(e.message || "Failed to generate insights");
     } finally {
       setLoading(false);
     }
