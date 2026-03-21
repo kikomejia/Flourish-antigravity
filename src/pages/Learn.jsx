@@ -32,6 +32,7 @@ export default function Learn() {
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hasActivities, setHasActivities] = useState(false);
+  const [error, setError] = useState(null);
 
   const CACHE_KEY = `learn_cache_${getTodayStr()}`;
 
