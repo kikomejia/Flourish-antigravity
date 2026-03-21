@@ -242,7 +242,7 @@ export default function Daily() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="flex items-center justify-center" style={{ minHeight: "100dvh", background: theme.bg }}>
         <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin" />
       </div>
     );
