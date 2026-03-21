@@ -153,6 +153,15 @@ export function ThemeProvider({ children }) {
     document.body.style.backgroundColor = bg;
     const root = document.getElementById("root");
     if (root) root.style.backgroundColor = bg;
+
+    // Update theme-color meta so the iOS status bar matches
+    let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (!metaThemeColor) {
+      metaThemeColor = document.createElement('meta');
+      metaThemeColor.name = 'theme-color';
+      document.head.appendChild(metaThemeColor);
+    }
+    metaThemeColor.content = bg;
   }, [theme.bg]);
 
   return (
