@@ -522,7 +522,7 @@ export default function Daily() {
             </div>
           )}
           {!todayProgress?.is_complete && !activeVirtue && (
-            <div className="mt-3 mb-4 text-center px-8" style={{ color: theme.mutedText }}>
+            <div className="mt-3 mb-32 text-center px-8" style={{ color: theme.mutedText }}>
               <p className="text-sm italic leading-relaxed" style={{ fontFamily: "serif" }}>
                 "The good life is one inspired by love and guided by knowledge."
               </p>
