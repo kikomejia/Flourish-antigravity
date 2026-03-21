@@ -3,6 +3,51 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/lib/ThemeContext";
 import { getPillStyle, getChallengeButtonStyle } from "@/lib/ThemeContext";
 
+function ThemePicker({ currentThemeId, onSelect }) {
+  return (
+    <div className="w-full flex flex-col items-center gap-4" style={{ height: 260, justifyContent: "center" }}>
+      <p className="text-sm font-semibold tracking-widest uppercase" style={{ color: currentThemeId === "orchid" ? "rgba(45,49,66,0.6)" : "rgba(255,255,255,0.45)" }}>
+        Choose your theme
+      </p>
+      <div className="flex gap-4 w-full max-w-xs">
+        {/* Sakura button */}
+        <button
+          onClick={() => onSelect("orchid")}
+          className="flex-1 py-4 rounded-2xl text-base font-bold transition-all duration-200 relative"
+          style={{
+            background: "transparent",
+            color: "#2D3142",
+            border: `2px solid ${currentThemeId === "orchid" ? "#2D3142" : "#2D314266"}`,
+            boxShadow: currentThemeId === "orchid" ? "0 0 0 3px #2D314222" : "none",
+          }}
+        >
+          Sakura
+          {currentThemeId === "orchid" && (
+            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full flex items-center justify-center text-xs" style={{ background: "#2D3142", color: "#fff" }}>✓</span>
+          )}
+        </button>
+
+        {/* Glow button */}
+        <button
+          onClick={() => onSelect("glow")}
+          className="flex-1 py-4 rounded-2xl text-base font-bold transition-all duration-200 relative"
+          style={{
+            background: "#050508",
+            color: "#f3afee",
+            border: `2px solid ${currentThemeId === "glow" ? "#f3afee" : "#f3afee66"}`,
+            boxShadow: currentThemeId === "glow" ? "0 0 18px #f3afee55, inset 0 0 12px #f3afee11" : "0 0 8px #f3afee22",
+          }}
+        >
+          Glow
+          {currentThemeId === "glow" && (
+            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full flex items-center justify-center text-xs" style={{ background: "#f3afee", color: "#1a0a1a" }}>✓</span>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 
 // The 6 petal paths from VirtueHexagon — fill colors are Sakura theme colors
 const PETALS = [
