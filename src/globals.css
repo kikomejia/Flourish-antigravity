@@ -17,6 +17,5 @@ html, body, #root {
 
   body {
     @apply text-foreground;
-    background-color: #050508 !important;
   }
 }
