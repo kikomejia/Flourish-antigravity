@@ -249,7 +249,7 @@ export default function Daily() {
   }
 
   return (
-    <div className="flex flex-col overflow-y-auto" style={{ minHeight: "100dvh", background: theme.bg, color: theme.text }}>
+    <div className="flex flex-col" style={{ minHeight: "100dvh", background: theme.bg, color: theme.text }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 pb-2" style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}>
         <div className="w-8" />
