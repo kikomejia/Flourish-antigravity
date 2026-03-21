@@ -510,8 +510,15 @@ export default function Onboarding({ onComplete }) {
         </div>
       </div>
 
+      {/* Theme picker — only on slide 0, between text and dots */}
+      {current === 0 && (
+        <div className="mb-4 mt-2 flex-shrink-0">
+          <ThemePicker currentThemeId={themeId} onSelect={setTheme} />
+        </div>
+      )}
+
       {/* Dots — always at fixed position */}
-      <div className="flex gap-2 mb-6 mt-8 flex-shrink-0">
+      <div className="flex gap-2 mb-6 mt-4 flex-shrink-0">
         {SLIDES.map((_, i) => (
           <button
             key={i}
