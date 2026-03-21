@@ -15,10 +15,10 @@ function ThemePicker({ currentThemeId, onSelect }) {
         className="px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-200"
         style={{
           background: "transparent",
-          color: "#2D3142",
-          border: `1.5px solid ${currentThemeId === "orchid" ? "#2D3142" : "#2D314244"}`,
+          color: currentThemeId === "orchid" ? "#2D3142" : "rgba(255,255,255,0.7)",
+          border: `1.5px solid ${currentThemeId === "orchid" ? "#2D3142" : "rgba(255,255,255,0.35)"}`,
           boxShadow: currentThemeId === "orchid" ? "0 0 0 2px #2D314218" : "none",
-          opacity: currentThemeId === "orchid" ? 1 : 0.6,
+          opacity: currentThemeId === "orchid" ? 1 : 0.75,
         }}
       >
         Sakura
