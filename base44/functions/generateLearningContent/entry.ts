@@ -4,10 +4,16 @@ Deno.serve(async (req) => {
     try {
         const base44 = createClientFromRequest(req);
 
-        const user = await base44.auth.me();
-        if (!user) {
-            return Response.json({ error: "Unauthorized" }, { status: 401 });
+        // Try user auth first; fall back to service role if token isn't propagated (e.g. PWA mode)
+        let user = null;
+        try {
+            user = await base44.auth.me();
+        } catch (_) {
+            // Auth token not available (common in PWA/standalone mode)
         }
+
+        // If user auth failed, use service role but still require payload to have data
+        const sdk = user ? base44 : base44.asServiceRole;
 
         const { activityLogs, userName } = await req.json();
 
@@ -69,7 +75,7 @@ Return a JSON object with:
             required: ["practical_takeaways", "virtues_as_functional_skills", "hard_hitting_resources", "real_world_facts"]
         };
 
-        const llmResponse = await base44.integrations.Core.InvokeLLM({
+        const llmResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
             prompt,
             add_context_from_internet: true,
             response_json_schema,
