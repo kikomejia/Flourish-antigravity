@@ -62,9 +62,7 @@ import Act from "./pages/Act";
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
-  const [showOnboarding, setShowOnboarding] = useState(
-    () => !localStorage.getItem("onboarding_complete")
-  );
+  const [showOnboarding, setShowOnboarding] = useState(true);
 
   const handleOnboardingComplete = () => {
     localStorage.setItem("onboarding_complete", "true");
