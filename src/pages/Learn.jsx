@@ -127,6 +127,20 @@ export default function Learn() {
               Generating personalized insights based on today's accepted pledges. Hold tight!
             </p>
           </div>
+        ) : error ? (
+          <div className="flex flex-col items-center justify-center py-32 gap-4 text-center">
+            <BookOpen size={32} style={{ color: theme.accent }} />
+            <p className="text-sm" style={{ color: theme.subText }}>
+              Couldn't load your insights. Tap to try again.
+            </p>
+            <button
+              onClick={() => fetchContent(true)}
+              className="px-6 py-2.5 rounded-full text-sm font-bold transition-all"
+              style={{ background: theme.accent, color: theme.isLight ? "#fff" : "#1a0a1a" }}
+            >
+              Retry
+            </button>
+          </div>
         ) : !hasActivities ? (
           <div className="flex flex-col items-center justify-center py-32 gap-3 text-center">
             <BookOpen size={32} style={{ color: theme.accent }} />
