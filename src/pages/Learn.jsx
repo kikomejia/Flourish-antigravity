@@ -90,6 +90,13 @@ export default function Learn() {
 
   useEffect(() => { fetchContent(); }, []);
 
+  // Re-check when tab becomes visible (e.g. user navigated from Daily)
+  useEffect(() => {
+    const handleVisibility = () => { if (!document.hidden) fetchContent(); };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
   // Resolve color from theme if available, else fall back to static map
   const getColor = (virtueName) =>
     (virtueName && (theme.virtueColors[virtueName.toLowerCase()] || VIRTUE_COLORS[virtueName.toLowerCase()])) || theme.accent;
