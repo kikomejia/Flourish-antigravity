@@ -410,7 +410,7 @@ function ProfileSetupSlide({ theme }) {
 }
 
 export default function Onboarding({ onComplete }) {
-  const { theme } = useTheme();
+  const { theme, themeId, setTheme } = useTheme();
   const [current, setCurrent] = useState(0);
   const [dir, setDir] = useState(1);
 
@@ -419,7 +419,7 @@ export default function Onboarding({ onComplete }) {
 
   const SLIDES = [
     {
-      visual: <ScatteredFlywheels borderColor={flywheelBorder} />,
+      visual: <ThemePicker currentThemeId={themeId} onSelect={setTheme} />,
       headline: "Welcome to Flourish",
       body: "Your daily guide to cultivate virtues, build character, and grow into the best version of yourself.",
     },
