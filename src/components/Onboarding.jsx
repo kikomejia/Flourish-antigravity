@@ -412,14 +412,7 @@ export default function Onboarding({ onComplete }) {
 
   const SLIDES = [
     {
-      visual: (
-        <div className="w-full flex flex-col" style={{ height: 260 }}>
-          <ThemePicker currentThemeId={themeId} onSelect={setTheme} />
-          <div className="flex-1" style={{ marginTop: -8 }}>
-            <ScatteredFlywheels borderColor={flywheelBorder} />
-          </div>
-        </div>
-      ),
+      visual: <ScatteredFlywheels borderColor={flywheelBorder} />,
       headline: "Welcome to Flourish",
       body: "Your daily guide to cultivate virtues, build character, and grow into the best version of yourself.",
     },
