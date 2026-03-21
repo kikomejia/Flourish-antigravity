@@ -48,11 +48,18 @@ export default function Learn() {
         const progressArr = await base44.entities.DailyProgress.filter({ user_email: u.email, date: todayStr });
         const completedVirtues = progressArr[0]?.completed_virtues || [];
         if (completedVirtues.length > 0) {
-          // Build synthetic activity logs from completed virtues if needed
+          // Fetch today's pledge activity logs and filter to only accepted virtues
           const all = await base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 100);
-          const todayLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === todayStr);
-          // Use today's logs if available, otherwise synthesize from completed virtues
-          activityLogs = todayLogs.length > 0 ? todayLogs : completedVirtues.map(v => ({ virtue: v, activity_type: "pledge", title: v, text: "" }));
+          const todayPledgeLogs = all.filter(a =>
+            a.created_date &&
+            format(new Date(a.created_date), "yyyy-MM-dd") === todayStr &&
+            a.activity_type === "pledge" &&
+            completedVirtues.includes(a.virtue)
+          );
+          // Use today's pledge logs if available, otherwise synthesize from completed virtues
+          activityLogs = todayPledgeLogs.length > 0
+            ? todayPledgeLogs
+            : completedVirtues.map(v => ({ virtue: v, activity_type: "pledge", title: v, text: "" }));
         }
       }
     } catch {
