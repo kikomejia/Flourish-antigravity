@@ -410,18 +410,16 @@ export default function Onboarding({ onComplete }) {
   // Use dark border for orchid (light theme), accent for glow
   const flywheelBorder = theme.isLight ? "#2D3142" : theme.accent;
 
-  const slide0Visual = (
-    <div className="w-full flex flex-col" style={{ height: 260 }}>
-      <ThemePicker currentThemeId={themeId} onSelect={setTheme} />
-      <div className="flex-1" style={{ marginTop: -8 }}>
-        <ScatteredFlywheels borderColor={flywheelBorder} />
-      </div>
-    </div>
-  );
-
   const SLIDES = [
     {
-      visual: slide0Visual,
+      visual: (
+        <div className="w-full flex flex-col" style={{ height: 260 }}>
+          <ThemePicker currentThemeId={themeId} onSelect={setTheme} />
+          <div className="flex-1" style={{ marginTop: -8 }}>
+            <ScatteredFlywheels borderColor={flywheelBorder} />
+          </div>
+        </div>
+      ),
       headline: "Welcome to Flourish",
       body: "Your daily guide to cultivate virtues, build character, and grow into the best version of yourself.",
     },
