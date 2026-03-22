@@ -55,7 +55,7 @@ import { useState } from "react";
 import Onboarding from "@/components/Onboarding";
 import Daily from "./pages/Daily";
 import You from "./pages/You";
-import Learn from "./pages/Learn";
+import Learn from "./pages/Learn.jsx";
 import Settings from "./pages/Settings";
 import Act from "./pages/Act";
 
