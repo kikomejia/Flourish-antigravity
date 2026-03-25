@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useTheme, getPillStyle, getVirtueCardStyle } from "@/lib/ThemeContext.jsx";
 import PLEDGE_LEARNING_CONTENT from "@/lib/pledgeLearningContent";
+import { getDailyItem } from "@/components/VirtueCard";
 import BottomNav from "@/components/BottomNav";
 import { BookOpen, Lightbulb, Zap, FlaskConical } from "lucide-react";
 import { VIRTUE_COLORS } from "@/components/VirtueCard";
@@ -78,31 +79,24 @@ export default function Learn() {
   const [hasActivities, setHasActivities] = useState(false);
 
   const getTodayActivities = async () => {
-    let activityLogs = [];
     const todayStr = getTodayStr();
+    let completedVirtues = [];
     try {
       const u = await base44.auth.me();
       if (u?.email) {
         const progressArr = await base44.entities.DailyProgress.filter({ user_email: u.email, date: todayStr });
-        const completedVirtues = progressArr[0]?.completed_virtues || [];
-        if (completedVirtues.length > 0) {
-          const all = await base44.entities.ActivityLog.filter({ user_email: u.email }, "-created_date", 100);
-          const todayPledgeLogs = all.filter(a =>
-            a.created_date &&
-            format(new Date(a.created_date), "yyyy-MM-dd") === todayStr &&
-            a.activity_type === "pledge" &&
-            completedVirtues.includes(a.virtue)
-          );
-          activityLogs = todayPledgeLogs.length > 0
-            ? todayPledgeLogs
-            : completedVirtues.map(v => ({ virtue: v, activity_type: "pledge", title: "", text: "" }));
-        }
+        completedVirtues = progressArr[0]?.completed_virtues || [];
       }
     } catch {
-      const all = JSON.parse(localStorage.getItem("guest_activities") || "[]");
-      activityLogs = all.filter(a => a.created_date && format(new Date(a.created_date), "yyyy-MM-dd") === todayStr);
+      const guestProgress = JSON.parse(localStorage.getItem("guest_progress_" + todayStr) || "{}");
+      completedVirtues = guestProgress.completed_virtues || [];
     }
-    return activityLogs;
+
+    // Use getDailyItem (deterministic/seeded) to get today's pledge for each completed virtue
+    return completedVirtues.map(virtue => {
+      const item = getDailyItem(virtue, 0);
+      return { virtue, activity_type: "pledge", title: item?.title || "", text: item?.text || "" };
+    });
   };
 
   const loadContent = async () => {
