@@ -70,7 +70,6 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
   const { theme } = useTheme();
   const color = theme.virtueColors[virtue] || VIRTUE_COLORS[virtue];
   const item = getDailyItem(virtue, changeCount ?? 0);
-  const canChange = (changeCount ?? 0) < MAX_CHANGES;
 
   const cardStyle = theme.cardGlow
     ? { background: theme.cardBg, border: `1px solid ${color}66`, boxShadow: `0 0 24px ${color}33` }
@@ -96,16 +95,15 @@ export default function VirtueCard({ virtue, isCompleted, onComplete, changeCoun
       {!isCompleted ? (
         <div className="flex gap-3">
           <button
-            onClick={canChange ? onChange : undefined}
-            className="flex-1 py-3 rounded-full text-sm font-semibold transition-all duration-200"
+            onClick={onChange}
+            className="flex-1 py-3 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer"
             style={{
               background: "transparent",
-              color: canChange ? theme.subText : theme.mutedText,
-              border: `1.5px solid ${canChange ? (theme.pillFilled ? theme.cardBorder : "rgba(255,255,255,0.18)") : "rgba(255,255,255,0.06)"}`,
-              cursor: canChange ? "pointer" : "not-allowed",
+              color: theme.subText,
+              border: `1.5px solid ${theme.pillFilled ? theme.cardBorder : "rgba(255,255,255,0.18)"}`
             }}
           >
-            Change {(changeCount ?? 0) > 0 && <span style={{ opacity: 0.5, fontSize: "0.7rem" }}>({changeCount}/{MAX_CHANGES})</span>}
+            Change
           </button>
           <button
             onClick={() => onComplete(virtue)}

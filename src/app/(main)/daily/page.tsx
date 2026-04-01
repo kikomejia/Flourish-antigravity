@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import VirtueHexagon, { VIRTUES } from "@/components/VirtueHexagon";
-import VirtueCard from "@/components/VirtueCard";
+import VirtueCard, { getDailyItem } from "@/components/VirtueCard";
 import BottomNav from "@/components/BottomNav";
 import { useTheme } from "@/lib/ThemeContext";
 import { useAuth } from "@/lib/AuthContext";
@@ -28,6 +28,9 @@ export default function DailyPage() {
   
   const [completedVirtues, setCompletedVirtues] = useState<string[]>([]);
   const [activeVirtue, setActiveVirtue] = useState<string | null>(null);
+  
+  const [changingVirtue, setChangingVirtue] = useState<string | null>(null);
+  const [selectedOffsets, setSelectedOffsets] = useState<Record<string, number>>({});
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
@@ -265,6 +268,8 @@ export default function DailyPage() {
                 virtue={activeVirtue}
                 isCompleted={completedVirtues.includes(activeVirtue)}
                 onComplete={handleComplete}
+                changeCount={selectedOffsets[activeVirtue] || 0}
+                onChange={() => setChangingVirtue(activeVirtue)}
               />
             </motion.div>
           ) : (
@@ -286,6 +291,54 @@ export default function DailyPage() {
         </AnimatePresence>
       </div>
       
+      <AnimatePresence>
+        {changingVirtue && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-end justify-center"
+            style={{ background: "rgba(0,0,0,0.7)" }}
+            onClick={() => setChangingVirtue(null)}
+          >
+            <motion.div
+              initial={{ y: 80, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 80, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="w-full max-w-md rounded-t-3xl p-6 pb-36"
+              style={{ background: theme.isLight ? "#fff" : "rgba(15,5,25,0.98)" }}
+              onClick={e => e.stopPropagation()}
+            >
+              <h3 className="font-bold text-lg mb-4" style={{ color: theme.text, fontFamily: "var(--font-recoleta)" }}>Choose an alternative</h3>
+              <div className="space-y-3 max-h-[60vh] overflow-y-auto" style={{ scrollbarWidth: 'none' }}>
+                {(() => {
+                  const currentOffset = selectedOffsets[changingVirtue] || 0;
+                  return [1, 2, 3].map(i => {
+                    const offset = currentOffset + i;
+                    const opt = getDailyItem(changingVirtue, offset);
+                    return (
+                      <button
+                        key={offset}
+                        onClick={() => {
+                          setSelectedOffsets(prev => ({ ...prev, [changingVirtue]: offset }));
+                          setChangingVirtue(null);
+                        }}
+                        className="w-full text-left p-4 rounded-xl border transition-opacity active:opacity-60 cursor-pointer"
+                        style={{ background: theme.inputBg, borderColor: theme.cardBorder }}
+                      >
+                        <p className="font-bold text-base mb-1 leading-snug" style={{ color: theme.text }}>{opt?.title}</p>
+                        <p className="text-sm leading-relaxed" style={{ color: theme.subText }}>{opt?.text}</p>
+                      </button>
+                    );
+                  });
+                })()}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <BottomNav active="daily" />
     </div>
   );
