@@ -31,6 +31,7 @@ export default function DailyPage() {
   
   const [changingVirtue, setChangingVirtue] = useState<string | null>(null);
   const [selectedOffsets, setSelectedOffsets] = useState<Record<string, number>>({});
+  const [mounted, setMounted] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
@@ -38,12 +39,15 @@ export default function DailyPage() {
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(currentWeek, i));
 
   useEffect(() => {
+    setMounted(true);
     setActiveVirtue(null); // Reset active petal on day change
     if (user?.email) {
       DailyProgressService.getByDate(user.email, format(selectedDate, "yyyy-MM-dd"))
         .then(res => setCompletedVirtues(res.completed_virtues || []));
     }
   }, [user, selectedDate]);
+
+  if (!mounted) return null;
 
   const isViewingToday = isSameDay(selectedDate, new Date());
 
