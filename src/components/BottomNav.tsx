@@ -1,0 +1,61 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { Calendar, User, BookOpen, Zap } from "lucide-react";
+import { useTheme } from "@/lib/ThemeContext";
+
+export default function BottomNav({ active }: { active: string }) {
+  const { theme } = useTheme();
+  return (
+    <div className="fixed left-0 right-0 flex justify-center z-50 pointer-events-none" style={{ bottom: "calc(env(safe-area-inset-bottom) + 24px)" }}>
+      <div
+        className="flex rounded-full overflow-hidden pointer-events-auto"
+        style={{
+          background: "rgba(255,255,255,0.08)",
+          border: "1px solid rgba(255,255,255,0.18)",
+          backdropFilter: "blur(20px) saturate(180%)",
+          WebkitBackdropFilter: "blur(20px) saturate(180%)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15)",
+        }}
+      >
+        <Link
+          href="/daily"
+          className="flex flex-col items-center px-6 py-3 transition-colors"
+          style={{ color: active === "daily" ? theme.accent : `${theme.accent}55` }}
+        >
+          <Calendar size={20} />
+          <span className="text-xs mt-0.5">Daily</span>
+          {active === "daily" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: theme.accent }} />}
+        </Link>
+        <Link
+          href="/learn"
+          className="flex flex-col items-center px-6 py-3 transition-colors"
+          style={{ color: active === "learn" ? theme.accent : `${theme.accent}55` }}
+        >
+          <BookOpen size={20} />
+          <span className="text-xs mt-0.5">Learn</span>
+          {active === "learn" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: theme.accent }} />}
+        </Link>
+        <Link
+          href="/act"
+          className="flex flex-col items-center px-6 py-3 transition-colors"
+          style={{ color: active === "act" ? theme.accent : `${theme.accent}55` }}
+        >
+          <Zap size={20} />
+          <span className="text-xs mt-0.5">Act</span>
+          {active === "act" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: theme.accent }} />}
+        </Link>
+        <Link
+          href="/you"
+          className="flex flex-col items-center px-6 py-3 transition-colors"
+          style={{ color: active === "you" ? theme.accent : `${theme.accent}55` }}
+        >
+          <User size={20} />
+          <span className="text-xs mt-0.5">You</span>
+          {active === "you" && <div className="w-1 h-1 rounded-full mt-0.5" style={{ background: theme.accent }} />}
+        </Link>
+      </div>
+    </div>
+  );
+}
