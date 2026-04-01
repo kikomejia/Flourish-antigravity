@@ -1,1 +1,1 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/franciscomejia/Documents/Flourish Repo/flourish-build-character/src/app/layout\":[\"static/media/c6c064ec4c7d498d-s.p.otf\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
+self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/franciscomejia/Documents/Flourish Repo/flourish-build-character/src/app/layout":["static/media/c6c064ec4c7d498d-s.p.otf"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';

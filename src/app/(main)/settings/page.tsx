@@ -243,7 +243,7 @@ export default function SettingsPage() {
         </p>
       </div>
 
-      <BottomNav />
+      <BottomNav active="profile" />
     </div>
   );
 }
