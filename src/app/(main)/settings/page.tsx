@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, LogOut, Trash2, Download, Info, Mail, Shield, Camera, Check } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
@@ -55,15 +55,15 @@ export default function SettingsPage() {
   
   const [confirmReset, setConfirmReset] = useState(false);
   
-  // Safe init for localStorage in Next.js
-  const [nickname, setNickname] = useState(() => {
-    if (typeof window !== "undefined") return localStorage.getItem("profile_nickname") || "";
-    return "";
-  });
-  const [photo, setPhoto] = useState(() => {
-    if (typeof window !== "undefined") return localStorage.getItem("profile_photo") || "";
-    return "";
-  });
+  const [nickname, setNickname] = useState("");
+  const [photo, setPhoto] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setNickname(localStorage.getItem("profile_nickname") || "");
+      setPhoto(localStorage.getItem("profile_photo") || "");
+    }
+  }, []);
   
   const [saved, setSaved] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);

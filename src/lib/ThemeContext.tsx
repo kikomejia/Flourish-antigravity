@@ -129,13 +129,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.body.style.backgroundColor = bg;
   }, [theme.bg, mounted]);
 
-  if (!mounted) {
-    return <div style={{ visibility: "hidden" }}>{children}</div>;
-  }
-
   return (
     <ThemeContext.Provider value={{ theme, themeId, setTheme }}>
-      {children}
+      <div style={{ visibility: mounted ? "visible" : "hidden", display: "contents" }}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 }

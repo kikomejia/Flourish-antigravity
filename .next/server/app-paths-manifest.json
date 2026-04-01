@@ -1,9 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/(main)/learn/page": "app/(main)/learn/page.js",
   "/(main)/act/page": "app/(main)/act/page.js",
   "/(main)/settings/page": "app/(main)/settings/page.js",
-  "/(main)/learn/page": "app/(main)/learn/page.js",
-  "/page": "app/page.js",
+  "/(main)/you/page": "app/(main)/you/page.js",
   "/(main)/daily/page": "app/(main)/daily/page.js",
-  "/(main)/you/page": "app/(main)/you/page.js"
+  "/page": "app/page.js"
 }
