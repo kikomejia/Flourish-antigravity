@@ -126,7 +126,7 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen pb-28" style={{ background: theme.bg, color: theme.text }}>
-      <div className="flex items-center justify-between px-4 pb-6 pt-16">
+      <div className="flex items-center justify-between px-4 pb-6 pt-safe">
         <button
           onClick={() => router.back()}
           className="w-9 h-9 rounded-full flex items-center justify-center border-0"

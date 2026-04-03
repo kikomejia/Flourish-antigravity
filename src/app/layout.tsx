@@ -7,11 +7,26 @@ const recoleta = localFont({
   display: "swap",
 });
 
-export const metadata = {
+import type { Metadata, Viewport } from "next";
+
+export const metadata: Metadata = {
   title: "Flourish: Build Character",
   description: "A daily virtue practice app",
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "Flourish",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport: Viewport = {
   themeColor: "#f3afee",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
 };
 
 import { ThemeProvider } from "@/lib/ThemeContext";

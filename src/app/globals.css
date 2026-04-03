@@ -40,3 +40,9 @@
 .font-serif {
   font-family: var(--font-recoleta);
 }
+
+@layer utilities {
+  .pt-safe {
+    padding-top: max(env(safe-area-inset-top), 16px);
+  }
+}

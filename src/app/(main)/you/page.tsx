@@ -101,7 +101,7 @@ export default function YouPage() {
 
   return (
     <div className="min-h-screen pb-28" style={{ background: theme.bg, color: theme.text }}>
-      <div className="flex items-center justify-between px-4 pb-2 pt-16">
+      <div className="flex items-center justify-between px-4 pb-2 pt-safe">
         <button
           onClick={() => router.push("/settings")}
           className="w-9 h-9 border-0 rounded-full flex items-center justify-center"

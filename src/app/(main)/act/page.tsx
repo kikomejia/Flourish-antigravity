@@ -147,7 +147,7 @@ export default function ActPage() {
 
   return (
     <div className="min-h-screen flex flex-col pb-28" style={{ background: theme.bg, color: theme.text }}>
-      <div className="flex items-center justify-center px-4 pb-2 pt-16">
+      <div className="flex items-center justify-center px-4 pb-2 pt-safe">
         <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "var(--font-recoleta)", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}55` : "none" }}>
           Act
         </h1>

@@ -1,0 +1,16 @@
+{
+  "name": "Flourish: Build Character",
+  "short_name": "Flourish",
+  "description": "A daily virtue practice app",
+  "start_url": "/daily",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#f3afee",
+  "icons": [
+    {
+      "src": "/assets/icons/flourish-412638823101_us-west1_run_app_flourish-hexagon-icon_605f24e3.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
