@@ -1,5 +1,7 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "flourish-prod-kiko"
+  },
   "targets": {},
   "etags": {}
 }

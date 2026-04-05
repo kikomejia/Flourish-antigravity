@@ -17,4 +17,4 @@ jobs:
       - name: Install Firebase Tools
         run: npm install -g firebase-tools
       - name: Deploy to Firebase Hosting / Cloud Run
-        run: firebase deploy --only hosting --non-interactive --token ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --project flourish-prod-kiko --only hosting --non-interactive --token ${{ secrets.FIREBASE_TOKEN }}
