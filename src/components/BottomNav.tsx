@@ -8,7 +8,7 @@ import { useTheme } from "@/lib/ThemeContext";
 export default function BottomNav({ active }: { active: string }) {
   const { theme } = useTheme();
   return (
-    <div className="fixed left-0 right-0 flex justify-center z-50 pointer-events-none" style={{ bottom: "calc(env(safe-area-inset-bottom) + 24px)" }}>
+    <div className="fixed left-0 right-0 flex justify-center z-50 pointer-events-none" style={{ bottom: "calc(env(safe-area-inset-bottom) + 8px)" }}>
       <div
         className="flex rounded-full overflow-hidden pointer-events-auto"
         style={{

@@ -59,7 +59,7 @@ export default function VirtueHexagon({ completedVirtues = [], acceptedVirtues =
   return (
     <div className="flex flex-col items-center justify-center">
       <svg
-        width="265" height="300" viewBox="-600 -500 5867 6200"
+        width="318" height="360" viewBox="-600 -500 5867 6200"
         style={{
           overflow: "visible",
           transform: isPulsing ? "scale(1.045)" : "scale(1)",

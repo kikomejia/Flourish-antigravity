@@ -171,7 +171,7 @@ export default function DailyPage() {
       </div>
 
       {/* Hexagon Subtitles */}
-      <div className="text-center px-6 h-10 flex items-center justify-center mt-1">
+      <div className="text-center px-6 h-8 flex items-center justify-center mt-0">
         <AnimatePresence mode="wait">
           {(!isViewingToday) ? (
             <motion.div key="past-prompt" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -205,7 +205,7 @@ export default function DailyPage() {
       </div>
 
       {/* Interactive Flower */}
-      <div className="flex flex-col items-center justify-center -mt-2 mb-0 z-10">
+      <div className="flex flex-col items-center justify-center -mt-4 mb-0 z-10">
         <VirtueHexagon
           completedVirtues={completedVirtues}
           acceptedVirtues={[]}
@@ -215,7 +215,7 @@ export default function DailyPage() {
       </div>
 
       {/* Card area */}
-      <div className="px-4 mt-2 mb-20 flex-1">
+      <div className="px-4 mt-1 mb-2 flex-1">
         <AnimatePresence mode="wait">
           {!isViewingToday ? (
             <motion.div
