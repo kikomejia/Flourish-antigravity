@@ -205,17 +205,19 @@ export default function DailyPage() {
       </div>
 
       {/* Interactive Flower */}
-      <div className="flex flex-col items-center justify-center -mt-4 mb-0 z-10">
+      <div className="flex flex-col items-center justify-center -mt-5 mb-0 z-10 pointer-events-none">
+        <div className="pointer-events-auto">
         <VirtueHexagon
           completedVirtues={completedVirtues}
           acceptedVirtues={[]}
           onVirtueClick={handleVirtueClick}
           activeVirtue={activeVirtue}
         />
+        </div>
       </div>
 
       {/* Card area */}
-      <div className="px-4 mt-1 mb-2 flex-1">
+      <div className="px-4 -mt-7 mb-2 flex-1 relative z-20">
         <AnimatePresence mode="wait">
           {!isViewingToday ? (
             <motion.div
