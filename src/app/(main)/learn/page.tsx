@@ -119,7 +119,7 @@ export default function LearnPage() {
       : { background: `${color}12`, border: "none" };
 
   return (
-    <div className="min-h-screen pb-28" style={{ background: theme.bg, color: theme.text }}>
+    <div className="min-h-screen pb-[140px]" style={{ background: theme.bg, color: theme.text }}>
       <div className="flex items-center justify-between px-4 pb-2 pt-safe">
         <div className="w-8" />
         <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "var(--font-recoleta)", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}55` : "none" }}>

@@ -100,7 +100,7 @@ export default function DailyPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen pb-24" style={{ background: theme.bg, color: theme.text }}>
+    <div className="flex flex-col min-h-screen pb-[140px]" style={{ background: theme.bg, color: theme.text }}>
       <div className="flex items-center justify-between px-4 py-4 pt-safe">
         <div className="w-8" />
         <h1 className="text-xl font-bold tracking-wide" style={{ color: theme.accent, fontFamily: "var(--font-recoleta)", textShadow: theme.headerGlow ? `0 0 20px ${theme.accent}55` : "none" }}>
@@ -171,7 +171,7 @@ export default function DailyPage() {
       </div>
 
       {/* Hexagon Subtitles */}
-      <div className="text-center px-6 h-16 flex items-center justify-center mt-2">
+      <div className="text-center px-6 h-10 flex items-center justify-center mt-1">
         <AnimatePresence mode="wait">
           {(!isViewingToday) ? (
             <motion.div key="past-prompt" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -205,7 +205,7 @@ export default function DailyPage() {
       </div>
 
       {/* Interactive Flower */}
-      <div className="flex flex-col items-center justify-center -mt-4 mb-2 z-10">
+      <div className="flex flex-col items-center justify-center -mt-2 mb-0 z-10">
         <VirtueHexagon
           completedVirtues={completedVirtues}
           acceptedVirtues={[]}
@@ -282,7 +282,7 @@ export default function DailyPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-center mt-10"
+              className="text-center mt-4"
             >
               <p className="italic text-sm mx-auto max-w-[280px] leading-relaxed" style={{ color: theme.subText }}>
                 "The good life is one inspired by love and guided by knowledge."
