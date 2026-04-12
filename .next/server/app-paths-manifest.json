@@ -1,3 +1,6 @@
 {
-  "/(main)/daily/page": "app/(main)/daily/page.js"
+  "/(main)/learn/page": "app/(main)/learn/page.js",
+  "/(main)/daily/page": "app/(main)/daily/page.js",
+  "/(main)/act/page": "app/(main)/act/page.js",
+  "/(main)/you/page": "app/(main)/you/page.js"
 }
